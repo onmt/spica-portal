@@ -1,0 +1,15 @@
+# Cloudflare Pages — レスポンスヘッダ（静的サイトの安全衛生）
+# 方針は onmt/spica portal/_headers に準拠。完全自己完結＝外部リソースを一切読み込まない。
+# 本サイトはモーション(星空/リビール/プロンプターデモ)に JS を使うため script-src は
+# 'self'(自前 app.js のみ)。インライン script は禁止のまま。
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; script-src 'self'; object-src 'none'; frame-ancestors 'none'
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=86400
