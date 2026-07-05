@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ffkit — 完成した動画を、現場で確実に再生できる形に。 | Spica</title>
+<meta name="description" content="ffkit は完成動画をメニューなしの DVD-Video / BD-Video・配布用 MP4 に変換する無人バッチツール。挿せば再生が始まる、納品の最後の1マイル。オフラインで動く CLI。">
+<link rel="stylesheet" href="/legacy.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<header class="nav">
+  <div class="wrap">
+    <a href="/" aria-label="Spica ホーム">
+      <svg width="92" height="22" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#b9d2ff"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#f2f4f9">Spica</text></svg>
+    </a>
+    <nav>
+      <a href="/#studio">アプリ一覧</a>
+      <a href="#get">入手</a>
+      <a class="btn btn-light" style="min-height:auto;padding:8px 14px" href="https://github.com/onmt/ffkit">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="starfield"></div>
+  <div class="wrap">
+    <div style="max-width:780px">
+      <span class="eyebrow" style="color:var(--starlight)">ffkit · 映像納品の道具</span>
+      <h1>完成した動画を、<br>現場で確実に再生できる形に。</h1>
+      <p class="lead">編集の終わった動画を、プレーヤーに<strong style="color:#fff">挿せばそのまま再生が始まる DVD / BD-Video</strong> や、配布用の MP4 にします。何十本もある案件は、<strong style="color:#fff">まとめて自動で</strong>。オフラインの CLI なので、映像が端末の外に出ることはありません。</p>
+      <div class="ctas">
+        <a class="btn btn-light" href="https://github.com/onmt/ffkit">GitHub で見る →</a>
+        <a class="btn btn-outline" href="#get">入手する</a>
+      </div>
+      <div class="pills">
+        <span class="pill pill-night">beta</span>
+        <span class="pill pill-night">free core</span>
+        <span class="pill pill-night">CLI / desktop</span>
+        <span class="pill pill-night">オフラインで動く</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Problem ===== -->
+<section class="section spine" style="background:var(--bg-page)">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">解いている問題</span>
+      <h2>むずかしいのは、<br>変換そのものじゃない。</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <p>編集が終わってからが、地味に手間でした。プレーヤーに挿したら、メニューもなく、すぐ本編が始まってほしい。何十本もある案件は、できれば寝ている間に片付けたい。</p>
+      <p>汎用の変換ソフトは「変換」まではやってくれます。でも、<strong>現場で確実に再生できる納品物にする</strong>ところまでは、面倒を見てくれませんでした。</p>
+      <p>ffkit は、その最後のひと手間だけを引き受けます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Features ===== -->
+<section class="section apps">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="eyebrow">できること</span>
+        <h2>挿せば、再生が始まる。</h2>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h3>メニューなし DVD / BD-Video</h3>
+        <p>挿すと、すぐ本編が始まります。視聴者が操作に迷うメニューは、作りません。</p>
+      </article>
+      <article class="card">
+        <h3>配布用 MP4 の書き出し</h3>
+        <p>そのまま渡せる MP4 も出力できます。ディスクでも配信でも、同じ素材から。</p>
+      </article>
+      <article class="card">
+        <h3>無人バッチ</h3>
+        <p>同じ素材を入れれば、同じ結果が出ます。途中で止まっても、その続きから。何十本でも、張りつかずに回せます。</p>
+      </article>
+      <article class="card">
+        <h3>AI からも使える</h3>
+        <p><span style="font-family:var(--font-mono);font-size:13px">capabilities --json</span> / <span style="font-family:var(--font-mono);font-size:13px">AGENTS.md</span> / <span style="font-family:var(--font-mono);font-size:13px">llms.txt</span> を用意しました。エージェント経由でも動かせます。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Moat ===== -->
+<section class="section flowsec" style="background:var(--bg-page)">
+  <div class="wrap">
+    <span class="eyebrow">なぜ ffkit か</span>
+    <h2>現場で使いながら、作りました。</h2>
+    <div class="grid" style="margin-top:32px">
+      <article class="card">
+        <h3>自分の納品で困った</h3>
+        <p>汎用ツールだと取りこぼしてしまう細かいところを、自分の案件で焼いて、確かめながら直してきました。</p>
+      </article>
+      <article class="card">
+        <h3>ローカルで完結</h3>
+        <p>素材も書き出したファイルも、アップロードしません。ぜんぶ、あなたの端末の中だけで終わります。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== License & safety ===== -->
+<section class="section spine" style="background:var(--surface-sunken)">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">ライセンスと安全（正直に）</span>
+      <h2>できないことは、<br>できないと書きます。</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <p><strong>コア＝無料</strong>（PyPI / GitHub）。<strong>商用ライセンスは予定</strong>です（価格未定）。</p>
+      <p><strong>焼いたディスクは、お手元のプレーヤーで一度、再生を確かめてください。</strong> ffkit は AS-IS・無保証で出しています（<a href="/legal/eula" style="color:var(--accent)">EULA</a>）。</p>
+      <p><strong>特許や GPL の問題は、根元で避けています。</strong> ffmpeg などの外部ツールは<strong>同梱せず</strong>、別のプロセスとして呼ぶだけ。依存は <a href="https://github.com/onmt/ffkit/blob/master/THIRD_PARTY.md" style="color:var(--accent)">THIRD_PARTY</a> に書いて、ライセンスを守ります。</p>
+      <p style="font-size:14px;color:var(--text-muted)"><strong>プライバシー：収集しません</strong>（オフライン）。<a href="/legal/privacy" style="color:var(--accent)">プライバシー方針</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Get ===== -->
+<section id="get" class="section" style="background:var(--bg-page)">
+  <div class="wrap" style="padding:84px 32px;max-width:760px">
+    <span class="eyebrow">入手</span>
+    <h2 style="font-family:var(--font-serif);font-weight:500;font-size:34px;margin:12px 0 0">使ってみる。</h2>
+    <p style="margin:14px 0 0;color:var(--text-body)">PyPI から入れるか、GitHub から取得してください。技術者向けの CLI / desktop ツールです。</p>
+    <div class="codeblock"><span class="c"># PyPI から</span><br>pip install ffkit<br><br><span class="c"># 変換して、無人で回す</span><br>ffkit build ./input --target dvd --out ./out</div>
+    <div class="ctas" style="margin-top:20px">
+      <a class="btn btn-accent" href="https://github.com/onmt/ffkit">GitHub で見る →</a>
+      <a class="btn" style="background:var(--surface-sunken);color:var(--ink-900);border:1px solid var(--line)" href="https://github.com/onmt/ffkit#readme">ドキュメント</a>
+    </div>
+    <div class="note-lg" style="margin-top:32px">
+      <strong>For developers worldwide.</strong> ffkit turns finished videos into menu-free DVD-Video / BD-Video and distribution MP4 — an unattended, deterministic, resumable batch for the last mile of delivery. Insert and it just plays. Offline CLI; your footage never leaves your machine. Free core (PyPI / GitHub); commercial license planned. Provided as-is — verify your discs play. We don't bundle ffmpeg / GPL binaries (we call system tools); third-party licenses respected.
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <svg width="92" height="22" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#b9d2ff"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#f2f4f9">Spica</text></svg>
+        <p style="margin:14px 0 0;font-size:13.5px;color:var(--on-night-500);max-width:300px">あなたのデータを、あなたの手元に。スピカ・イメージクリエイション。</p>
+      </div>
+      <div class="cols">
+        <div><div class="h">アプリ</div><div class="links"><a href="/#studio">一覧</a><a href="/ffkit/">ffkit</a></div></div>
+        <div><div class="h">法務</div><div class="links"><a href="/legal/privacy">プライバシー方針</a><a href="/legal/eula">EULA（無保証）</a><a href="/legal/tokushoho">特定商取引法</a></div></div>
+      </div>
+    </div>
+    <div class="bot"><span>© Spica Image Creation</span><span class="mono">local-first · offline · as-is</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

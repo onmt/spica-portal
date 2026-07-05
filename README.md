@@ -3,12 +3,20 @@
 Spica のポータルサイト。**メイン＝Spica Prompter の LP**、サブ＝事業紹介（Spica Image Creation）。
 ビルド不要の静的サイト（HTML ファースト運用）。ブランド規範は [`onmt/spica`](https://github.com/onmt/spica) の `BRAND.md` / `brand/`（tokens・NIGHT パレット）に準拠。
 
+**本番**: https://spica-portal-8f8.pages.dev （Cloudflare Pages・main への push で自動デプロイ）
+
+> 旧ポータル（`onmt/spica` の `portal/` → `spica.imagecreation.workers.dev`）は本リポへ**統合済み**（2026-07-05）。
+> 法務3ページと ffkit LP は文面そのまま移植。旧 Worker は Cloudflare ダッシュボードから削除してよい。
+
 ## 構成
 
 ```
 index.html    ページ本体（LP: ヒーロー/性能/セキュリティ/価格/事業紹介）
 style.css     スタイル（@font-face + 全スタイル。色は brand/tokens.json の NIGHT/SPICA 系）
 app.js        モーション（星空・スクロールリビール・プロンプターデモ）。外部依存ゼロ
+legal/        法務3ページ（プライバシー/EULA/特商法。旧ポータルから文面そのまま移植）
+ffkit/        ffkit の LP（旧ポータルから移植・legacy.css 使用）
+legacy.css    旧ポータルのスタイル（legal/ と ffkit/ 専用。夜テーマへの統一は今後の改訂で）
 fonts/        IBM Plex Latin woff2（自前ホスト。日本語はシステムフォントにフォールバック）
 assets/       実機スクリーンショット（開発版 UI）
 _headers      Cloudflare Pages 用ヘッダ（CSP: 完全自己完結・script-src 'self'）
@@ -30,4 +38,5 @@ _headers      Cloudflare Pages 用ヘッダ（CSP: 完全自己完結・script-s
   実装状態バッジ（実装済/ベータ/開発中/方針確定)は誇張しない — `onmt/spica-prompter` の実態に追従させること。
 - 価格・SKU の正本は `onmt/spica` の `billing/catalog.yaml`。改訂されたら本 LP も追従。
 - `assets/` のスクリーンショットは開発環境（Linux）撮影。公開前に Mac 実機の撮り直し推奨。
-- 法務ページ（プライバシー/EULA/特商法）は現在プレースホルダ（`#` リンク)。公開前に `onmt/spica` の `portal/legal/` に合わせて用意する。
+- 法務ページの文面はここ（`legal/`）が実体。雛形・方針の正本は `onmt/spica`（playbooks/eula-template.md 等）。
+- 今後の改訂候補: legal/ と ffkit/ の夜テーマ統一（legacy.css の廃止）。
