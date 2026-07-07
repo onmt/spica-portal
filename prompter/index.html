@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spica Prompter — 一字も、揺れない。</title>
+<meta name="description" content="Spica Prompter — エンジンから作り直したローカルファースト・プロンプター。サブピクセル等速スクロール、マルチモニター同期、再生中のインライン編集、日本語組版。台本はこの端末から出ない。">
+<meta name="theme-color" content="#0b0d14">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="page">
+
+<header>
+  <div class="wrap nav">
+    <span class="brandmark">
+      <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      <b>SPICA</b>
+    </span>
+    <span class="tag">LOCAL-FIRST</span>
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="#performance">PERFORMANCE</a>
+      <a href="#security">SECURITY</a>
+      <a href="#pricing">PRICING</a>
+      <a href="#studio">STUDIO</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="wrap">
+    <div class="glint rv">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><radialGradient id="g" cx="50%" cy="44%" r="60%">
+          <stop offset="0%" stop-color="#eef4ff"/><stop offset="42%" stop-color="#4f80f7"/><stop offset="100%" stop-color="#1f5fe6"/>
+        </radialGradient></defs>
+        <path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z" fill="url(#g)"/>
+      </svg>
+    </div>
+    <p class="eyebrow rv"><span class="blue">SPICA PROMPTER</span>&ensp;PROFESSIONAL TELEPROMPTER<span style="opacity:.5">・仮称</span></p>
+    <h1 class="rv">一字も、揺れない。</h1>
+    <p class="lead rv">プロンプターを、エンジンから作り直しました。収録、配信、演説、式典——言葉を届けるあらゆる本番のために。<b>サブピクセル駆動の等速スクロール。解像度が違っても一致するマルチモニター。再生中に書き換えられる台本。</b>そして日本語の原稿のための、本物の組版。</p>
+    <div class="cta-row rv">
+      <a class="btn btn-primary" href="#pricing">無料で始める</a>
+      <a class="btn btn-ghost" href="#performance">性能を見る</a>
+      <span class="cta-note">// 無料版あり — 透かし・字数・時間制限なし。開発中（ベータ）です。</span>
+    </div>
+
+    <figure class="demo rv" style="margin-top:64px">
+      <div class="demo-bar">
+        <span class="rec"></span> OUTPUT 1 — 演者モニター
+        <span class="right"><span>表示: 正像</span><span>320 字/分</span></span>
+      </div>
+      <div class="demo-view">
+        <div class="marker"></div>
+        <div class="script" id="script">
+          <span class="s note">（本番まで、あと少し。）</span>
+          <span class="s">この画面は、いま</span>
+          <span class="s">実機と同じ考え方で流れています。</span>
+          <span class="s note">&nbsp;</span>
+          <span class="s">揺れに、気づきましたか。</span>
+          <span class="s"><span class="em">——気づかないはずです。</span></span>
+          <span class="s note">&nbsp;</span>
+          <span class="s">0.04ピクセルの世界で磨いた、</span>
+          <span class="s">等速スクロール。</span>
+          <span class="s note">&nbsp;</span>
+          <span class="s"><ruby>台本<rt>だいほん</rt></ruby>には、ルビも縦書きも。</span>
+          <span class="s">行頭に句読点は、来ません。</span>
+          <span class="s note">&nbsp;</span>
+          <span class="s note">— Spica Prompter</span>
+        </div>
+      </div>
+      <figcaption class="demo-caption">LIVE DEMO — 読み線と等速スクロールの雰囲気（ダミー表示）</figcaption>
+    </figure>
+
+    <!-- measured numbers -->
+    <div class="stats rv">
+      <div><span class="v">0.04<small>px</small></span><span class="l">スクロール残差（RMS・実測）</span></div>
+      <div><span class="v">0<small>フレーム</small></span><span class="l">後退・逆行（実測）</span></div>
+      <div><span class="v">15<small>ms</small></span><span class="l">4,000字原稿のライブ編集反映</span></div>
+      <div><span class="v">0<small>件</small></span><span class="l">禁則違反（行頭句読点・閉じ括弧）</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PERFORMANCE ============ -->
+<section id="performance" class="deep">
+  <div class="wrap">
+    <p class="eyebrow rv">CORE PERFORMANCE — 従来品と、一線を画す</p>
+    <h2 class="rv">プロンプターの「当たり前」を、<br>作り直した。</h2>
+    <p class="section-lead rv">既存のプロンプターアプリの妥協 — カクつくスクロール、モニターごとにズレる表示、本番中に触れない原稿 — を、エンジンの設計からやり直しました。数値はすべて自動計測による実測です。</p>
+
+    <div class="engine-note rv">
+      <span class="k">How it works — エンジンの考え方</span>
+      <ul>
+        <li><b>真実は「いま読んでいる文字」。</b>ピクセルやスクロール量ではなく、原稿上の文字位置をただひとつの基準にして、すべての画面を導出します。</li>
+        <li><b>画面は導出、位置は共有。</b>各モニターは自分の解像度で原稿を組み直し、同じ文字を読み線に合わせる。だから解像度が違ってもズレません。</li>
+        <li><b>1ピクセル未満で、リフレッシュに同期。</b>速度は字/分で管理し、描画はサブピクセル精度の等速で進めます。</li>
+        <li><b>機能を足すたび、自動計測。</b>スクロール残差・後退フレーム・禁則違反を毎回検証してから出す、評価駆動の開発です。</li>
+      </ul>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">01 — Inline Live Edit</span>
+        <h3>演者と同じ画面を見ながら、<br>その場で書き換える。</h3>
+        <p>編集画面への切り替えはありません。プロンプター面そのものがインライン編集でき、スクロールを止めずに修正しても演者の読み位置は1字もズレない。ディレクターの直前変更に、演者が読んでいる最中でも追従できます。</p>
+        <div class="spec"><span>演者と同じ画面で編集</span><span>読み位置 <span class="num">不変</span></span><span>反映 <span class="num">15ms</span>（4,026字で検証）</span></div>
+      </div>
+      <figure class="fx fx-shot">
+        <img src="/assets/shot-edit.jpg" alt="実際の操作画面: 画面編集モード。プロンプター面が赤枠になり、そのままインライン修正できる" loading="lazy">
+        <figcaption class="shotbar"><span>実際の操作画面 — 画面編集モード（開発版）</span><span class="ok">✓ 読み位置は動かない</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">02 — Live Restyle</span>
+        <h3>本番中に、文字サイズも<br>行間も。演者を待たせない。</h3>
+        <p>「もう少し大きく」に、収録を止めて応えるのが従来品。Spica は文字サイズ・行間・字間の変更をスクロール中に反映し、現在行を軸に再レイアウトするため、読んでいる行はその場に留まります。調整のために演者を待たせることがありません。</p>
+        <div class="spec"><span>サイズ・行間・字間 <span class="num">即時反映</span></span><span>スクロール <span class="num">無停止</span></span><span>現在行アンカーで位置保持</span></div>
+      </div>
+      <figure class="fx fx-shot">
+        <img src="/assets/shot-style.jpg" alt="実際の操作パネル: スタイルタブ。サイズ・行間・字間・余白・マーカー位置・フォント・配色をスライダで調整" loading="lazy">
+        <figcaption class="shotbar"><span>実際の操作パネル — スタイルタブ（開発版）</span><span class="ok">✓ スクロールは止まらない</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">03 — Multi-Output Sync</span>
+        <h3>複数モニターに同時出力。<br>改行ひとつ、ズレない。</h3>
+        <p>外部モニターへの複数同時出力に対応したプロンプター自体、ほとんどありません。Spica はさらに、フォントサイズを画面の実幅に比例させることで、解像度が違っても1行の字数と改行位置を全出力で同一に保ちます。変わるのは上下に見える範囲だけ。どのモニターでも、同じ文字が読み線に来ます。</p>
+        <div class="spec"><span>複数モニター同時出力</span><span>1行の字数 <span class="num">全出力で一定</span></span><span>読み線の文字 <span class="num">完全一致</span></span></div>
+      </div>
+      <div class="fx fx-multi">
+        <div class="mon m1">その言葉を<br><span class="hit"><i>いま</i>、届ける</span><span class="lbl">演者 1920×1080</span></div>
+        <div class="mon m2"><span class="ctx">残さず、</span><br>その言葉を<br><span class="hit"><i>いま</i>、届ける</span><br><span class="ctx">ために。</span><span class="lbl">操作ウィンドウ</span></div>
+        <div class="mon m3">その言葉を<br><span class="hit"><i>いま</i>、届ける</span><span class="lbl">サブ出力 1280×720</span></div>
+        <div class="fxnote">改行位置と読み線の文字は全出力で同一 — 違うのは見える範囲だけ</div>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">04 — Return View・返しビュー</span>
+        <h3>背後のモニターを、<br>振り向かずに。</h3>
+        <p>演者への返し — 各外部モニターの表示 — は、縮小された<b style="color:var(--on-900)">「返しビュー」</b>として操作画面に並びます。出力ごとに<b style="color:var(--on-900)">正像・上下反転・左右反転を返しビュー上で個別切替</b>できるので、ハーフミラーのリグが混在する現場でも手元だけで設営が完結。「範囲」ボタンを押せば、演者側に見えている領域が原稿上に帯で表示されます。</p>
+        <div class="spec"><span>出力ごとに 正像/上下/左右</span><span>表示範囲を帯で確認</span><span>全出力を手元で掌握</span></div>
+      </div>
+      <figure class="fx fx-shot">
+        <img src="/assets/shot-kaeshi.jpg" alt="実際の操作画面: 返しビューに2台の外部モニターの縮小表示が並び、モニター2は左右反転。原稿上には表示範囲の帯" loading="lazy">
+        <figcaption class="shotbar"><span>実際の操作画面 — 返しビュー＋範囲帯（開発版）</span><span>モニター2は左右反転</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">05 — Sub-pixel Scroll</span>
+        <h3>目が疲れない、<br>サブピクセルの等速。</h3>
+        <p>1ピクセル未満の精度でリフレッシュレートに同期し、一定速度で進み続けます。実測の残差は RMS 0.04px、後退フレームはゼロ。機能を足すたびに自動計測でジャダーを監視する、評価駆動の開発です。</p>
+        <div class="spec"><span>RMS <span class="num">0.04px</span></span><span>後退 <span class="num">0</span></span><span>空白行でも等速</span></div>
+      </div>
+      <div class="fx fx-smooth">
+        <svg viewBox="0 0 340 120" aria-hidden="true">
+          <polyline points="0,38 20,30 40,42 60,28 80,44 100,30 120,46 140,26 160,44 180,32 200,46 220,28 240,42 260,30 280,44 300,30 320,42 340,32"
+            fill="none" stroke="#565b67" stroke-width="1.5"/>
+          <polyline points="0,92 340,92" fill="none" stroke="#4f80f7" stroke-width="1.5"/>
+        </svg>
+        <div class="cap"><span>従来：フレーム落ち・逆行</span><span style="color:var(--spica-300)">SPICA：等速</span></div>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">06 — Japanese Typography</span>
+        <h3>日本語の原稿に、<br>本物の組版を。</h3>
+        <p>縦書き・ルビ（漢字《よみ》）・禁則処理・強調と反転と点滅のインライン記法。行頭に句読点が来るような表示は、一件もありません。縦書きへの切替は<b style="color:var(--on-900)">ワンボタン</b>、カンペモードやカード式への切替もトグルひとつ。同じ原稿のまま、現場に合わせて表示だけを変えられます。</p>
+        <div class="spec"><span>縦⇄横 <span class="num">ワンボタン</span></span><span>カンペ・カード式トグル</span><span>禁則違反 <span class="num">0</span> 件</span></div>
+      </div>
+      <div class="fx fx-type">
+        <div class="vtext">その<ruby>台本<rt>だいほん</rt></ruby>を、<br>縦にも組める。</div>
+        <div class="vnote">VERTICAL — RUBY — KINSOKU</div>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">07 — Pace Governor（ベータ）</span>
+        <h3>あなたの声に、<br>画面が付いてくる。</h3>
+        <p>読み手の話す速さをマイクから推定し、スクロール速度が自動で追従します。速く読めば速く、間を取ればゆっくり。音声はクラウドの音声認識に送らず、すべて端末内で処理する独自方式です。</p>
+        <div class="spec"><span>ASRレス話速推定</span><span>音声送信 <span class="num">0</span></span><span>手動オーバーライド常時可</span></div>
+      </div>
+      <div class="fx fx-voice">
+        <svg viewBox="0 0 340 130" aria-hidden="true">
+          <!-- voice waveform (bars) -->
+          <g fill="#565b67">
+            <rect x="8"   y="34" width="4" height="12" rx="2"/><rect x="18"  y="28" width="4" height="24" rx="2"/>
+            <rect x="28"  y="22" width="4" height="36" rx="2"/><rect x="38"  y="26" width="4" height="28" rx="2"/>
+            <rect x="48"  y="18" width="4" height="44" rx="2"/><rect x="58"  y="24" width="4" height="32" rx="2"/>
+            <rect x="68"  y="30" width="4" height="20" rx="2"/><rect x="78"  y="36" width="4" height="8"  rx="2"/>
+            <rect x="88"  y="38" width="4" height="4"  rx="2"/><rect x="98"  y="38" width="4" height="4"  rx="2"/>
+            <rect x="108" y="34" width="4" height="12" rx="2"/><rect x="118" y="26" width="4" height="28" rx="2"/>
+            <rect x="128" y="20" width="4" height="40" rx="2"/><rect x="138" y="16" width="4" height="48" rx="2"/>
+            <rect x="148" y="22" width="4" height="36" rx="2"/><rect x="158" y="18" width="4" height="44" rx="2"/>
+            <rect x="168" y="24" width="4" height="32" rx="2"/><rect x="178" y="20" width="4" height="40" rx="2"/>
+            <rect x="188" y="26" width="4" height="28" rx="2"/><rect x="198" y="30" width="4" height="20" rx="2"/>
+            <rect x="208" y="34" width="4" height="12" rx="2"/><rect x="218" y="30" width="4" height="20" rx="2"/>
+            <rect x="228" y="26" width="4" height="28" rx="2"/><rect x="238" y="28" width="4" height="24" rx="2"/>
+            <rect x="248" y="32" width="4" height="16" rx="2"/><rect x="258" y="34" width="4" height="12" rx="2"/>
+            <rect x="268" y="36" width="4" height="8"  rx="2"/><rect x="278" y="34" width="4" height="12" rx="2"/>
+            <rect x="288" y="32" width="4" height="16" rx="2"/><rect x="298" y="34" width="4" height="12" rx="2"/>
+            <rect x="308" y="36" width="4" height="8"  rx="2"/><rect x="318" y="36" width="4" height="8"  rx="2"/>
+          </g>
+          <!-- scroll speed follows -->
+          <path d="M8 104 C 40 96, 60 92, 90 100 C 105 104, 115 106, 125 102 C 150 92, 175 86, 200 90 C 230 95, 260 102, 300 106 L 322 107"
+            fill="none" stroke="#4f80f7" stroke-width="1.6"/>
+        </svg>
+        <div class="cap"><span>マイク — 話速（端末内で推定）</span><span class="b">スクロール速度が追従</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MORE FEATURES ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow rv">FIELD TOOLS — 現場の道具として</p>
+    <h2 class="rv">本番を知っている機能だけ。</h2>
+    <div class="grid" style="margin-top:40px">
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4M2 9h20"/></svg></span>
+        <span class="k">Slate</span><h3>出力カバー（スレート）</h3><p>本番前は演者モニターだけを黒・スタンバイ・静止画に。操作画面の作業は隠したまま。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v20M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg></span>
+        <span class="k">Flip Output</span><h3>反転出力（正像・上下・左右）</h3><p>ハーフミラーのリグや折返し投影に。反転は出力ごとに個別設定でき、読み位置は読み線に留まります。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 15a9 9 0 1 0-9-9"/><path d="M12 15l5-8"/><circle cx="12" cy="15" r="1.6"/><path d="M3 21h18"/></svg></span>
+        <span class="k">Speed Range</span><h3>速度は広く、刻みは細かく</h3><p>プリセット <span class="num">120–1,200</span> 字/分、微調整は <span class="num">±10</span>。ホイールでのオンザフライ調整。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+        <span class="k">Run Order</span><h3>複数原稿のランオーダー</h3><p>式典・番組の進行に合わせて原稿を並べ、順に送出。カード式・カンペモードも。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></span>
+        <span class="k">Shortcuts</span><h3>ショートカットは全て変更可</h3><p>現場のオペレーターの手癖に合わせて、主要操作のキー割り当てをカスタマイズできます。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+        <span class="k">Navigation</span><h3>タイマー・段落ジャンプ・栞</h3><p>残り時間を見ながら、段落単位のジャンプとブックマークで原稿内を瞬時に移動。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECURITY ============ -->
+<section id="security" class="deep">
+  <div class="wrap">
+    <p class="eyebrow rv">SECURITY BY STRUCTURE</p>
+    <h2 class="rv">そして、台本は<br>この端末から出ない。</h2>
+    <p class="section-lead rv">未公開CM・発表前IR・報道原稿。プロンプターに載るのは「まだ世に出ていない言葉」です。だから Spica Prompter は、<b>漏らさない努力ではなく、漏れる経路が存在しない構造</b>を選びました。</p>
+
+    <div class="airgap rv" role="img" aria-label="端末の中に台本・編集・保存・声追従・ライセンス検証が完結し、インターネットへの経路が存在しない構造図">
+      <div class="device">
+        <span class="dlabel">✦ あなたの端末 — ここで完結</span>
+        <div class="chips">
+          <span class="chip">台本</span>
+          <span class="chip">編集・保存</span>
+          <span class="chip">声追従の音声処理</span>
+          <span class="chip">ライセンス検証</span>
+        </div>
+      </div>
+      <div class="gap-paths">
+        <div class="path"><div class="wire"><span class="x">✗</span></div><span class="plabel">台本の送信 — 経路なし</span></div>
+        <div class="path"><div class="wire"><span class="x">✗</span></div><span class="plabel">音声の送信 — 経路なし</span></div>
+        <div class="path"><div class="wire"><span class="x">✗</span></div><span class="plabel">利用状況の収集 — 経路なし</span></div>
+      </div>
+      <div class="cloud">
+        <span class="dlabel">インターネット</span>
+        <div class="items">クラウド保存<br>音声認識サーバー<br>解析・テレメトリ<br>ライセンス照合サーバー</div>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row rv">
+        <span class="glyph">✓</span>
+        <div><h3>通信しない構造</h3><p>動作にインターネットを使いません。台本の送信先となるサーバーが、そもそも存在しません。保存も書き出しもローカルのみ。</p></div>
+        <span class="st ok">実装済</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph">✓</span>
+        <div><h3>収集ゼロ</h3><p>アカウント登録なし・テレメトリなし・行動解析なし。「収集しない」はプライバシー方針の一行目です。</p></div>
+        <span class="st ok">実装済</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph w">⚠</span>
+        <div><h3>声追従でも、音声は外に出ない</h3><p>ペースガバナーはクラウド音声認識を使わない独自方式。マイクの音声は端末内で処理され、どこにも送られません。</p></div>
+        <span class="st beta">ベータ</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph p">・</span>
+        <div><h3>画面共有から台本を隠す</h3><p>配信・リモート収録で、プロンプター窓だけを共有対象から除外（OSのAPI）。うっかり台本を映す事故を構造で防ぎます。</p></div>
+        <span class="st">開発中</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph p">・</span>
+        <div><h3>ライセンス認証すら通信しない</h3><p>購入後のライセンスは暗号署名（Ed25519）キーを端末内で検証。起動時の照合通信なし・端末の指紋採取なし。買った後まで、外に出ないままです。</p></div>
+        <span class="st">方針確定</span>
+      </div>
+    </div>
+
+    <p class="fineprint rv"><b>正直な注記：</b>本アプリは開発中です。上のバッジは実際の実装状態をそのまま表示しています。「軍事級セキュリティ」のような言葉は使いません — 経路がないこと自体が、いちばん強い保証だと考えています。</p>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <p class="eyebrow rv">PRICING — 価格も、隠さない</p>
+    <h2 class="rv">買い切り。<span class="dim">毎月は、いただきません。</span></h2>
+
+    <div class="paycmp rv" role="img" aria-label="レンタル機材は1日5万5千円、サブスク型は毎月の支払いが続くが、SpicaのProは14,800円の一度きりでずっと使える比較図">
+      <div class="prow subs">
+        <span class="who">機材レンタル</span>
+        <span class="lane"><span class="yen">¥55,000</span><span class="endnote">…1日ごと</span></span>
+      </div>
+      <div class="prow subs">
+        <span class="who">サブスク型</span>
+        <span class="lane"><span class="yen">¥</span><span class="yen">¥</span><span class="yen">¥</span><span class="yen">¥</span><span class="yen">¥</span><span class="endnote">…払い続ける</span></span>
+      </div>
+      <div class="prow spica">
+        <span class="who">SPICA PRO</span>
+        <span class="lane"><span class="yen">¥14,800</span><span class="cont"></span><span class="endnote">一度きり・ずっと使える →</span></span>
+      </div>
+    </div>
+
+    <div class="plans">
+      <div class="plan rv">
+        <span class="name">Free</span>
+        <div class="price">¥0</div>
+        <span class="per">ずっと無料</span>
+        <ul>
+          <li>14日間は全機能（出力窓・反転・マルチ同期）</li>
+          <li>以後もリーダーモードで恒久無料</li>
+          <li>透かし・字数・時間制限なし</li>
+        </ul>
+      </div>
+      <div class="plan rv">
+        <span class="name">Solo</span>
+        <div class="price">¥3,000</div>
+        <span class="per">買い切り</span>
+        <ul>
+          <li>1画面のセルフ撮影向け完成形</li>
+          <li>声追従無制限・カード式・カンペ</li>
+          <li>自動ルビ・話者プロファイル・ランオーダー</li>
+        </ul>
+      </div>
+      <div class="plan pro rv">
+        <span class="rec">本命 — 現場向け</span>
+        <span class="name" style="color:var(--spica-300)">Pro</span>
+        <div class="price">¥14,800</div>
+        <span class="per">買い切り / サブスクなし</span>
+        <ul>
+          <li>複数出力・返しビュー・反転出力</li>
+          <li>指示フラッシュ・ブラウザリモコン</li>
+          <li>2台まで認証・30日間の無条件返金</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="volume rv">
+      <b>業務導入（複数台・レンタル機）</b>
+      <span>5台 <span class="num">¥59,800</span></span>
+      <span>10台 <span class="num">¥99,800</span></span>
+      <span>20台〜 個別見積</span>
+      <span>レンタル機への導入を明示許諾・適格請求書対応（法人の仕入税額控除OK）</span>
+    </div>
+
+    <p class="no-sub rv">Pro のライセンスは暗号署名キーを端末内で検証する買い切り。毎月の請求も、解約手続きというものも、最初からありません。</p>
+  </div>
+</section>
+
+<!-- ============ STUDIO ============ -->
+<section id="studio" class="studio">
+  <div class="wrap">
+    <p class="eyebrow rv">SPICA IMAGE CREATION — 事業紹介</p>
+    <h2 class="rv">映像制作の現場から、<br>道具を作っています。</h2>
+    <p class="section-lead rv">スピカ・イメージクリエイションは、映像制作を本業とする小さな工房です。現場で「これがない」と困った道具を、ローカルファースト — <b>あなたのデータは、あなたの端末から出ない</b> — の一点を曲げずに作っています。</p>
+
+    <svg class="constellation rv" viewBox="0 0 640 300" role="img" aria-label="Spica のアプリ群を星座として描いた図。最も明るい星が Spica Prompter">
+      <!-- constellation lines -->
+      <path class="cl-line" fill="none" d="M180 96 L340 150 L470 84 M340 150 L250 232 M340 150 L520 210"/>
+      <!-- Prompter: brightest, four-point star -->
+      <g class="tw">
+        <path transform="translate(340 150) scale(.34)" fill="#b9d2ff"
+          d="M0 -47 C 3.5 -11.5, 11.5 -3.5, 47 0 C 11.5 3.5, 3.5 11.5, 0 47 C -3.5 11.5, -11.5 3.5, -47 0 C -11.5 -3.5, -3.5 -11.5, 0 -47 Z"/>
+        <circle cx="340" cy="150" r="26" fill="#4f80f7" opacity=".12"/>
+      </g>
+      <text class="cl-label cl-main-label" x="340" y="196" text-anchor="middle">SPICA PROMPTER</text>
+      <text class="cl-status" x="340" y="208" text-anchor="middle">開発中 — 本ページ</text>
+      <!-- ffkit -->
+      <g class="tw2"><circle cx="180" cy="96" r="4" fill="#f2f4f9"/><circle cx="180" cy="96" r="9" fill="#f2f4f9" opacity=".12"/></g>
+      <text class="cl-label" x="180" y="74" text-anchor="middle">FFKIT</text>
+      <text class="cl-status" x="180" y="86" text-anchor="middle">ベータ — DVD/BD 納品</text>
+      <!-- 文字起こし -->
+      <g class="tw3"><circle cx="470" cy="84" r="3.4" fill="#f2f4f9"/><circle cx="470" cy="84" r="8" fill="#f2f4f9" opacity=".12"/></g>
+      <text class="cl-label" x="470" y="62" text-anchor="middle">ローカル文字起こし</text>
+      <text class="cl-status" x="470" y="74" text-anchor="middle">ベータ — 名称検討中</text>
+      <!-- ココハワタシガ -->
+      <g class="tw2"><circle cx="250" cy="232" r="3.4" fill="#f2f4f9"/><circle cx="250" cy="232" r="8" fill="#f2f4f9" opacity=".12"/></g>
+      <text class="cl-label" x="250" y="260" text-anchor="middle">ココハワタシガ</text>
+      <text class="cl-status" x="250" y="272" text-anchor="middle">審査準備中 — 領収書</text>
+      <!-- MediaVault (planned, faint) -->
+      <g><circle cx="520" cy="210" r="2.4" fill="#8b93a7" opacity=".7"/></g>
+      <text class="cl-label" x="520" y="238" text-anchor="middle" opacity=".55">MEDIAVAULT</text>
+      <text class="cl-status" x="520" y="250" text-anchor="middle">計画中 — 素材バックアップ</text>
+    </svg>
+
+    <div class="promises rv" style="margin-top:56px">
+      <div><b>オフラインで動く</b><span>ネット不要。機内モードでも本番は止まらない。</span></div>
+      <div><b>無保証だが、誠実</b><span>「完全保証」は言いません。できることだけを、正直に。</span></div>
+      <div><b>現場の専門家が作った</b><span>自分の現場で使うために設計した道具です。</span></div>
+    </div>
+
+    <div class="apps rv">
+      <div class="app"><b>Spica Prompter</b><span class="st">開発中・本ページ</span><small>収録・配信・演説のための高性能プロンプター。</small></div>
+      <div class="app"><b><a href="/ffkit/" style="color:inherit">ffkit</a></b><span class="st">ベータ</span><small>完成動画をメニューなし DVD / Blu-ray に。納品のためのコマンドラインキット。</small></div>
+      <div class="app"><b><a href="/kokohawatashiga/" style="color:inherit">ココハワタシガ</a></b><span class="st">審査準備中</span><small>完全オフラインの領収書管理・確定申告サポート。会計ソフトには必要な情報だけを CSV で。</small></div>
+      <div class="app"><b>ローカル文字起こし（名称検討中）</b><span class="st">ベータ</span><small>音声・動画をクラウドに送らず字幕・テキスト化。</small></div>
+    </div>
+
+    <p class="tagline rv">あなたのデータを、<br>あなたの手元に。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span class="brandmark" style="color:var(--on-500)">
+        <svg viewBox="0 0 100 100" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      </span>
+      <span class="links">
+        <a href="/">スピカ・イメージクリエイション</a>
+        <a href="/legal/privacy">プライバシー（収集しません）</a>
+        <a href="/legal/eula">利用規約 / EULA</a>
+        <a href="/legal/tokushoho">特定商取引法に基づく表記</a>
+        <a href="/ffkit/">ffkit</a>
+        <a href="/kokohawatashiga/">ココハワタシガ</a>
+      </span>
+      <span class="copy">© Spica Image Creation</span>
+    </div>
+    <p class="foot-note">// このサイトは外部リソースを一切読み込みません。フォントは自前ホスト・解析スクリプトなし・CSP適用。サイト自体もローカルファーストです。</p>
+  </div>
+</footer>
+
+</div><!-- /.page -->
+
+<script src="/app.js"></script>
+</body>
+</html>
