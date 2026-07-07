@@ -22,6 +22,14 @@
 }
 .contact-box p{margin:0; font-size:.9rem; color:var(--on-500)}
 .apps .app b a{color:inherit}
+.bizinfo{border-top:1px solid var(--line); max-width:640px; margin-bottom:26px}
+.bizinfo>div{
+  display:grid; grid-template-columns:130px 1fr; gap:16px; align-items:baseline;
+  padding:14px 4px; border-bottom:1px solid var(--line); font-size:.9rem;
+}
+.bizinfo span{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--on-500)}
+.bizinfo b{color:var(--on-700); font-weight:500}
+@media(max-width:560px){.bizinfo>div{grid-template-columns:1fr; gap:2px}}
 </style>
 </head>
 <body>
@@ -60,7 +68,7 @@
     <p class="lead rv">スピカ・イメージクリエイションは、企業VPやドローン空撮を手がける映像制作の小さな工房です。そして、現場で「これがない」と困った道具を自分の手で作り、同じ現場を持つ人に届けています。道具づくりで曲げないのはひとつ——<b>あなたのデータは、あなたの端末から出ない。</b></p>
     <div class="cta-row rv">
       <a class="btn btn-primary" href="#apps">アプリを見る</a>
-      <a class="btn btn-ghost" href="#contact">映像制作のご相談</a>
+      <a class="btn btn-ghost" href="#contact">お問い合わせ</a>
       <span class="cta-note">// どのアプリもオフラインで動きます。アカウント登録なし・収集ゼロ。</span>
     </div>
   </div>
@@ -71,7 +79,7 @@
   <div class="wrap">
     <p class="eyebrow rv">FILM PRODUCTION — 映像制作</p>
     <h2 class="rv">本業は、映像の現場です。</h2>
-    <p class="section-lead rv">企業・団体の紹介映像（VP）やプロモーション映像を、企画から撮影・編集までひと続きでお引き受けしています。ドローンによる空撮にも対応。ご相談・お見積りは<a href="#contact">メール</a>でお気軽に。</p>
+    <p class="section-lead rv">企業・団体の紹介映像（VP）やプロモーション映像を、企画から撮影・編集まで手がけています。ドローンによる空撮も。この現場での経験が、下のアプリ群の設計にそのまま流れ込んでいます。</p>
     <div class="grid">
       <div class="card rv">
         <span class="k">01 — Plan</span><h3>企画・構成</h3>
@@ -137,13 +145,18 @@
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
+<!-- ============ CONTACT / 事業者情報 ============ -->
 <section id="contact">
   <div class="wrap">
-    <p class="eyebrow rv">CONTACT — お問い合わせ</p>
-    <h2 class="rv">ご相談は、メールでどうぞ。</h2>
-    <div class="contact-box rv" style="margin-top:36px">
-      <p>映像制作のご相談・お見積りも、アプリのサポートも、こちらへ。</p>
+    <p class="eyebrow rv">PROFILE — 事業者情報・窓口</p>
+    <h2 class="rv">お問い合わせ</h2>
+    <div class="bizinfo rv" style="margin-top:36px">
+      <div><span>屋号</span><b>スピカ・イメージクリエイション（Spica Image Creation）</b></div>
+      <div><span>事業内容</span><b>映像の企画・撮影・編集／ソフトウェアの開発・販売</b></div>
+      <div><span>販売条件等</span><b><a href="/legal/tokushoho">特定商取引法に基づく表記</a>・<a href="/legal/privacy">プライバシー</a>・<a href="/legal/eula">EULA</a></b></div>
+    </div>
+    <div class="contact-box rv">
+      <p>アプリのサポート、お取引にともなう事業内容のご確認などは、こちらへ。</p>
       <a class="mail" href="mailto:support@spicaimg.com">support@spicaimg.com</a>
       <p>通常2〜5営業日以内に返信します。</p>
     </div>
