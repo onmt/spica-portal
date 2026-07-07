@@ -3,170 +3,250 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ココハワタシガ — オフラインで完結する領収書管理・確定申告サポート</title>
-<meta name="description" content="ココハワタシガ — レシート・経費を端末内で完全管理する領収書アプリ。クラウド送信ゼロ、端末内OCRとAIで日付・金額・店名・インボイス番号を自動抽出。会計ソフトには仕訳に必要な情報だけをCSVで。各年度100枚まで無料、年度パス¥600の買い切り。">
-<meta name="theme-color" content="#0b0d14">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/style.css">
+<title>ココハワタシガ — レシートを撮るだけ。データはスマホの中だけ。</title>
+<meta name="description" content="ココハワタシガは、レシートをスマホで撮るだけで、日付や金額を自動で読み取って整理してくれるアプリです。医療費控除や確定申告の準備に。データはすべてスマホの中だけ、インターネットには何も送りません。登録不要・広告なし。">
+<meta name="theme-color" content="#228486">
+<link rel="icon" href="icon-180.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-180.png">
 <style>
 /* ============================================================
-   ココハワタシガ LP — ページ固有スタイル（/style.css を共用）
+   ココハワタシガ LP — 独立デザイン（Spica 夜テーマとは意図的に別）
+   対象: 映像業と関わりのない一般の方・ITに不慣れな方・高齢の方
+   方針: 明るく温かい配色 / 大きめの文字 / 専門用語を避ける / JSなし
+   基準色はアプリ実物のアイコン (#228486)
    ============================================================ */
+:root{
+  --teal:#228486; --teal-dark:#1a6e70; --teal-deep:#14595b;
+  --teal-tint:#e8f3f2; --teal-tint2:#f3f9f8;
+  --paper:#faf9f5; --card:#ffffff;
+  --ink:#33403f; --ink-strong:#1f2d2c; --muted:#5d6b69;
+  --line:#e2e7e3;
+  --amber:#b96318; --amber-tint:#fdf3e6;
+  --maru:"Hiragino Maru Gothic ProN","HiraMaruProN-W4","BIZ UDPGothic","Yu Gothic UI","Meiryo",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--maru); font-size:17px; line-height:2;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+a{color:var(--teal-dark); text-decoration:underline; text-underline-offset:3px}
+a:hover{color:var(--teal)}
+:focus-visible{outline:3px solid rgba(34,132,134,.5); outline-offset:3px; border-radius:6px}
+.wrap{max-width:860px; margin:0 auto; padding:0 22px}
+img{max-width:100%}
 
-/* ---- hero: receipt scan demo ---- */
-.scanwrap{
-  display:grid; grid-template-columns:minmax(0,5fr) auto minmax(0,6fr);
-  gap:18px; align-items:center; padding:28px 26px;
-}
-.receipt{position:relative; overflow:hidden; justify-self:center; width:100%; max-width:250px}
-.paper{
-  background:var(--night-850); border:1px solid var(--night-600); border-radius:4px 4px 10px 10px;
-  padding:18px 16px 20px; font-family:var(--mono); font-size:10.5px; line-height:2.1;
-  color:var(--on-700); letter-spacing:.04em;
-  -webkit-mask-image:linear-gradient(180deg,#000 92%,transparent);
-  mask-image:linear-gradient(180deg,#000 92%,transparent);
-}
-.paper b{display:block; color:var(--on-900); font-size:11.5px; letter-spacing:.1em; margin-bottom:2px}
-.paper span{display:block}
-.paper .line{border-top:1px dashed var(--night-600); margin:8px 0}
-.paper .total{color:var(--on-900)}
-.scanline{
-  position:absolute; left:0; right:0; top:0; height:36px; pointer-events:none;
-  background:linear-gradient(180deg,transparent,rgba(79,128,247,.16) 70%,rgba(132,169,255,.5));
-  animation:scan 3.6s var(--ease) infinite;
-}
-@keyframes scan{0%{top:-40px; opacity:0}12%{opacity:1}82%{opacity:1}100%{top:100%; opacity:0}}
-.scanarrow{font-family:var(--mono); color:var(--spica-300); font-size:1.1rem; text-align:center}
-.scanarrow small{display:block; font-size:8.5px; letter-spacing:.14em; color:var(--on-500)}
-.fields{display:flex; flex-direction:column; gap:8px; min-width:0}
-.field{
-  display:grid; grid-template-columns:72px 1fr auto; gap:10px; align-items:center;
-  border:1px solid var(--line); border-radius:6px; background:var(--night-900);
-  padding:8px 12px; font-size:.85rem;
-}
-.field .fl{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; color:var(--on-500)}
-.field .fv{color:var(--on-900); font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.prov{
-  font-family:var(--mono); font-size:8.5px; letter-spacing:.12em; border-radius:4px;
-  padding:2px 7px; border:1px solid var(--night-600); color:var(--on-500); white-space:nowrap;
-}
-.prov.ocr{color:var(--spica-300); border-color:rgba(79,128,247,.45)}
-.prov.learn{color:#7fd4ab; border-color:rgba(46,158,107,.4)}
-.prov.manual{color:var(--on-700)}
-.prov.csv{color:#e6b566; border-color:rgba(200,134,30,.4)}
-.fields .fnote{font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; color:#7fd4ab; margin-top:4px}
-@media(max-width:680px){
-  .scanwrap{grid-template-columns:1fr; gap:14px; padding:22px 18px}
-  .receipt{max-width:230px}
-  .scanarrow{transform:rotate(90deg); height:28px}
-  .scanarrow small{display:none}
-}
-@media(prefers-reduced-motion:reduce){.scanline{animation:none; opacity:0}}
+/* ---- header ---- */
+header{background:var(--card); border-bottom:1px solid var(--line)}
+.nav{display:flex; align-items:center; gap:14px; padding:14px 0}
+.nav .appicon{width:40px; height:40px; border-radius:10px; display:block}
+.nav .name{font-weight:700; font-size:1.05rem; color:var(--ink-strong)}
+.nav-links{margin-left:auto; display:flex; gap:20px; font-size:.92rem}
+.nav-links a{text-decoration:none; color:var(--teal-dark); font-weight:600}
+.nav-links a:hover{text-decoration:underline}
+@media(max-width:620px){.nav-links{display:none}}
 
-/* ---- flag fx: provenance ---- */
-.fx-prov{flex-direction:column; gap:10px; align-items:stretch}
-.fx-prov .field{background:var(--night-950)}
-.fx-prov .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; color:var(--on-500); margin-top:6px}
-
-/* ---- flag fx: data minimization ---- */
-.fx-min{gap:14px; align-items:stretch; flex-wrap:wrap}
-.mincol{
-  flex:1; min-width:150px; border:1px solid var(--night-600); border-radius:8px;
-  background:var(--night-950); padding:16px 14px;
-  display:flex; flex-direction:column; gap:7px;
+/* ---- hero ---- */
+.hero{background:linear-gradient(180deg,var(--card),var(--paper)); padding:64px 0 56px; text-align:center}
+.hero .appicon{
+  width:104px; height:104px; border-radius:24px; margin:0 auto 26px; display:block;
+  box-shadow:0 10px 30px -10px rgba(34,132,134,.45);
 }
-.mincol .mh{font-family:var(--mono); font-size:9px; letter-spacing:.14em; color:var(--on-500);
-  text-transform:uppercase; margin-bottom:6px}
-.mincol .mi{font-size:.8rem; color:var(--on-700); border-top:1px solid var(--line); padding-top:7px}
-.mincol.keep{border-color:rgba(79,128,247,.45); box-shadow:0 0 24px -12px rgba(31,95,230,.5)}
-.mincol.keep .mh{color:var(--spica-300)}
-.mincol.keep .mi::before{content:"⌂ "; font-family:var(--mono); color:var(--spica-300)}
-.mincol.send .mi::before{content:"→ "; font-family:var(--mono); color:var(--on-500)}
-.minarrow{
-  display:flex; flex-direction:column; justify-content:center; align-items:center; gap:4px;
-  font-family:var(--mono); color:var(--on-500); font-size:1rem;
+.hero .appname{font-size:1.05rem; font-weight:700; letter-spacing:.2em; color:var(--teal-dark); margin:0 0 14px}
+h1{
+  font-size:clamp(1.75rem,5.6vw,2.7rem); line-height:1.65; color:var(--ink-strong);
+  font-weight:700; margin:0 0 22px; letter-spacing:.02em;
 }
-.minarrow small{font-size:8.5px; letter-spacing:.14em}
-.fx-min .fxnote{width:100%; text-align:center; font-family:var(--mono); font-size:9.5px;
-  letter-spacing:.1em; color:var(--on-500)}
-@media(max-width:420px){
-  .minarrow{width:100%; flex-direction:row; height:auto}
-  .minarrow .ar{transform:rotate(90deg)}
+h1 .teal{color:var(--teal); display:inline-block}
+.hero .lead{
+  max-width:36em; margin:0 auto 30px; font-size:clamp(1rem,2.6vw,1.12rem); color:var(--ink);
+  text-align:left;
 }
-
-/* ---- flag fx: year summary heatmap ---- */
-.fx-year{flex-direction:column; gap:16px; align-items:stretch}
-.ysum{border:1px solid var(--night-600); border-radius:8px; background:var(--night-950); padding:16px 14px}
-.ysum .yh{display:flex; justify-content:space-between; align-items:baseline;
-  font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; color:var(--on-500); margin-bottom:12px}
-.ysum .yh b{color:var(--on-900); font-size:12px; letter-spacing:.08em}
-.heatmap{display:grid; grid-template-columns:repeat(12,1fr); gap:4px}
-.heatmap i{aspect-ratio:1; border-radius:2px; background:rgba(79,128,247,.1)}
-.heatmap i.h1{background:rgba(79,128,247,.28)}
-.heatmap i.h2{background:rgba(79,128,247,.5)}
-.heatmap i.h3{background:rgba(132,169,255,.8)}
-.heatmap-lbl{display:grid; grid-template-columns:repeat(12,1fr); gap:4px; margin-top:6px;
-  font-family:var(--mono); font-size:7px; letter-spacing:.04em; color:var(--night-600); text-align:center}
-.kings{display:flex; flex-direction:column; gap:6px; border:1px solid var(--night-600);
-  border-radius:8px; background:var(--night-950); padding:14px}
-.kings .kh{font-family:var(--mono); font-size:9px; letter-spacing:.14em; color:var(--on-500); text-transform:uppercase}
-.kings .kr{display:grid; grid-template-columns:20px 1fr auto; gap:8px; align-items:baseline;
-  font-size:.8rem; color:var(--on-700); border-top:1px solid var(--line); padding-top:6px}
-.kings .kr .crown{font-size:.75rem}
-.kings .kr .n{font-family:var(--mono); font-size:10px; color:var(--on-500); font-variant-numeric:tabular-nums}
-.fx-year .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; color:var(--on-500)}
-
-/* ---- flag fx: invoice / denchoho check ---- */
-.fx-check{flex-direction:column; gap:10px; align-items:stretch}
-.chk{
-  display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:baseline;
-  border:1px solid var(--line); border-radius:6px; background:var(--night-950);
-  padding:11px 14px; font-size:.82rem; color:var(--on-700);
+.hero .lead b{color:var(--ink-strong)}
+.soon{
+  display:inline-block; background:var(--amber-tint); color:var(--amber);
+  border:1.5px solid rgba(185,99,24,.35); border-radius:999px;
+  padding:10px 24px; font-weight:700; font-size:1.02rem;
 }
-.chk .c{font-family:var(--mono); text-align:center; color:var(--ok)}
-.chk .c.warn{color:var(--warn)}
-.chk small{display:block; font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--on-500); margin-top:3px}
-.fx-check .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; color:var(--on-500); margin-top:4px}
+.soon-note{display:block; margin-top:14px; font-size:.9rem; color:var(--muted)}
+.chips{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:30px}
+.chips span{
+  background:var(--teal-tint); color:var(--teal-deep); border-radius:999px;
+  padding:8px 18px; font-size:.95rem; font-weight:600;
+}
+.chips span::before{content:"✓ "; font-weight:700}
 
-/* ---- audience ---- */
-.audience{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line);
-  border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-top:44px}
-.audience>div{background:var(--night-900); padding:22px 20px}
-.audience b{display:block; color:var(--on-900); font-weight:600; font-size:.95rem; margin-bottom:4px}
-.audience span{font-size:.82rem; color:var(--on-500); line-height:1.7; display:block}
-@media(max-width:560px){.audience{grid-template-columns:1fr}}
+/* ---- sections ---- */
+section{padding:72px 0}
+section.alt{background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.sec-label{
+  display:block; text-align:center; color:var(--teal); font-weight:700;
+  font-size:.95rem; letter-spacing:.24em; margin-bottom:10px;
+}
+h2{
+  text-align:center; font-size:clamp(1.45rem,4.6vw,2rem); line-height:1.7;
+  color:var(--ink-strong); font-weight:700; margin:0 0 18px;
+}
+.sec-lead{max-width:34em; margin:0 auto 44px; text-align:center; color:var(--muted); font-size:1.02rem}
+@media(max-width:560px){.sec-lead{text-align:left}}
+
+/* ---- steps ---- */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+@media(max-width:680px){.steps{grid-template-columns:1fr}}
+.step{
+  background:var(--card); border:1px solid var(--line); border-radius:20px;
+  padding:30px 24px 26px; text-align:center; position:relative;
+}
+section.alt .step{background:var(--paper)}
+.step .num{
+  width:44px; height:44px; border-radius:50%; background:var(--teal); color:#fff;
+  font-weight:700; font-size:1.25rem; line-height:44px; margin:0 auto 16px;
+}
+.step .pic{height:74px; display:flex; align-items:center; justify-content:center; margin-bottom:14px}
+.step .pic svg{width:64px; height:64px; stroke:var(--teal); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+.step h3{margin:0 0 10px; font-size:1.2rem; color:var(--ink-strong)}
+.step p{margin:0; font-size:.95rem; color:var(--muted); text-align:left}
+
+/* ---- 安心 diagram ---- */
+.anshin{display:flex; align-items:stretch; justify-content:center; gap:0; margin:0 auto 40px; max-width:640px}
+.phone{
+  flex:1.4; border:2.5px solid var(--teal); border-radius:28px; background:var(--card);
+  padding:22px 20px 20px; position:relative; max-width:320px;
+  box-shadow:0 12px 30px -16px rgba(34,132,134,.4);
+}
+.phone::before{
+  content:""; display:block; width:56px; height:5px; border-radius:3px;
+  background:var(--line); margin:0 auto 16px;
+}
+.phone .ph-label{display:block; text-align:center; font-weight:700; color:var(--teal-deep); font-size:.98rem; margin-bottom:14px}
+.inside{display:flex; flex-direction:column; gap:9px}
+.inside span{
+  background:var(--teal-tint); border-radius:10px; padding:9px 14px;
+  font-size:.92rem; color:var(--ink); font-weight:600;
+}
+.inside span::before{content:"✓ "; color:var(--teal); font-weight:700}
+.blocked{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; min-width:118px; padding:0 6px}
+.blocked .wire{width:100%; border-top:2.5px dashed #cbb3a2; position:relative}
+.blocked .x{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  background:var(--paper); color:#c0522e; font-weight:700; font-size:1.3rem; padding:0 10px; line-height:1;
+}
+section.alt .blocked .x{background:var(--card)}
+.blocked .b-label{font-size:.85rem; color:var(--muted); text-align:center; line-height:1.7}
+.net{
+  flex:1; border:2px dashed #cfc9bd; border-radius:18px; color:var(--muted);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  font-size:.95rem; padding:18px 14px; max-width:180px; line-height:1.9;
+}
+@media(max-width:560px){
+  .anshin{flex-direction:column; align-items:center}
+  .phone{width:100%}
+  .blocked{width:100%; padding:16px 0}
+  .blocked .wire{width:0; height:40px; border-top:none; border-left:2.5px dashed #cbb3a2}
+  .net{max-width:none; width:100%}
+}
+.anshin-list{max-width:620px; margin:0 auto; padding:0; list-style:none}
+.anshin-list li{
+  padding:16px 4px 16px 40px; border-top:1px solid var(--line); position:relative; font-size:1rem;
+}
+.anshin-list li:first-child{border-top:none}
+.anshin-list li::before{
+  content:"✓"; position:absolute; left:8px; top:16px; color:var(--teal); font-weight:700; font-size:1.1rem;
+}
+.anshin-list b{color:var(--ink-strong)}
+
+/* ---- feature cards ---- */
+.fgroup{max-width:760px; margin:0 auto 36px}
+.fgroup:last-child{margin-bottom:0}
+.fgroup .gtitle{
+  text-align:center; font-size:1.15rem; font-weight:700; color:var(--teal-deep); margin:0 0 20px;
+}
+.feats{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+@media(max-width:620px){.feats{grid-template-columns:1fr}}
+.feat{
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:20px 22px; display:grid; grid-template-columns:44px 1fr; gap:14px; align-items:start;
+}
+section.alt .feat{background:var(--paper)}
+.feat .fic{
+  width:44px; height:44px; border-radius:12px; background:var(--teal-tint);
+  display:flex; align-items:center; justify-content:center;
+}
+.feat .fic svg{width:24px; height:24px; stroke:var(--teal); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.feat h3{margin:2px 0 6px; font-size:1.05rem; color:var(--ink-strong)}
+.feat p{margin:0; font-size:.92rem; color:var(--muted)}
+
+/* ---- price ---- */
+.price-hero{text-align:center; margin-bottom:40px}
+.price-hero .big{font-size:clamp(1.5rem,5vw,2.1rem); font-weight:700; color:var(--ink-strong); line-height:1.8}
+.price-hero .big .teal{color:var(--teal)}
+.plans{display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:680px; margin:0 auto}
+@media(max-width:620px){.plans{grid-template-columns:1fr}}
+.plan{
+  background:var(--card); border:1.5px solid var(--line); border-radius:20px; padding:30px 28px;
+}
+.plan.main{border-color:var(--teal); box-shadow:0 12px 30px -18px rgba(34,132,134,.45)}
+.plan .pname{font-weight:700; color:var(--teal-deep); font-size:1.05rem}
+.plan .pprice{font-size:2.3rem; font-weight:700; color:var(--ink-strong); margin:8px 0 2px}
+.plan .pprice small{font-size:1rem; color:var(--muted); font-weight:600}
+.plan .pper{color:var(--muted); font-size:.92rem}
+.plan ul{list-style:none; margin:18px 0 0; padding:0}
+.plan li{border-top:1px solid var(--line); padding:11px 0 11px 26px; position:relative; font-size:.95rem}
+.plan li::before{content:"✓"; position:absolute; left:2px; color:var(--teal); font-weight:700}
+.price-note{
+  max-width:620px; margin:30px auto 0; background:var(--teal-tint2); border-radius:16px;
+  padding:20px 26px; font-size:.95rem; color:var(--ink);
+}
+.price-note b{color:var(--ink-strong)}
+
+/* ---- FAQ ---- */
+.faq{max-width:680px; margin:0 auto}
+.qa{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 26px; margin-bottom:14px}
+section.alt .qa{background:var(--paper)}
+.qa .q{display:grid; grid-template-columns:34px 1fr; gap:10px; font-weight:700; color:var(--ink-strong); font-size:1.05rem; align-items:baseline}
+.qa .q::before{content:"Q"; color:#fff; background:var(--teal); border-radius:50%; width:28px; height:28px; text-align:center; line-height:28px; font-size:.95rem; align-self:start; margin-top:4px}
+.qa .a{display:grid; grid-template-columns:34px 1fr; gap:10px; margin-top:10px; font-size:.98rem; color:var(--ink)}
+.qa .a::before{content:"A"; color:var(--teal-deep); background:var(--teal-tint); border-radius:50%; width:28px; height:28px; text-align:center; line-height:28px; font-weight:700; font-size:.95rem; align-self:start; margin-top:4px}
 
 /* ---- support ---- */
-.support{
-  margin-top:56px; border:1px solid var(--line); border-radius:12px; background:var(--night-900);
-  padding:26px 28px; max-width:var(--container);
+.support-box{
+  max-width:620px; margin:0 auto; background:var(--card); border:1.5px solid var(--teal);
+  border-radius:20px; padding:34px 30px; text-align:center;
 }
-.support .k{font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--spica-300);
-  text-transform:uppercase; display:block; margin-bottom:12px}
-.support p{margin:0; font-size:.9rem; color:var(--on-500); max-width:none}
-.support .mail{font-family:var(--mono); font-size:1.02rem; color:var(--starlight)}
+.support-box .mail{
+  display:inline-block; font-size:clamp(1.05rem,3.6vw,1.35rem); font-weight:700;
+  color:var(--teal-deep); margin:12px 0 6px; word-break:break-all;
+}
+.support-box p{margin:0; color:var(--muted); font-size:.95rem}
+
+/* ---- honesty note ---- */
+.honest{
+  max-width:620px; margin:44px auto 0; border-left:4px solid var(--teal);
+  padding:6px 0 6px 20px; font-size:.9rem; color:var(--muted);
+}
+
+/* ---- footer ---- */
+footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 56px; font-size:.9rem; color:var(--muted)}
+.foot-brand{display:flex; align-items:center; gap:12px; margin-bottom:16px}
+.foot-brand img{width:34px; height:34px; border-radius:9px}
+.foot-brand b{color:var(--ink-strong)}
+.foot-links{display:flex; flex-wrap:wrap; gap:8px 22px; margin:14px 0 18px}
+.foot-note{font-size:.84rem; color:#8b968f; margin:0}
 </style>
 </head>
 <body>
 
-<canvas id="sky" aria-hidden="true"></canvas>
-<div class="page">
-
 <header>
   <div class="wrap nav">
-    <span class="brandmark">
-      <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
-      <b>SPICA</b>
-    </span>
-    <span class="tag">LOCAL-FIRST</span>
+    <img class="appicon" src="icon-180.png" alt="" width="40" height="40">
+    <span class="name">ココハワタシガ</span>
     <nav class="nav-links">
-      <a href="#features">FEATURES</a>
-      <a href="#privacy">PRIVACY</a>
-      <a href="#pricing">PRICING</a>
-      <a href="#support">SUPPORT</a>
-      <a href="/">PORTAL</a>
+      <a href="#howto">使い方</a>
+      <a href="#anshin">安心について</a>
+      <a href="#price">料金</a>
+      <a href="#faq">よくある質問</a>
     </nav>
   </div>
 </header>
@@ -174,349 +254,244 @@
 <!-- ============ HERO ============ -->
 <div class="hero">
   <div class="wrap">
-    <div class="glint rv">
-      <svg viewBox="0 0 100 100" aria-hidden="true">
-        <defs><radialGradient id="g" cx="50%" cy="44%" r="60%">
-          <stop offset="0%" stop-color="#eef4ff"/><stop offset="42%" stop-color="#4f80f7"/><stop offset="100%" stop-color="#1f5fe6"/>
-        </radialGradient></defs>
-        <path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z" fill="url(#g)"/>
-      </svg>
-    </div>
-    <p class="eyebrow rv"><span class="blue">ココハワタシガ</span>&ensp;領収書管理・確定申告サポート — OFFLINE</p>
-    <h1 class="rv">ここは、私が。</h1>
-    <p class="lead rv">領収書の整理も、経費の記録も、確定申告の準備も——クラウドに預けず、あなたの端末が引き受けます。<b>ココハワタシガは、何も送信しない領収書アプリ</b>。撮ったレシートは端末の中の OCR と AI が読み取り、<b>会計ソフトには仕訳に必要な情報だけ</b>を渡します。</p>
-    <div class="cta-row rv">
-      <span class="btn btn-primary" aria-disabled="true" style="opacity:.75; cursor:default">App Store — 近日公開</span>
-      <a class="btn btn-ghost" href="#features">機能を見る</a>
-      <span class="cta-note">// 無料で全機能 — 各年度100枚まで。広告なし・サブスクなし。v1.0 は iOS 先行（審査準備中）。</span>
-    </div>
-
-    <figure class="demo rv" style="margin-top:64px">
-      <div class="demo-bar">
-        <span class="rec"></span> SCAN — レシート取り込み
-        <span class="right"><span>端末内 OCR + AI</span><span>送信 0 件</span></span>
-      </div>
-      <div class="scanwrap">
-        <div class="receipt">
-          <div class="paper">
-            <b>スピカ文具店</b>
-            <span>2026-03-14 18:42</span>
-            <span class="line"></span>
-            <span>ボールペン ×3　　 ¥360</span>
-            <span>コピー用紙 A4　　 ¥920</span>
-            <span class="line"></span>
-            <span class="total">合計　¥1,280（内10%）</span>
-            <span>登録番号 T0123456789012</span>
-          </div>
-          <div class="scanline"></div>
-        </div>
-        <div class="scanarrow">→<small>ON-DEVICE</small></div>
-        <div class="fields">
-          <div class="field"><span class="fl">日付</span><span class="fv">2026-03-14</span><span class="prov ocr">OCR</span></div>
-          <div class="field"><span class="fl">金額</span><span class="fv">¥1,280</span><span class="prov ocr">OCR</span></div>
-          <div class="field"><span class="fl">店名</span><span class="fv">スピカ文具店</span><span class="prov ocr">OCR</span></div>
-          <div class="field"><span class="fl">登録番号</span><span class="fv">T0123456789012</span><span class="prov ocr">OCR</span></div>
-          <div class="field"><span class="fl">科目</span><span class="fv">消耗品費</span><span class="prov learn">学習</span></div>
-          <span class="fnote">✓ この間、通信は一度も発生しません</span>
-        </div>
-      </div>
-      <figcaption class="demo-caption">イメージ図 — 撮って、候補から選ぶだけ。数字の出どころはバッジで明示（実機スクリーンショットは準備中）</figcaption>
-    </figure>
-
-    <div class="stats rv">
-      <div><span class="v">0<small>件</small></span><span class="l">クラウド送信（構造上ゼロ）</span></div>
-      <div><span class="v">100<small>枚/年</small></span><span class="l">ここまで無料・全機能</span></div>
-      <div><span class="v">¥600<small>/年度</small></span><span class="l">年度パス・買い切り</span></div>
-      <div><span class="v">5<small>年</small></span><span class="l">過去年度も遡って購入可</span></div>
+    <img class="appicon" src="icon.png" alt="ココハワタシガのアプリアイコン" width="104" height="104">
+    <p class="appname">ココハワタシガ</p>
+    <h1>レシートを撮るだけ。<br>面倒な整理は——<span class="teal">「ここは私が」</span>。</h1>
+    <p class="lead">スマホでレシートを撮ると、日付や金額をアプリが自動で読み取って、月ごと・年ごとにきちんと整理。医療費控除や確定申告の準備がぐっと楽になります。そして大切なお買い物の記録は、<b>ぜんぶスマホの中だけ</b>。インターネットには何も送りません。</p>
+    <span class="soon">📱 iPhone アプリ・App Store で近日公開予定</span>
+    <span class="soon-note">ただいま公開の準備をしています。公開されたら、このページからダウンロードできるようになります。</span>
+    <div class="chips">
+      <span>会員登録なし</span>
+      <span>広告なし</span>
+      <span>月々の支払いなし</span>
+      <span>データはスマホの中だけ</span>
     </div>
   </div>
 </div>
 
-<!-- ============ FEATURES ============ -->
-<section id="features" class="deep">
+<!-- ============ 使い方 ============ -->
+<section id="howto">
   <div class="wrap">
-    <p class="eyebrow rv">ON-DEVICE — ぜんぶ、端末の中で</p>
-    <h2 class="rv">レシートの山を、<br>クラウドに頼らず片づける。</h2>
-    <p class="section-lead rv">経費アプリの「当たり前」——画像をサーバーに送って OCR、データはクラウド保管——をやめました。読み取りも、AI も、集計も、すべてあなたの端末の中。<b>プライバシーの心配ごとを、構造ごと取り除いた</b>領収書アプリです。</p>
-
-    <div class="engine-note rv">
-      <span class="k">Credo — 設計の考え方</span>
-      <ul>
-        <li><b>真実は、あなたの端末の中。</b>レシート画像も記録も端末内のデータベースに保存。クラウドの障害や規約変更に、あなたの記録は影響されません。</li>
-        <li><b>工業製品的信頼性。</b>異常時もアプリ全体は落とさず縮退動作で継続するフェールセーフ設計。自動バックアップと復元性を最優先にしています。</li>
-        <li><b>数字の出どころを、隠さない。</b>OCR・学習・手入力・CSV——すべての数字に由来バッジが付き、確認すべき箇所がすぐわかります。</li>
-        <li><b>会計ソフトと、共存する。</b>置き換えるのはレシート管理だけ。お使いの会計ソフトはそのまま、必要な情報だけを CSV で渡します。</li>
-      </ul>
-    </div>
-
-    <div class="flag rv">
-      <div>
-        <span class="k">01 — On-device OCR + AI</span>
-        <h3>読み取りも AI も、<br>端末の中で動く。</h3>
-        <p>レシートを撮ると、OS の OCR と端末内の小型 LLM が日付・金額・店名・インボイス登録番号を抽出します。外部の OCR API には一切頼りません。候補から<b style="color:var(--on-900)">選ぶだけで、整う</b>——使うほど店ごとの科目を学習し、次からの提案が賢くなります。学習データも、もちろん端末の中です。</p>
-        <div class="spec"><span>端末内 LLM 搭載</span><span>外部 API <span class="num">0</span></span><span>店ごとの科目学習</span></div>
-      </div>
-      <div class="fx fx-prov">
-        <div class="field"><span class="fl">金額</span><span class="fv">¥1,280</span><span class="prov ocr">OCR</span></div>
-        <div class="field"><span class="fl">科目</span><span class="fv">消耗品費</span><span class="prov learn">学習</span></div>
-        <div class="field"><span class="fl">摘要</span><span class="fv">打合せ資料 印刷用</span><span class="prov manual">手入力</span></div>
-        <div class="field"><span class="fl">取引先</span><span class="fv">カード明細より</span><span class="prov csv">CSV</span></div>
-        <div class="fxnote">どこから来た数字か、ひと目でわかる — 由来（Provenance）バッジ</div>
-      </div>
-    </div>
-
-    <div class="flag rv">
-      <div>
-        <span class="k">02 — Data Minimization</span>
-        <h3>会計ソフトに渡すのは、<br>仕訳に必要な数字だけ。</h3>
-        <p>マネーフォワード・freee 等への CSV エクスポートに対応。ただし渡るのは<b style="color:var(--on-900)">日付・金額・科目・税区分など、仕訳に必要な列だけ</b>です。レシート画像・商品の明細・買った時間といった生活の痕跡は、あなたの端末に残ります。クラウドに出すデータを、あなた自身が選べる設計です。</p>
-        <div class="spec"><span>マネーフォワード / freee 対応 CSV</span><span>画像・明細は <span class="num">端末に残る</span></span></div>
-      </div>
-      <div class="fx fx-min">
-        <div class="mincol keep">
-          <span class="mh">端末に残るもの</span>
-          <span class="mi">レシート画像</span>
-          <span class="mi">商品の明細</span>
-          <span class="mi">購入時間・店の詳細</span>
-          <span class="mi">OCR 処理履歴</span>
+    <span class="sec-label">つかいかた</span>
+    <h2>やることは、３つだけ。</h2>
+    <p class="sec-lead">難しい設定はありません。細かい入力もほとんどいりません。</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div class="pic" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><rect x="6" y="16" width="52" height="38" rx="6"/><path d="M22 16l4-7h12l4 7"/><circle cx="32" cy="35" r="10"/><circle cx="49" cy="24" r="1.6" fill="currentColor"/></svg>
         </div>
-        <div class="minarrow"><span class="ar">→</span><small>CSV</small></div>
-        <div class="mincol send">
-          <span class="mh">会計ソフトに渡るもの</span>
-          <span class="mi">日付・金額</span>
-          <span class="mi">科目・税区分</span>
-          <span class="mi">取引先・摘要</span>
-          <span class="mi">インボイス番号</span>
+        <h3>撮る</h3>
+        <p>レシートにスマホをかざして、パシャ。日付・金額・お店の名前を、アプリが自動で読み取ります。</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div class="pic" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><rect x="10" y="8" width="44" height="14" rx="7"/><path d="M18 15h20" stroke-width="2.4"/><rect x="10" y="28" width="44" height="14" rx="7" stroke-width="2.4"/><path d="M20 35l4 4 8-8"/><path d="M42 52c3-2 8-2 11 0" opacity=".5"/></svg>
         </div>
-        <div class="fxnote">データを自分で選ぶ、それが ココハワタシガ</div>
+        <h3>選ぶ</h3>
+        <p>読み取った内容を確かめて、当てはまる項目をポンと選ぶだけ。使うほど、あなたのよく行くお店を覚えて賢くなります。</p>
       </div>
-    </div>
-
-    <div class="flag rv">
-      <div>
-        <span class="k">03 — Tax Season Ready</span>
-        <h3>年ごと、月ごとに、<br>自動でまとまる。</h3>
-        <p>年度サマリーが記録の完成度を示し、月別ヒートマップが抜けている月を教えてくれます。カテゴリ別集計、よく使う店がわかる「カテゴリの王様」、医療費控除の分析まで——<b style="color:var(--on-900)">確定申告の直前にあわてない</b>ための整理が、記録するそばから進んでいきます。</p>
-        <div class="spec"><span>年度サマリー・完成度</span><span>月別ヒートマップ</span><span>医療費控除分析</span></div>
-      </div>
-      <div class="fx fx-year">
-        <div class="ysum">
-          <div class="yh"><b>2026年度</b><span>記録 214 件（サンプル）</span></div>
-          <div class="heatmap" aria-hidden="true">
-            <i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h1"></i><i class="h2"></i><i class="h1"></i><i class="h3"></i><i class="h2"></i><i class="h1"></i><i></i><i class="h1"></i><i class="h2"></i>
-            <i class="h2"></i><i class="h1"></i><i class="h1"></i><i class="h3"></i><i class="h1"></i><i class="h2"></i><i class="h1"></i><i class="h1"></i><i class="h2"></i><i class="h1"></i><i></i><i class="h1"></i>
-            <i></i><i class="h1"></i><i class="h2"></i><i class="h1"></i><i class="h3"></i><i class="h1"></i><i class="h2"></i><i></i><i class="h1"></i><i class="h2"></i><i class="h1"></i><i class="h3"></i>
-          </div>
-          <div class="heatmap-lbl"><span>1月</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12月</span></div>
+      <div class="step">
+        <div class="num">3</div>
+        <div class="pic" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><rect x="8" y="10" width="48" height="44" rx="6"/><path d="M8 22h48M20 10v8M44 10v8"/><path d="M18 40l8-8 6 5 12-11" stroke-width="2.2"/></svg>
         </div>
-        <div class="kings">
-          <span class="kh">カテゴリの王様 — 消耗品費</span>
-          <span class="kr"><span class="crown">👑</span><span>スピカ文具店</span><span class="n">12回</span></span>
-          <span class="kr"><span class="crown">&nbsp;</span><span>ホームセンターA</span><span class="n">7回</span></span>
-        </div>
-        <div class="fxnote">イメージ図 — 表示はサンプルデータ</div>
-      </div>
-    </div>
-
-    <div class="flag rv">
-      <div>
-        <span class="k">04 — 電帳法・インボイス</span>
-        <h3>制度対応のチェックも、<br>端末の中で。</h3>
-        <p>電子帳簿保存法・インボイス制度が求める日付・金額・発行者・登録番号の充足度を、1枚ごとに自動チェック。公共交通機関特例・自販機特例・少額取引特例のような<b style="color:var(--on-900)">「レシートが無くてもよい場合」の判定</b>まで面倒を見ます。制度の細目を覚えるのは、アプリの仕事です。</p>
-        <div class="spec"><span>充足度の自動チェック</span><span>特例判定つき</span><span>登録番号の自動抽出</span></div>
-      </div>
-      <div class="fx fx-check">
-        <div class="chk"><span class="c">✓</span><span>日付・金額・発行者・登録番号 — 充足<small>適格請求書として記録できます</small></span></div>
-        <div class="chk"><span class="c">✓</span><span>電車代 ¥380 — 公共交通機関特例<small>帳簿記載のみで OK と判定</small></span></div>
-        <div class="chk"><span class="c warn">!</span><span>登録番号が見つかりません<small>確認するべきレシートだけ、教えます</small></span></div>
-        <div class="fxnote">イメージ図 — 判定内容の一例</div>
+        <h3>まとまる</h3>
+        <p>月ごと・年ごとの集計はアプリにおまかせ。確定申告や医療費控除の時期になっても、あわてません。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ MORE FEATURES ============ -->
-<section>
+<!-- ============ 安心 ============ -->
+<section id="anshin" class="alt">
   <div class="wrap">
-    <p class="eyebrow rv">EVERYDAY TOOLS — 経費の実務のために</p>
-    <h2 class="rv">現実の経費は、レシートだけじゃない。</h2>
-    <div class="grid" style="margin-top:40px">
-      <div class="card rv">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span>
-        <span class="k">Voucher</span><h3>出金伝票</h3><p>自販機・交通費・ご祝儀——レシートが出ない経費も、出金伝票としてその場で記録できます。</p></div>
-      <div class="card rv">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><rect x="4" y="18" width="16" height="3" rx="1"/></svg></span>
-        <span class="k">CSV Import</span><h3>カード明細の一括取り込み</h3><p>クレジットカード明細の CSV をまとめて取り込み。ネット購入の多い月も一気に片づきます。</p></div>
-      <div class="card rv">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 1 7 7v1a4 4 0 0 1 0 8H5a4 4 0 0 1 0-8v-1a7 7 0 0 1 7-7z"/><path d="M12 12v5M9.5 14.5L12 17l2.5-2.5"/></svg></span>
-        <span class="k">Backup</span><h3>自動バックアップ</h3><p>端末内で自動バックアップ。クラウドに預けない代わりに、復元できることを最優先に設計しています。</p></div>
-      <div class="card rv">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></span>
-        <span class="k">Fail-safe</span><h3>落ちないための設計</h3><p>異常時は縮退動作で継続、エラーコードとローカルログで原因がわかる。工業製品的な信頼性を目指しました。</p></div>
-      <div class="card rv">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 8l4 8 5-10 5 10 4-8"/><path d="M3 20h18"/></svg></span>
-        <span class="k">Category Kings</span><h3>カテゴリの王様</h3><p>科目ごとに「よく使う店」をランキング。自分の経費のクセが見えると、記録はもっと速くなります。</p></div>
-      <div class="card rv">
-        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l-4 3"/></svg></span>
-        <span class="k">Back Years</span><h3>過去5年まで遡れる</h3><p>年度パスは過去5年分まで遡って購入可能。溜まってしまった過去のレシート整理にも使えます。</p></div>
-    </div>
-  </div>
-</section>
+    <span class="sec-label">いちばん大切なこと</span>
+    <h2>あなたのレシートは、<br>スマホの外に出ていきません。</h2>
+    <p class="sec-lead">レシートには、いつ・どこで・何を買ったかが全部書いてあります。だからこのアプリは、写真も記録も<b>インターネットに送らない</b>作りにしました。</p>
 
-<!-- ============ PRIVACY ============ -->
-<section id="privacy" class="deep">
-  <div class="wrap">
-    <p class="eyebrow rv">PRIVACY BY STRUCTURE</p>
-    <h2 class="rv">レシートは、生活の記録。<br>だから、端末から出さない。</h2>
-    <p class="section-lead rv">いつ、どこで、何を買ったか。レシートの束は、あなたの生活そのものです。ココハワタシガは<b>漏らさない努力ではなく、漏れる経路が存在しない構造</b>を選びました。</p>
-
-    <div class="airgap rv" role="img" aria-label="端末の中に画像・OCRとAI解析・集計・バックアップが完結し、インターネットへの経路が存在しない構造図">
-      <div class="device">
-        <span class="dlabel">✦ あなたの端末 — ここで完結</span>
-        <div class="chips">
-          <span class="chip">レシート画像</span>
-          <span class="chip">OCR・AI 解析</span>
-          <span class="chip">集計・分析</span>
-          <span class="chip">バックアップ</span>
+    <div class="anshin" role="img" aria-label="レシートの写真も記録も集計もスマホの中で完結し、インターネットに送る仕組みがそもそもない図">
+      <div class="phone">
+        <span class="ph-label">あなたのスマホの中</span>
+        <div class="inside">
+          <span>レシートの写真</span>
+          <span>読み取り（文字の認識）</span>
+          <span>記録・集計</span>
+          <span>ひかえ（バックアップ）</span>
         </div>
       </div>
-      <div class="gap-paths">
-        <div class="path"><div class="wire"><span class="x">✗</span></div><span class="plabel">画像の送信 — 経路なし</span></div>
-        <div class="path"><div class="wire"><span class="x">✗</span></div><span class="plabel">利用状況の収集 — 経路なし</span></div>
-        <div class="path"><div class="wire"><span class="x">✗</span></div><span class="plabel">アカウント — 最初からなし</span></div>
+      <div class="blocked">
+        <div class="wire"><span class="x">✕</span></div>
+        <span class="b-label">送る仕組みが<br>そもそもありません</span>
       </div>
-      <div class="cloud">
-        <span class="dlabel">インターネット</span>
-        <div class="items">クラウド保存<br>外部 OCR・AI API<br>解析・テレメトリ<br>広告 SDK</div>
-      </div>
+      <div class="net">インターネット<br>（クラウド）</div>
     </div>
 
-    <div class="ledger">
-      <div class="row rv">
-        <span class="glyph">✓</span>
-        <div><h3>通信しない構造</h3><p>NetworkGuard がネットワーク通信を OS レベルで遮断。レシート画像の送信先となるサーバーが、そもそも存在しません。</p></div>
-        <span class="st ok">実装済</span>
-      </div>
-      <div class="row rv">
-        <span class="glyph">✓</span>
-        <div><h3>収集ゼロ</h3><p>アカウント登録なし・テレメトリなし・広告なし。App Store のプライバシーラベルは、全項目「データの収集なし」で申告します。</p></div>
-        <span class="st ok">実装済</span>
-      </div>
-      <div class="row rv">
-        <span class="glyph">✓</span>
-        <div><h3>AI 解析も端末内</h3><p>OCR 後の解析に使う LLM も端末内で動く小型モデル。画像もテキストも、AI のために外へ出ることはありません。</p></div>
-        <span class="st ok">実装済</span>
-      </div>
-      <div class="row rv">
-        <span class="glyph">✓</span>
-        <div><h3>出ていくのは、あなたが書き出す CSV だけ</h3><p>端末の外に出るデータは、あなたが自分で書き出す仕訳用 CSV のみ。その中身も仕訳に必要な列だけです。</p></div>
-        <span class="st ok">実装済</span>
-      </div>
-    </div>
-
-    <p class="fineprint rv"><b>正直な注記：</b>v1.0 は iOS 先行・日本のみで、現在 App Store の審査準備中です（macOS / Android は順次対応予定）。上のバッジは実装状態をそのまま表示しています。「銀行レベルの暗号化」のような言葉は使いません — 経路がないこと自体が、いちばん強い保証だと考えています。</p>
+    <ul class="anshin-list">
+      <li><b>会員登録がありません。</b>名前もメールアドレスも電話番号も、聞きません。</li>
+      <li><b>広告がありません。</b>あなたの記録が広告に使われることもありません。</li>
+      <li><b>写真の読み取りも、スマホの中で。</b>多くのアプリは写真をインターネット上のコンピューターに送って読み取りますが、このアプリはスマホの中だけで読み取ります。</li>
+      <li><b>インターネットにつながっていなくても動きます。</b>機内モードでも、電波の届かない場所でも、そのまま使えます。</li>
+    </ul>
   </div>
 </section>
 
-<!-- ============ PRICING ============ -->
-<section id="pricing">
+<!-- ============ できること ============ -->
+<section id="feats">
   <div class="wrap">
-    <p class="eyebrow rv">PRICING — 価格も、隠さない</p>
-    <h2 class="rv">各年度100枚まで無料。<span class="dim">超えた年度だけ、¥600。</span></h2>
+    <span class="sec-label">できること</span>
+    <h2>ふだんの記録から、<br>確定申告の準備まで。</h2>
+    <p class="sec-lead">むずかしい機能は、必要な人にだけ見えるように作っています。まずは撮ってためていくだけで大丈夫。</p>
 
-    <div class="paycmp rv" role="img" aria-label="サブスク型の経費アプリは毎月の支払いが続くが、ココハワタシガは年度ごと600円の買い切りで、その年度はずっと使える比較図">
-      <div class="prow subs">
-        <span class="who">サブスク型経費アプリ</span>
-        <span class="lane"><span class="yen">¥</span><span class="yen">¥</span><span class="yen">¥</span><span class="yen">¥</span><span class="yen">¥</span><span class="endnote">…毎月、払い続ける</span></span>
-      </div>
-      <div class="prow spica">
-        <span class="who">ココハワタシガ</span>
-        <span class="lane"><span class="yen">¥600</span><span class="cont"></span><span class="endnote">年度ごと一度きり・ずっと使える →</span></span>
+    <div class="fgroup">
+      <p class="gtitle">🌱 どなたにも</p>
+      <div class="feats">
+        <div class="feat">
+          <span class="fic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 3h13l3 3v15l-3-2-2.6 2-2.7-2-2.7 2L6.4 19 4 21z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+          <div><h3>自動で読み取り</h3><p>日付・金額・お店の名前を写真から自動で。手で打ち込む手間がほとんどなくなります。</p></div>
+        </div>
+        <div class="feat">
+          <span class="fic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C7 17 3 13.5 3 9.5 3 7 5 5 7.5 5c1.8 0 3.4 1 4.5 2.6C13.1 6 14.7 5 16.5 5 19 5 21 7 21 9.5c0 4-4 7.5-9 11.5z"/></svg></span>
+          <div><h3>医療費控除のお手伝い</h3><p>病院や薬局の領収書をためておくと、医療費控除の申告に使える形で集計します。ご家族の分もまとめて。</p></div>
+        </div>
+        <div class="feat">
+          <span class="fic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 4v3M16 4v3"/><path d="M7 14h3M7 17h3M14 14h3M14 17h3"/></svg></span>
+          <div><h3>月ごと・年ごとに自動集計</h3><p>今月いくら使ったか、今年どれだけたまったか。ひと目でわかるようにまとまります。</p></div>
+        </div>
+        <div class="feat">
+          <span class="fic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+          <div><h3>レシートがなくても記録</h3><p>電車代や自動販売機など、レシートが出ない支払いも、その場でメモとして残せます。</p></div>
+        </div>
       </div>
     </div>
+
+    <div class="fgroup">
+      <p class="gtitle">💼 個人事業・副業をされている方に</p>
+      <div class="feats">
+        <div class="feat">
+          <span class="fic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <div><h3>インボイス・電子帳簿保存法</h3><p>登録番号の読み取りや、制度が求める項目のチェックを自動で。細かい決まりごとはアプリが覚えています。</p></div>
+        </div>
+        <div class="feat">
+          <span class="fic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 17l-5-5 5-5M16 7l5 5-5 5"/><path d="M13 5l-2 14"/></svg></span>
+          <div><h3>会計ソフトと一緒に使える</h3><p>freee・マネーフォワードなどをお使いの方は、仕訳に必要な数字だけを渡せます。レシートの写真や買い物の中身は、渡りません。</p></div>
+        </div>
+        <div class="feat">
+          <span class="fic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg></span>
+          <div><h3>カード明細の取り込み</h3><p>クレジットカードの明細（CSV）をまとめて取り込めます。ネット注文の多い月もすぐ片づきます。</p></div>
+        </div>
+        <div class="feat">
+          <span class="fic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l-4 3"/></svg></span>
+          <div><h3>過去の年の分もさかのぼれる</h3><p>ためこんでしまった過去のレシートも、5年前の分までさかのぼって整理できます。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 料金 ============ -->
+<section id="price" class="alt">
+  <div class="wrap">
+    <span class="sec-label">料金</span>
+    <h2>無料で始められます。</h2>
+    <p class="sec-lead">お試し期間ではありません。1年分のレシートが100枚までなら、ずっと無料で全部の機能が使えます。</p>
 
     <div class="plans">
-      <div class="plan rv">
-        <span class="name">Free</span>
-        <div class="price">¥0</div>
-        <span class="per">ずっと無料</span>
+      <div class="plan">
+        <span class="pname">無料</span>
+        <div class="pprice">0円</div>
+        <span class="pper">ずっと無料</span>
         <ul>
-          <li>全機能そのまま・各年度100枚まで</li>
-          <li>透かし・広告・機能制限なし</li>
-          <li>アカウント登録も不要</li>
+          <li>1年分のレシート100枚まで</li>
+          <li>全部の機能がそのまま使えます</li>
+          <li>広告も出ません</li>
         </ul>
       </div>
-      <div class="plan pro rv">
-        <span class="rec">100枚を超えたら</span>
-        <span class="name" style="color:var(--spica-300)">年度パス</span>
-        <div class="price">¥600</div>
-        <span class="per">年度ごと・買い切り / サブスクなし</span>
+      <div class="plan main">
+        <span class="pname">たくさん使う年だけ</span>
+        <div class="pprice">600円<small> / 1年分</small></div>
+        <span class="pper">1回だけのお支払い</span>
         <ul>
-          <li>その年度の記録が無制限に</li>
-          <li>自動更新なし — 翌年度は使う分だけ</li>
-          <li>買った年度は、ずっと使える</li>
-        </ul>
-      </div>
-      <div class="plan rv">
-        <span class="name">過去年度</span>
-        <div class="price">¥600<small style="font-size:.5em; color:var(--on-500)">/年度</small></div>
-        <span class="per">過去5年まで遡及購入可</span>
-        <ul>
-          <li>溜まった過去のレシート整理に</li>
-          <li>必要な年度だけ選んで購入</li>
-          <li>価格は現行年度と同じ</li>
+          <li>100枚を超えた年の分だけ</li>
+          <li>月々の支払いはありません</li>
+          <li>払った年の分は、ずっと使えます</li>
         </ul>
       </div>
     </div>
 
-    <p class="no-sub rv">定期購読ではありません。自動更新も、解約手続きというものも、最初からありません。100枚を超えた年度にだけ、¥600 をいただきます。</p>
+    <div class="price-note">
+      <b>「気づいたら毎月引き落とされていた」は、ありません。</b><br>
+      このアプリに月額料金や自動更新はありません。レシートが年100枚を超えた年だけ、その年の分として600円を1回お支払いいただく仕組みです。過去の年の分（5年前まで）も、あとから同じ値段で買えます。
+    </div>
   </div>
 </section>
 
-<!-- ============ AUDIENCE + SUPPORT ============ -->
-<section id="support" class="studio">
+<!-- ============ FAQ ============ -->
+<section id="faq">
   <div class="wrap">
-    <p class="eyebrow rv">FOR YOU — こんな方に</p>
-    <h2 class="rv">レシートを撮るたび、<br>少し気が重かった人へ。</h2>
+    <span class="sec-label">よくある質問</span>
+    <h2>気になることに、先にお答えします。</h2>
+    <div class="faq" style="margin-top:40px">
+      <div class="qa">
+        <p class="q">機械が苦手でも、使えますか？</p>
+        <p class="a">レシートを撮って、出てきた項目を選ぶだけです。会員登録もパスワードもありません。わからないことがあれば、下のメールにゆっくり質問してください。</p>
+      </div>
+      <div class="qa">
+        <p class="q">本当に無料ですか？あとから請求されませんか？</p>
+        <p class="a">1年分のレシートが100枚までなら、ずっと無料です。勝手にお金がかかることはありません。100枚を超えるときは、アプリが画面でお知らせして、あなたが「買う」を選んだときだけ600円かかります。</p>
+      </div>
+      <div class="qa">
+        <p class="q">レシートの写真が、どこかに送られたりしませんか？</p>
+        <p class="a">送られません。このアプリには、写真や記録をインターネットに送る仕組みがそもそも入っていません。読み取りも集計も、すべてあなたのスマホの中だけで行います。</p>
+      </div>
+      <div class="qa">
+        <p class="q">インターネットにつながっていなくても使えますか？</p>
+        <p class="a">使えます。機内モードのままでも、撮る・読み取る・集計する、すべてそのまま動きます。</p>
+      </div>
+      <div class="qa">
+        <p class="q">Android（アンドロイド）でも使えますか？</p>
+        <p class="a">まずは iPhone 向けに公開します。Android や Mac への対応も、順番に進めていく予定です。</p>
+      </div>
+      <div class="qa">
+        <p class="q">会計ソフト（freee・マネーフォワードなど）をすでに使っています。</p>
+        <p class="a">一緒に使えます。お使いの会計ソフトはそのままで、レシートの整理だけこのアプリに置き換えられます。会計ソフトには、仕訳に必要な数字だけを渡せます。</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="audience rv">
-      <div><b>個人事業主・フリーランス</b><span>日々の経費から確定申告の準備まで。会計ソフトはそのまま、レシート管理だけ置き換え。</span></div>
-      <div><b>副業をしている会社員</b><span>年に一度の申告のための、ふだんは手間をかけないレシート整理に。</span></div>
-      <div><b>医療費控除を申告する方</b><span>領収書を撮っておくだけで、医療費控除の分析まで。ご家族の分の整理にも。</span></div>
-      <div><b>データを預けたくない方</b><span>買い物の履歴は生活の記録。他社のサーバーに置きたくない、という感覚は正しいと思います。</span></div>
+<!-- ============ サポート ============ -->
+<section id="support" class="alt">
+  <div class="wrap">
+    <span class="sec-label">お問い合わせ</span>
+    <h2>困ったら、メールでどうぞ。</h2>
+    <div class="support-box" style="margin-top:36px">
+      <p>ご質問・不具合のご連絡は、こちらのメールアドレスへ。</p>
+      <a class="mail" href="mailto:support@spicaimg.com">support@spicaimg.com</a>
+      <p>通常2〜5営業日以内にお返事します。<br>「こういうことができたら助かる」というご要望も歓迎です。</p>
     </div>
 
-    <div class="support rv">
-      <span class="k">Support — お問い合わせ</span>
-      <p>ご質問・不具合のご報告はメールでお寄せください：<a class="mail" href="mailto:support@spicaimg.com">support@spicaimg.com</a><br>
-      通常2〜5営業日以内に返信いたします。利用規約・プライバシーポリシーの全文は、アプリ内からいつでも確認できます。</p>
-    </div>
-
-    <p class="tagline rv">あなたの領収書を、<br>あなたの手元に。</p>
+    <p class="honest"><b>正直な注記：</b>このアプリはただいま開発の最終段階で、App Store の審査準備中です（2026年7月現在）。このページの図は仕組みをわかりやすく描いたイメージで、実際の画面写真は公開までに掲載します。</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div class="foot">
-      <span class="brandmark" style="color:var(--on-500)">
-        <svg viewBox="0 0 100 100" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
-      </span>
-      <span class="links">
-        <a href="/">Spica ポータル</a>
-        <a href="/legal/privacy">プライバシー</a>
-        <a href="/legal/eula">利用規約 / EULA</a>
-        <a href="/legal/tokushoho">特定商取引法に基づく表記</a>
-        <a href="mailto:support@spicaimg.com">お問い合わせ</a>
-      </span>
-      <span class="copy">© Spica Image Creation</span>
+    <div class="foot-brand">
+      <img src="icon-180.png" alt="" width="34" height="34">
+      <span><b>ココハワタシガ</b> — 「ここは私が」。自分のデータは、自分の手元に。</span>
     </div>
-    <p class="foot-note">// このページは外部リソースを一切読み込みません。フォントは自前ホスト・解析スクリプトなし・CSP適用。アプリと同じく、サイトもローカルファーストです。</p>
+    <p>作っているのは、映像制作の小さな工房 <a href="/">スピカ・イメージクリエイション</a> です。「あなたのデータは、あなたの端末から出ない」という方針で道具を作っています。</p>
+    <div class="foot-links">
+      <a href="/legal/privacy">プライバシーについて</a>
+      <a href="/legal/eula">利用規約</a>
+      <a href="/legal/tokushoho">特定商取引法に基づく表記</a>
+      <a href="mailto:support@spicaimg.com">お問い合わせ</a>
+    </div>
+    <p class="foot-note">このページには、広告や閲覧の計測（アクセス解析）の仕組みを入れていません。© Spica Image Creation</p>
   </div>
 </footer>
 
-</div><!-- /.page -->
-
-<script src="/app.js"></script>
 </body>
 </html>

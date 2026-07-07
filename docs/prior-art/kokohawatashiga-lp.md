@@ -13,20 +13,21 @@ relates_to: kokohawatashiga/index.html
 
 ## 再利用した既存研究（HQ 索引より）
 
-- `onmt/spica` **design-system** — NIGHT パレット・IBM Plex・誠実トーンの信頼UX。本 LP は portal の `style.css` をそのまま共用。
+- `onmt/spica` **design-system** — 誠実トーンの信頼UXの考え方のみ継承。**NIGHT パレットは意図的に不採用**（Koji.O 判断 2026-07-07: 対象が映像業と無関係な一般ユーザー・高齢者のため、アプリ実物アイコンの #228486 基準のライトテーマで独立。丸ゴシック/UD系フォントスタック・大きめ文字・専門用語回避）。
 - `onmt/spica` **indie-go-to-market** — 買い切り(サブスク非既定)・控えめ・ローカルファーストの売り方。価格セクションの「サブスク比較 → 買い切り」構成に反映。
 - `onmt/receipt_flutter` **feature_audit_2026-06** — 機能の実態把握に参照。
 
 ## 社内先例（コード・コピーの直接の親）
 
-- 本リポ `index.html`（Spica Prompter LP）— ページ構造（hero/デモ/flags/airgap図/ledger/paycmp/plans）と実装状態バッジの流儀を踏襲。airgap 図・ledger はレシート文脈に書き直し（複製でなく同一リポ内の再利用）。
-- `onmt/receipt_flutter` `docs/release/app_store_metadata.md` — コピーの正本。「選ぶだけで、整う」「データ最小化図解」「こんな方に」は App Store 説明文と整合させた。
+- 本リポ `index.html`（Spica Prompter LP）— 「正直な注記」「構造で語るプライバシー図」「経路なし airgap 図」の流儀を踏襲（見た目は別デザインで書き直し）。
+- `onmt/receipt_flutter` `docs/release/app_store_metadata.md` — コピーの正本。「選ぶだけで、整う」「こんな方に」「データ最小化」は App Store 説明文と整合させた。
+- `onmt/receipt_flutter` `assets/icon/app_icon.png` — 実物アイコンを流用（icon.png / icon-180.png に縮小）。基準色 #228486 を採取。
 
 ## 残差（このLPで新たに発明したもの）
 
-- レシート→抽出フィールドのスキャンデモ（CSS のみ・インラインJSなし＝CSP準拠）
-- 「端末に残るもの → 会計ソフトに渡るもの」データ最小化の2カラム図
-- Provenance（由来バッジ）の視覚化を LP 上で再現
+- 一般向け・低敷居の翻訳: OCR→「文字の読み取り」、バックアップ→「ひかえ」、非サブスク→「月々の支払いなし」「気づいたら毎月引き落とされていた、はありません」等の言い換え辞書
+- スマホ枠の中に全データが収まる「安心図」（airgap 図の平易版・SVG/JSなし）
+- 静的FAQ（開閉操作なし・全文表示＝高齢者配慮）
 
 ## 運用ノート
 
