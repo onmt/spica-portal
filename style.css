@@ -339,7 +339,7 @@
     transition:border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
   }
   .card:hover{border-color:var(--night-600); transform:translateY(-2px)}
-  .card .ic{width:26px; height:26px; color:var(--starlight); margin-bottom:16px}
+  .card .ic{display:block; width:26px; height:26px; color:var(--starlight); margin-bottom:16px}
   .card .ic svg{width:100%; height:100%; stroke:currentColor; fill:none; stroke-width:1.5;
     stroke-linecap:round; stroke-linejoin:round}
   .card .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--spica-300);

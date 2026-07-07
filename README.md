@@ -16,6 +16,7 @@ style.css     スタイル（@font-face + 全スタイル。色は brand/tokens.
 app.js        モーション（星空・スクロールリビール・プロンプターデモ）。外部依存ゼロ
 legal/        法務3ページ（プライバシー/EULA/特商法。旧ポータルから文面そのまま移植）
 ffkit/        ffkit の LP（旧ポータルから移植・legacy.css 使用）
+kokohawatashiga/  ココハワタシガの LP（夜テーマ・style.css 共用。コピーの正本は onmt/receipt_flutter の app_store_metadata.md）
 legacy.css    旧ポータルのスタイル（legal/ と ffkit/ 専用。夜テーマへの統一は今後の改訂で）
 fonts/        IBM Plex Latin woff2（自前ホスト。日本語はシステムフォントにフォールバック）
 assets/       実機スクリーンショット（開発版 UI）
