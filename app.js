@@ -46,9 +46,9 @@
     io.observe(el);
   });
 
-  /* ---- prompter demo: constant-velocity loop ---- */
+  /* ---- prompter demo: constant-velocity loop（デモのないページではスキップ） ---- */
   var script = document.getElementById('script');
-  if (!reduced){
+  if (script && !reduced){
     var clone = script.cloneNode(true); clone.removeAttribute('id'); clone.setAttribute('aria-hidden','true');
     script.appendChild(document.createElement('br'));
     while (clone.firstChild) script.appendChild(clone.firstChild);

@@ -3,162 +3,379 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ffkit — 完成した動画を、現場で確実に再生できる形に。 | Spica</title>
-<meta name="description" content="ffkit は完成動画をメニューなしの DVD-Video / BD-Video・配布用 MP4 に変換する無人バッチツール。挿せば再生が始まる、納品の最後の1マイル。オフラインで動く CLI。">
-<link rel="stylesheet" href="/legacy.css">
+<title>ffkit — 挿せば、再生が始まる。 | Spica</title>
+<meta name="description" content="ffkit — 完成した動画を、メニューなしの DVD-Video / BD-Video と配布用 MP4 に。ワンソースから全納品形式を一括生成、ジョブ票で放置できる無人バッチ、規格準拠チェック、フリッカー解析まで。完全ローカルで素材は端末から出ません。Mac / Windows / Linux。">
+<meta name="theme-color" content="#0b0d14">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/style.css">
+<style>
+/* ffkit LP 固有（/style.css を共用） */
+/* terminal demo */
+.term{
+  padding:22px 24px; font-family:var(--mono); font-size:12.5px; line-height:2.1;
+  color:var(--on-700); letter-spacing:.02em; overflow-x:auto; white-space:pre;
+}
+.term .p{color:var(--spica-300)}
+.term .c{color:var(--on-500)}
+.term .ok{color:#7fd4ab}
+.term .warn{color:#e6b566}
+.term .caret{display:inline-block; width:7px; height:1.05em; background:var(--spica-300);
+  vertical-align:-0.18em; animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.term .caret{animation:none}}
+/* one source → all deliverables */
+.fx-flow{flex-direction:column; gap:14px}
+.fx-flow .src{
+  border:1px solid var(--spica-400); border-radius:8px; background:var(--night-950);
+  padding:10px 18px; font-family:var(--mono); font-size:11px; color:var(--on-900);
+  box-shadow:0 0 24px -12px rgba(31,95,230,.55);
+}
+.fx-flow .down{color:var(--on-500); font-family:var(--mono); font-size:.95rem; line-height:1}
+.fx-flow .outs{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+.fx-flow .out{
+  border:1px solid var(--night-600); border-radius:6px; background:var(--night-950);
+  padding:9px 13px; font-family:var(--mono); font-size:10px; color:var(--on-700);
+  text-align:center; line-height:1.9;
+}
+.fx-flow .out b{display:block; color:var(--on-900); font-size:11px; letter-spacing:.06em}
+.fx-flow .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.1em; color:var(--on-500)}
+/* job sheet batch */
+.fx-jobs{flex-direction:column; gap:8px; align-items:stretch}
+.fx-jobs .jrow{
+  display:grid; grid-template-columns:22px 1fr auto; gap:10px; align-items:baseline;
+  border:1px solid var(--line); border-radius:6px; background:var(--night-950);
+  padding:9px 13px; font-family:var(--mono); font-size:10.5px; color:var(--on-700);
+}
+.fx-jobs .jrow .s{text-align:center; color:#7fd4ab}
+.fx-jobs .jrow .s.w{color:#e6b566}
+.fx-jobs .jrow .r{color:var(--on-500); font-size:9.5px; letter-spacing:.06em}
+.fx-jobs .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.1em; color:var(--on-500); margin-top:4px}
+/* flicker meter */
+.fx-flick{flex-direction:column; gap:12px}
+.fx-flick svg{width:100%; max-width:340px; height:auto; display:block}
+.fx-flick .cap{display:flex; justify-content:space-between; width:100%; max-width:340px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; color:var(--on-500)}
+.fx-flick .cap .b{color:var(--spica-300)}
+/* verify checklist */
+.fx-verify{flex-direction:column; gap:10px; align-items:stretch}
+.fx-verify .vrow{
+  display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:baseline;
+  border:1px solid var(--line); border-radius:6px; background:var(--night-950);
+  padding:10px 14px; font-size:.85rem; color:var(--on-700);
+}
+.fx-verify .vrow .g{font-family:var(--mono); text-align:center; color:#7fd4ab}
+.fx-verify .vrow .g.w{color:#e6b566}
+.fx-verify .vrow small{display:block; font-family:var(--mono); font-size:9px;
+  letter-spacing:.08em; color:var(--on-500); margin-top:2px}
+.fx-verify .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.1em; color:var(--on-500); margin-top:4px}
+/* get box */
+.get-box{
+  border:1px solid var(--line); border-radius:12px; background:var(--night-900);
+  padding:30px 30px; max-width:640px;
+}
+.get-box .mail{font-family:var(--mono); font-size:clamp(1rem,3.2vw,1.25rem); color:var(--starlight)}
+.get-box p{margin:0 0 14px; font-size:.92rem; color:var(--on-500)}
+.get-box p:last-child{margin:0}
+.en-note{
+  margin-top:34px; padding:18px 22px; border-left:2px solid var(--night-600);
+  font-size:.82rem; color:var(--on-500); max-width:640px; line-height:1.9;
+}
+</style>
 </head>
 <body>
 
-<!-- ===== Nav ===== -->
-<header class="nav">
-  <div class="wrap">
-    <a href="/" aria-label="Spica ホーム">
-      <svg width="92" height="22" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#b9d2ff"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#f2f4f9">Spica</text></svg>
-    </a>
-    <nav>
-      <a href="/#studio">アプリ一覧</a>
-      <a href="#get">入手</a>
-      <a class="btn btn-light" style="min-height:auto;padding:8px 14px" href="https://github.com/onmt/ffkit">GitHub</a>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="page">
+
+<header>
+  <div class="wrap nav">
+    <span class="brandmark">
+      <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      <b>SPICA</b>
+    </span>
+    <span class="tag">LOCAL-FIRST</span>
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="#features">DELIVER</a>
+      <a href="#local">LOCAL</a>
+      <a href="#pricing">PRICING</a>
+      <a href="#get">GET</a>
     </nav>
   </div>
 </header>
 
-<!-- ===== Hero ===== -->
-<section class="hero">
-  <div class="starfield"></div>
+<!-- ============ HERO ============ -->
+<div class="hero">
   <div class="wrap">
-    <div style="max-width:780px">
-      <span class="eyebrow" style="color:var(--starlight)">ffkit · 映像納品の道具</span>
-      <h1>完成した動画を、<br>現場で確実に再生できる形に。</h1>
-      <p class="lead">編集の終わった動画を、プレーヤーに<strong style="color:#fff">挿せばそのまま再生が始まる DVD / BD-Video</strong> や、配布用の MP4 にします。何十本もある案件は、<strong style="color:#fff">まとめて自動で</strong>。オフラインの CLI なので、映像が端末の外に出ることはありません。</p>
-      <div class="ctas">
-        <a class="btn btn-light" href="https://github.com/onmt/ffkit">GitHub で見る →</a>
-        <a class="btn btn-outline" href="#get">入手する</a>
+    <div class="glint rv">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><radialGradient id="g" cx="50%" cy="44%" r="60%">
+          <stop offset="0%" stop-color="#eef4ff"/><stop offset="42%" stop-color="#4f80f7"/><stop offset="100%" stop-color="#1f5fe6"/>
+        </radialGradient></defs>
+        <path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z" fill="url(#g)"/>
+      </svg>
+    </div>
+    <p class="eyebrow rv"><span class="blue">FFKIT</span>&ensp;映像納品の道具 — DELIVERY TOOLKIT<span style="opacity:.5">・ベータ</span></p>
+    <h1 class="rv">挿せば、再生が始まる。</h1>
+    <p class="lead rv">編集の終わった動画を、プレーヤーに挿せばそのまま本編が始まる<b>メニューなしの DVD / Blu-ray</b> と、配布用 MP4 に。マスターを渡せば全納品形式がいっぺんにでき上がり、何十本の案件も<b>ジョブ票を書いて放置するだけ</b>。完全ローカルで動くので、素材が端末の外に出ることはありません。</p>
+    <div class="cta-row rv">
+      <a class="btn btn-primary" href="#features">できることを見る</a>
+      <a class="btn btn-ghost" href="#get">入手について</a>
+      <span class="cta-note">// 無料コア（ベータ）＋商用ライセンス準備中。Mac / Windows / Linux・Python 標準ライブラリのみ。</span>
+    </div>
+
+    <figure class="demo rv" style="margin-top:64px">
+      <div class="demo-bar">
+        <span class="rec"></span> TERMINAL — deliver（ワンソース→全納品）
+        <span class="right"><span>ローカル実行</span><span>アップロード 0</span></span>
       </div>
-      <div class="pills">
-        <span class="pill pill-night">beta</span>
-        <span class="pill pill-night">free core</span>
-        <span class="pill pill-night">CLI / desktop</span>
-        <span class="pill pill-night">オフラインで動く</span>
+      <div class="term" aria-label="ffkit deliver の実行イメージ">
+<span class="p">$</span> ffkit deliver 工場編.mov 据付け編.mov -o ./納品 --light
+<span class="c"># 結合版＋境界チャプターを含む、全納品形式を一括生成</span>
+<span class="ok">✓</span> ①完成MP4（H.264・無劣化リマックス）
+<span class="ok">✓</span> ①軽量版MP4（フルHD・視聴/配布用）
+<span class="ok">✓</span> ②DVD-Video（メニューなし・ISO・1分チャプター）
+<span class="ok">✓</span> ③BD-Video（フルHD・ISO）
+<span class="ok">✓</span> verify — 規格準拠 ✓（納品添付レポート出力）
+<span class="p">$</span> <span class="caret"></span>
       </div>
+      <figcaption class="demo-caption">実行イメージ（出力は実機の要約）— マスター2本 → 結合・チャプター・ISO・納品フォルダ構成まで一括</figcaption>
+    </figure>
+
+    <div class="stats rv">
+      <div><span class="v">1<small>コマンド</small></span><span class="l">マスター → MP4 / DVD / BD 一括</span></div>
+      <div><span class="v">0<small>件</small></span><span class="l">アップロード（完全ローカル）</span></div>
+      <div><span class="v">20<small>種</small></span><span class="l">納品まわりのサブコマンド</span></div>
+      <div><span class="v">再開<small>可</small></span><span class="l">冪等バッチ — 途中から続き</span></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ===== Problem ===== -->
-<section class="section spine" style="background:var(--bg-page)">
+<!-- ============ FEATURES ============ -->
+<section id="features" class="deep">
   <div class="wrap">
-    <div>
-      <span class="eyebrow">解いている問題</span>
-      <h2>むずかしいのは、<br>変換そのものじゃない。</h2>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:18px">
-      <p>編集が終わってからが、地味に手間でした。プレーヤーに挿したら、メニューもなく、すぐ本編が始まってほしい。何十本もある案件は、できれば寝ている間に片付けたい。</p>
-      <p>汎用の変換ソフトは「変換」まではやってくれます。でも、<strong>現場で確実に再生できる納品物にする</strong>ところまでは、面倒を見てくれませんでした。</p>
-      <p>ffkit は、その最後のひと手間だけを引き受けます。</p>
-    </div>
-  </div>
-</section>
+    <p class="eyebrow rv">THE LAST MILE — 納品の最後の1マイル</p>
+    <h2 class="rv">むずかしいのは、<br>変換そのものじゃない。</h2>
+    <p class="section-lead rv">汎用の変換ソフトは「変換」まではやってくれます。でも、<b>現場で確実に再生できる納品物にする</b>ところまでは面倒を見てくれない。ffkit は編集が終わってからの、その最後のひと手間だけを引き受けます。自分の納品案件で焼いて、確かめながら鍛えてきた道具です。</p>
 
-<!-- ===== Features ===== -->
-<section class="section apps">
-  <div class="wrap">
-    <div class="head">
+    <div class="flag rv">
       <div>
-        <span class="eyebrow">できること</span>
-        <h2>挿せば、再生が始まる。</h2>
+        <span class="k">01 — Deliver・ワンソース→全納品</span>
+        <h3>マスターを渡すと、<br>納品一式ができ上がる。</h3>
+        <p>複数のマスターから、完成MP4・軽量版MP4・DVD・BD を一度に生成。結合版には章の境界チャプターが自動で入り、ISO と納品フォルダ構成まで整います。「DVD だけ」「軽量版だけ」の切り替えもオプションひとつ。</p>
+        <div class="spec"><span>MP4 / DVD / BD <span class="num">一括</span></span><span>結合＋境界チャプター</span><span>ISO・納品フォルダまで</span></div>
+      </div>
+      <div class="fx fx-flow">
+        <span class="src">マスター.mov ×N</span>
+        <span class="down">↓ ffkit deliver</span>
+        <div class="outs">
+          <span class="out"><b>MP4</b>完成＋軽量版</span>
+          <span class="out"><b>DVD</b>メニューなし・ISO</span>
+          <span class="out"><b>BD</b>フルHD・ISO</span>
+        </div>
+        <span class="fxnote">ワンソース → 全納品形式。チャプター・フォルダ構成込み</span>
       </div>
     </div>
-    <div class="grid">
-      <article class="card">
-        <h3>メニューなし DVD / BD-Video</h3>
-        <p>挿すと、すぐ本編が始まります。視聴者が操作に迷うメニューは、作りません。</p>
-      </article>
-      <article class="card">
-        <h3>配布用 MP4 の書き出し</h3>
-        <p>そのまま渡せる MP4 も出力できます。ディスクでも配信でも、同じ素材から。</p>
-      </article>
-      <article class="card">
-        <h3>無人バッチ</h3>
-        <p>同じ素材を入れれば、同じ結果が出ます。途中で止まっても、その続きから。何十本でも、張りつかずに回せます。</p>
-      </article>
-      <article class="card">
-        <h3>AI からも使える</h3>
-        <p><span style="font-family:var(--font-mono);font-size:13px">capabilities --json</span> / <span style="font-family:var(--font-mono);font-size:13px">AGENTS.md</span> / <span style="font-family:var(--font-mono);font-size:13px">llms.txt</span> を用意しました。エージェント経由でも動かせます。</p>
-      </article>
-    </div>
-  </div>
-</section>
 
-<!-- ===== Moat ===== -->
-<section class="section flowsec" style="background:var(--bg-page)">
-  <div class="wrap">
-    <span class="eyebrow">なぜ ffkit か</span>
-    <h2>現場で使いながら、作りました。</h2>
-    <div class="grid" style="margin-top:32px">
-      <article class="card">
-        <h3>自分の納品で困った</h3>
-        <p>汎用ツールだと取りこぼしてしまう細かいところを、自分の案件で焼いて、確かめながら直してきました。</p>
-      </article>
-      <article class="card">
-        <h3>ローカルで完結</h3>
-        <p>素材も書き出したファイルも、アップロードしません。ぜんぶ、あなたの端末の中だけで終わります。</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ===== License & safety ===== -->
-<section class="section spine" style="background:var(--surface-sunken)">
-  <div class="wrap">
-    <div>
-      <span class="eyebrow">ライセンスと安全（正直に）</span>
-      <h2>できないことは、<br>できないと書きます。</h2>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <p><strong>コア＝無料</strong>（PyPI / GitHub）。<strong>商用ライセンスは予定</strong>です（価格未定）。</p>
-      <p><strong>焼いたディスクは、お手元のプレーヤーで一度、再生を確かめてください。</strong> ffkit は AS-IS・無保証で出しています（<a href="/legal/eula" style="color:var(--accent)">EULA</a>）。</p>
-      <p><strong>特許や GPL の問題は、根元で避けています。</strong> ffmpeg などの外部ツールは<strong>同梱せず</strong>、別のプロセスとして呼ぶだけ。依存は <a href="https://github.com/onmt/ffkit/blob/master/THIRD_PARTY.md" style="color:var(--accent)">THIRD_PARTY</a> に書いて、ライセンスを守ります。</p>
-      <p style="font-size:14px;color:var(--text-muted)"><strong>プライバシー：収集しません</strong>（オフライン）。<a href="/legal/privacy" style="color:var(--accent)">プライバシー方針</a></p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Get ===== -->
-<section id="get" class="section" style="background:var(--bg-page)">
-  <div class="wrap" style="padding:84px 32px;max-width:760px">
-    <span class="eyebrow">入手</span>
-    <h2 style="font-family:var(--font-serif);font-weight:500;font-size:34px;margin:12px 0 0">使ってみる。</h2>
-    <p style="margin:14px 0 0;color:var(--text-body)">PyPI から入れるか、GitHub から取得してください。技術者向けの CLI / desktop ツールです。</p>
-    <div class="codeblock"><span class="c"># PyPI から</span><br>pip install ffkit<br><br><span class="c"># 変換して、無人で回す</span><br>ffkit build ./input --target dvd --out ./out</div>
-    <div class="ctas" style="margin-top:20px">
-      <a class="btn btn-accent" href="https://github.com/onmt/ffkit">GitHub で見る →</a>
-      <a class="btn" style="background:var(--surface-sunken);color:var(--ink-900);border:1px solid var(--line)" href="https://github.com/onmt/ffkit#readme">ドキュメント</a>
-    </div>
-    <div class="note-lg" style="margin-top:32px">
-      <strong>For developers worldwide.</strong> ffkit turns finished videos into menu-free DVD-Video / BD-Video and distribution MP4 — an unattended, deterministic, resumable batch for the last mile of delivery. Insert and it just plays. Offline CLI; your footage never leaves your machine. Free core (PyPI / GitHub); commercial license planned. Provided as-is — verify your discs play. We don't bundle ffmpeg / GPL binaries (we call system tools); third-party licenses respected.
-    </div>
-  </div>
-</section>
-
-<footer class="foot">
-  <div class="wrap">
-    <div class="row">
+    <div class="flag rv">
       <div>
-        <svg width="92" height="22" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#b9d2ff"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#f2f4f9">Spica</text></svg>
-        <p style="margin:14px 0 0;font-size:13.5px;color:var(--on-night-500);max-width:300px">あなたのデータを、あなたの手元に。スピカ・イメージクリエイション。</p>
+        <span class="k">02 — Deliver-batch・管制塔バッチ</span>
+        <h3>ジョブ票を書いて、<br>あとは寝ていい。</h3>
+        <p>フォルダを渡すとジョブ票（CSV）が自動ででき、直したい行だけ書き換えて実行。マスターごとに形式・画質・軽量版の有無を変えられます。処理は冪等で、<b style="color:var(--on-900)">作成済みは自動スキップ・途中で止まっても続きから</b>。人が見るのは、赤と黄で知らせる例外だけ。</p>
+        <div class="spec"><span>フォルダ → ジョブ票自動生成</span><span>冪等・<span class="num">再開可</span></span><span>例外だけ通知</span></div>
       </div>
-      <div class="cols">
-        <div><div class="h">アプリ</div><div class="links"><a href="/#studio">一覧</a><a href="/ffkit/">ffkit</a></div></div>
-        <div><div class="h">法務</div><div class="links"><a href="/legal/privacy">プライバシー方針</a><a href="/legal/eula">EULA（無保証）</a><a href="/legal/tokushoho">特定商取引法</a></div></div>
+      <div class="fx fx-jobs">
+        <div class="jrow"><span class="s">✓</span><span>0012_工場編.mov → mp4+dvd</span><span class="r">done</span></div>
+        <div class="jrow"><span class="s">✓</span><span>0013_据付け編.mov → mp4+dvd+bd</span><span class="r">done</span></div>
+        <div class="jrow"><span class="s">✓</span><span>0014_研修編.mov → dvd ×20</span><span class="r">skip（作成済）</span></div>
+        <div class="jrow"><span class="s w">⚠</span><span>0015_式典編.mov → bd</span><span class="r">要確認</span></div>
+        <div class="fxnote">ジョブ票（CSV）で放置実行 — 人が見るのは ⚠ だけ</div>
       </div>
     </div>
-    <div class="bot"><span>© Spica Image Creation</span><span class="mono">local-first · offline · as-is</span></div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">03 — Flicker・ちらつき制御</span>
+        <h3>実機で気づく前に、<br>ちらつきを測る。</h3>
+        <p>DVD 縮小で細い線がジラつく「ライントゥイッター」。ffkit はこれを<b style="color:var(--on-900)">実機なしで数値化</b>し、対策の強度を「測って→振って→また測る」閉ループで自動探索します。PC 上でインターレース表示を擬似再生して、目でも確かめられます。照明フリッカーの納品前レスキューも。</p>
+        <div class="spec"><span>ちらつきを数値化</span><span>対策強度を<span class="num">自動探索</span></span><span>PC で擬似再生</span></div>
+      </div>
+      <div class="fx fx-flick">
+        <svg viewBox="0 0 340 120" aria-hidden="true">
+          <g fill="#565b67">
+            <rect x="10" y="30" width="14" height="60" rx="2"/><rect x="34" y="18" width="14" height="72" rx="2"/>
+            <rect x="58" y="42" width="14" height="48" rx="2"/><rect x="82" y="10" width="14" height="80" rx="2"/>
+            <rect x="106" y="36" width="14" height="54" rx="2"/>
+          </g>
+          <g fill="#4f80f7">
+            <rect x="200" y="64" width="14" height="26" rx="2"/><rect x="224" y="58" width="14" height="32" rx="2"/>
+            <rect x="248" y="68" width="14" height="22" rx="2"/><rect x="272" y="60" width="14" height="30" rx="2"/>
+            <rect x="296" y="66" width="14" height="24" rx="2"/>
+          </g>
+          <path d="M10 100h320" stroke="#2a3144" stroke-width="1"/>
+          <path d="M10 52h130M200 52h110" stroke="#e6b566" stroke-width="1" stroke-dasharray="3 4"/>
+          <path d="M140 55l44 0" stroke="#8b93a7" stroke-width="1.4" marker-end="none"/>
+          <path d="M178 51l8 4-8 4" fill="none" stroke="#8b93a7" stroke-width="1.4"/>
+        </svg>
+        <div class="cap"><span>対策前 — 最悪区間が閾値超え</span><span class="b">optimize 後 — 目標以下</span></div>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">04 — Verify・規格準拠チェック</span>
+        <h3>「このディスク、大丈夫？」に<br>機械で答える。</h3>
+        <p>焼く前の出力が DVD / BD の規格に沿っているかを ✓/⚠/✗ でチェックし、<b style="color:var(--on-900)">納品に添付できるレポート</b>（テキスト / HTML）まで出します。お客様への「確認しました」を、勘ではなく記録で言えるように。</p>
+        <div class="spec"><span>規格準拠 ✓/⚠/✗</span><span>納品添付レポート</span><span>PAR・チャプター検査</span></div>
+      </div>
+      <div class="fx fx-verify">
+        <div class="vrow"><span class="g">✓</span><span>映像 720×480i / MPEG-2 / PAR 適合<small>DVD-Video 準拠</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>チャプター 12 点 — 境界一致<small>結合版の章境界と一致</small></span></div>
+        <div class="vrow"><span class="g w">⚠</span><span>音声ビットレート高め<small>再生互換は維持 — 注記として記載</small></span></div>
+        <div class="fxnote">verify --report — 納品に添付できる確認記録</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOOLBOX ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow rv">TOOLBOX — 納品まわりの小道具</p>
+    <h2 class="rv">円盤の外にも、道具はある。</h2>
+    <div class="grid" style="margin-top:40px">
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M8 17l-5-5 5-5M16 7l5 5-5 5"/><path d="M13 5l-2 14"/></svg></span>
+        <span class="k">Lossless</span><h3>無劣化の連結・切り出し</h3><p>再エンコードなしで MP4 を連結・トリム・音声抽出。画質を落とさず、素早く。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 7l4-4h10l4 4v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7h18M9 12l2 2 4-4"/></svg></span>
+        <span class="k">Watch</span><h3>監視フォルダの無人ライン</h3><p>フォルダに置くだけで自動 DVD / BD 化。研修ディスクの量産など、流れ作業に。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M10 8.5l5 2.5-5 2.5zM8 21h8"/></svg></span>
+        <span class="k">Package</span><h3>円盤の代わりの HTML プレーヤー</h3><p>動画群をメニュー・プレイリスト・ループ付きの単一 HTML に。展示映像や PC 納品に、ダブルクリックで再生。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h4M7 12h6M7 15h3"/><circle cx="17" cy="13" r="2.4"/></svg></span>
+        <span class="k">Variants</span><h3>画質バージョンの見比べ</h3><p>設定違いを一括生成して比較。全バージョンを1枚の比較 DVD に焼き、実機のリモコンで切り替えて確認も。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 0 1 4 4v3a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+        <span class="k">AI-ready</span><h3>AI からも使える</h3><p><span class="num">capabilities --json</span> で機能一覧を機械可読に出力。AGENTS.md / llms.txt 同梱で、エージェント経由でも操作できます。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+        <span class="k">GUI</span><h3>ローカル Web UI</h3><p>ブラウザで操作する GUI も同梱。完全ローカル・追加依存なしで、CLI が苦手なスタッフとも共有できます。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCAL / LICENSE ============ -->
+<section id="local" class="deep">
+  <div class="wrap">
+    <p class="eyebrow rv">LOCAL & HONEST — ローカル完結と、正直な注記</p>
+    <h2 class="rv">素材は出さない。<br>できないことは、書く。</h2>
+
+    <div class="ledger" style="margin-top:48px">
+      <div class="row rv">
+        <span class="glyph">✓</span>
+        <div><h3>素材も成果物も、アップロードしない</h3><p>変換・解析・バッチのすべてが端末内で完結します。クラウド処理も、進捗の送信もありません。収集ゼロ。</p></div>
+        <span class="st ok">実装済</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph">✓</span>
+        <div><h3>特許・GPL の問題は根元で回避</h3><p>ffmpeg などの外部ツールは同梱せず、別プロセスとして呼ぶだけ。依存は THIRD_PARTY に明記し、各ライセンスを守ります。</p></div>
+        <span class="st ok">設計方針</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph w">⚠</span>
+        <div><h3>焼いたディスクは、一度実機で確認を</h3><p>ffkit は AS-IS・無保証で提供します。verify は強力な安全網ですが、最終確認はお手元のプレーヤーで。「完全保証」は言いません。</p></div>
+        <span class="st beta">お願い</span>
+      </div>
+    </div>
+
+    <p class="fineprint rv"><b>正直な注記：</b>ffkit はベータ段階で、制作元スピカの実案件（納品）で使いながら鍛えています。このページの実行例は実機の動作の要約です。無保証の詳細は <a href="/legal/eula">EULA</a>、プライバシーは<a href="/legal/privacy">方針（収集しません）</a>をどうぞ。</p>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <p class="eyebrow rv">PRICING — 価格も、隠さない</p>
+    <h2 class="rv">コアは無料。<span class="dim">商用ライセンスは準備中。</span></h2>
+
+    <div class="plans" style="grid-template-columns:repeat(2,1fr); max-width:760px">
+      <div class="plan rv">
+        <span class="name">Core</span>
+        <div class="price">¥0</div>
+        <span class="per">無料・ベータ</span>
+        <ul>
+          <li>全サブコマンド（deliver / batch / verify…）</li>
+          <li>CLI＋ローカル Web UI</li>
+          <li>Mac / Windows / Linux</li>
+        </ul>
+      </div>
+      <div class="plan pro rv">
+        <span class="rec">準備中</span>
+        <span class="name" style="color:var(--spica-300)">商用ライセンス</span>
+        <div class="price">¥5,000<small style="font-size:.5em; color:var(--on-500)">（暫定）</small></div>
+        <span class="per">買い切り / サブスクなし</span>
+        <ul>
+          <li>業務利用のためのライセンス</li>
+          <li>一度きりの支払い・月額なし</li>
+          <li>法務確認ののち販売開始予定</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="no-sub rv">サブスクリプションはありません。価格は暫定で、販売開始時に確定します。</p>
+  </div>
+</section>
+
+<!-- ============ GET ============ -->
+<section id="get" class="studio">
+  <div class="wrap">
+    <p class="eyebrow rv">GET — 入手について</p>
+    <h2 class="rv">正直に言うと、<br>まだ一般配布の前です。</h2>
+    <p class="section-lead rv">ffkit はいま、自分たちの納品案件で毎週使いながら仕上げているベータ段階です。PyPI / GitHub での一般公開は準備中——公開したら、このページからそのまま入手できるようになります。</p>
+
+    <div class="get-box rv">
+      <p>先に試したい方（映像制作の同業の方を歓迎します）や、DVD / Blu-ray 納品のご相談は、メールでご連絡ください。</p>
+      <a class="mail" href="mailto:support@spicaimg.com">support@spicaimg.com</a>
+      <p style="margin-top:14px">通常2〜5営業日以内に返信します。</p>
+    </div>
+
+    <div class="en-note rv">
+      <b>For developers worldwide.</b> ffkit turns finished videos into menu-free DVD-Video / BD-Video and distribution MP4 — one source, all deliverables, as an unattended, deterministic, resumable batch. Insert and it just plays. Fully offline; your footage never leaves your machine. Free core (beta, public release in preparation) + one-time commercial license planned. Provided as-is — verify your discs play. We don't bundle ffmpeg / GPL binaries (we call system tools); third-party licenses respected.
+    </div>
+
+    <p class="tagline rv">納品の最後の1マイルを、<br>あなたの端末の中で。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span class="brandmark" style="color:var(--on-500)">
+        <svg viewBox="0 0 100 100" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      </span>
+      <span class="links">
+        <a href="/">スピカ・イメージクリエイション</a>
+        <a href="/prompter/">Spica Prompter</a>
+        <a href="/kokohawatashiga/">ココハワタシガ</a>
+        <a href="/legal/privacy">プライバシー（収集しません）</a>
+        <a href="/legal/eula">利用規約 / EULA</a>
+        <a href="/legal/tokushoho">特定商取引法に基づく表記</a>
+      </span>
+      <span class="copy">© Spica Image Creation</span>
+    </div>
+    <p class="foot-note">// このページは外部リソースを一切読み込みません。フォントは自前ホスト・解析スクリプトなし・CSP適用。道具と同じく、サイトもローカルファーストです。</p>
   </div>
 </footer>
 
+</div><!-- /.page -->
+
+<script src="/app.js"></script>
 </body>
 </html>
