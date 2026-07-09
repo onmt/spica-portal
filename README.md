@@ -4,8 +4,14 @@ Spica のポータルサイト。**ルート＝スピカ・イメージクリエ
 製品 LP はその配下（`/prompter/`・`/ffkit/`・`/kokohawatashiga/`）。※2026-07-07 に構成変更 — それまでルートだった Spica Prompter LP は `/prompter/` へ移動。
 ビルド不要の静的サイト（HTML ファースト運用）。ブランド規範は [`onmt/spica`](https://github.com/onmt/spica) の `BRAND.md` / `brand/`（tokens・NIGHT パレット）に準拠。
 
-**本番**: https://spica-portal-8f8.pages.dev （Cloudflare Pages・main への push で自動デプロイ）
+**本番**: https://www.spicaimg.com （独自ドメイン・Cloudflare Pages・main への push で自動デプロイ）
 
+> **Cloudflare アカウント / ドメイン（2026-07-10 一本化）**:
+> - Pages プロジェクトは **onomatsu@spicaimg.com のアカウント**（旧 Onmtkj@gmail.com から移設）。
+>   pages.dev の内部URL は `spica-portal-dem.pages.dev`（正規は独自ドメイン www.spicaimg.com）。
+> - 独自ドメインは **GoDaddy 管理のまま**（DNS 移管なし）。`www` の CNAME → `spica-portal-dem.pages.dev` のみ追加。
+>   MX（Google のメール）は不変。apex `spicaimg.com`（www なし）は現状まだ旧 Google 設定のまま＝新サイト未接続。
+>
 > 旧ポータル（`onmt/spica` の `portal/` → `spica.imagecreation.workers.dev`）は本リポへ**統合済み**（2026-07-05）。
 > 法務3ページと ffkit LP は文面そのまま移植。旧 Worker は Cloudflare ダッシュボードから削除してよい。
 
