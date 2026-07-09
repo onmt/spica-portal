@@ -1,8 +1,24 @@
-# <リポジトリ名>
+# spica-portal — Spica Image Creation ポータルサイト
+
+会社トップ（事業紹介）＋製品 LP（`/prompter/`・`/ffkit/`・`/kokohawatashiga/`）の静的サイト。
+本番 = Cloudflare Pages（https://spica-portal-8f8.pages.dev ・main への push で自動デプロイ）。
+構成・運用方針は [README.md](README.md) を参照。
 
 <!-- このファイルは新規 repo 用の CLAUDE.md ひな型です。
      リポジトリ固有の説明はマーカーの外（上下）に自由に書いてください。
      spica-doctrine の区間は HQ(onmt/spica) から自動同期され、ここを直接編集しても上書きされます。 -->
+
+## 公開・デプロイ前の関門（必須・省略不可）
+
+**公開・デプロイの前に、pre-release-check の関門（サイト向け S1〜S5）を必ず通し、
+通過記録 `release-checks/RELEASE_CHECK-YYYY-MM-DD.md` をコミットする。**
+
+- 関門の正本は `onmt/claude-config` の `claude/skills/pre-release-check/SKILL.md`。
+- このセッションから正本が読めない場合は、Koji.O に SKILL.md の中身の貼り付けを求めること。
+- **関門を通していない状態で公開してはならない。**
+
+> ここで言う「公開・デプロイ」= main への push（Cloudflare Pages が自動デプロイするため）、
+> 独自ドメインの割り当て、その他サイトを外部に出す一切の操作。作業を始める前にこの関門を要求すること。
 
 <!-- spica-doctrine:start · 正本 onmt/spica:sync/CLAUDE-doctrine-block.md（中は直接編集しない／HQ更新→自動同期PR） -->
 ## 先人に学ぶ（着手前の必須プロセス）
