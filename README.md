@@ -24,11 +24,12 @@ style.css     スタイル（@font-face + 全スタイル。色は brand/tokens.
 app.js        モーション（星空・スクロールリビール・プロンプターデモ）。外部依存ゼロ
 legal/        法務3ページ（プライバシー/EULA/特商法。旧ポータルから文面そのまま移植）
 ffkit/        ffkit の LP（夜テーマ・style.css 共用。入手節は一般配布前の正直表記）
-kokohawatashiga/  ココハワタシガの LP（意図的に夜テーマ非適用・1ファイル完結の独立ライトテーマ。後述）
+kokohawatashiga/  ココハワタシガの LP＋法務2ページ（privacy.html / terms.html — 正本は onmt/receipt_flutter の site/。App Store 提出用 URL の実体。LP は意図的に夜テーマ非適用・後述）
 legacy.css    旧ポータルのスタイル（legal/ 専用。夜テーマへの統一は今後の改訂で）
 fonts/        IBM Plex Latin woff2（自前ホスト。日本語はシステムフォントにフォールバック）
 assets/       実機スクリーンショット（開発版 UI・prompter/ が参照）
 _headers      Cloudflare Pages 用ヘッダ（CSP: 完全自己完結・script-src 'self'）
+404.html      404ページ（必須 — 無いと Pages が SPA とみなし、存在しないパスにトップを 200 で返す）
 ```
 
 > 互換メモ: 旧ルート宛てのリンクのうち `/#studio`（事業紹介アンカー）は、新トップの
