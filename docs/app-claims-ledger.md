@@ -47,6 +47,9 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 | **千鳥書きは実装済み**（自動整形 なし/句読点改行/千鳥・kuromoji.js 文節解析 Phase A-C・カード自動ページ分割・検証ハーネスあり） | prompter/ 機能比較表（Pro） | `spica-prompter` origin/main `engine.js`・`docs/prior-art/manuscript-formatting-chidori.md` | ✅ | 2026-07-12 |
 | **課金線 v3**：Free恒久＝1画面・横書き組版・スクロール・編集・保存（競合無料帯より使える状態を維持）／Solo＝＋声追従・カード/カンペ・自動ルビ・プロファイル・ランオーダー・**メイン画面反転・QRリモコン**／Pro＝＋複数出力・出力別反転・返しビュー/範囲帯・指示フラッシュ・**縦書き・千鳥書き** | prompter/ 機能比較表・プランカード | `billing/catalog.yaml` notes（2026-07-12 Koji確定） | ✅ | 2026-07-12 |
 | 画面共有除外オーバーレイ（Zoom等のカンペ）は**次版・未実装**＝LP に載せない。ティアは仮Pro（拡散重視なら Solo 降ろし再検討） | (LP 未掲載) | `spica-prompter` `docs/prior-art/next-generation-features.md`＋catalog notes | ✅ | 2026-07-12 |
+| **メイン画面（操作面）の反転は実装済み**（左右/上下・ショートカット x/z・反転軸＝マーカー線で読み位置保持・出力窓へ非伝播・localStorage永続）。タブレット/iPad/スマホでメイン画面をハーフミラー越しのプロンプターに使う用途。課金線v3の Solo 解禁対象 | prompter/ 機能比較表（Solo「画面の反転」行） | `spica-prompter` PR #33（2026-07-12 14:49 マージ）`engine.js` setSelfFlip・`verify-selfflip.js` ALL PASS | ✅ | 2026-07-12 |
+| **可読エリア・ガイド実装済み**：ハーフミラーの実可視域を返しビュー上でドラッグ設定 | (LP 未掲載・反映候補) | `spica-prompter` `469c495`（feat/readable-area PR #29） | ✅ | 2026-07-12 |
+| **傾き（回転出力）実装済み**：既定は★演者モニターのみ許可（GPU再ラスタライズ負荷の構造対策）・設定「傾きを全出力で許可」でリスク承知の解除可（Koji 2026-07-09 決定）・ベストエフォート明示 | (LP 未掲載・反映候補) | `spica-prompter` `d2777ed`/`653acdb`/`9f32104`＋DECISIONS.md | ✅ | 2026-07-12 |
 
 > 未確定: spica-prompter PR #26 は Mac 実機検証待ち。マージ後に返しビュー/範囲帯まわりの実態を再確認する。
 > **教訓（2026-07-12）**: 手元クローンが古く「千鳥書き未実装」と誤答した。巡回・裏取りは必ず **`git fetch` 後の origin/main** を正本にすること（作業ツリーの状態を信じない）。
