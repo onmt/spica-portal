@@ -20,6 +20,13 @@
 > ここで言う「公開・デプロイ」= main への push（Cloudflare Pages が自動デプロイするため）、
 > 独自ドメインの割り当て、その他サイトを外部に出す一切の操作。作業を始める前にこの関門を要求すること。
 
+## アプリ仕様の追従（主張台帳・巡回）
+
+このサイトは別リポのアプリ（spica-prompter・receipt_flutter・ffkit・whisper）の仕様を語る。
+**アプリについて何か書く・答える前に [`docs/app-claims-ledger.md`](docs/app-claims-ledger.md) を開く**
+（各主張の正本の在り処と最終確認日がある。記憶で語らない）。アプリ側の仕様が動いたら、まずこの台帳を更新し、
+定期巡回（S1 の裏取りを定期実行にしたもの）で乖離・新機能を拾う。手順は同ファイル末尾。
+
 <!-- spica-doctrine:start · 正本 onmt/spica:sync/CLAUDE-doctrine-block.md（中は直接編集しない／HQ更新→自動同期PR） -->
 ## 先人に学ぶ（着手前の必須プロセス）
 
