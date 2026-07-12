@@ -497,6 +497,28 @@
   .volume .num{font-family:var(--mono); color:var(--starlight); font-variant-numeric:tabular-nums}
   .no-sub{margin-top:26px; font-family:var(--serif); color:var(--on-700); font-size:1.05rem; max-width:var(--measure)}
 
+  /* pricing: 機能比較表 */
+  .cmpwrap{overflow-x:auto; margin-top:14px; border:1px solid var(--line); border-radius:12px; background:var(--night-900)}
+  .cmptbl{width:100%; border-collapse:collapse; font-size:.84rem; min-width:620px}
+  .cmptbl th,.cmptbl td{padding:9px 14px; border-top:1px solid var(--line); text-align:center; white-space:nowrap; font-weight:400}
+  .cmptbl th:first-child,.cmptbl td:first-child{text-align:left; white-space:normal; min-width:230px; color:var(--on-700)}
+  .cmptbl thead th{border-top:0; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--on-500); padding:16px 14px 12px}
+  .cmptbl thead .tprice{display:block; font-size:.82rem; letter-spacing:0; color:var(--on-900); margin-top:2px; font-variant-numeric:tabular-nums; text-transform:none}
+  .cmptbl thead .trole{display:block; font-family:var(--sans); font-size:.72rem; letter-spacing:0; color:var(--on-500); margin-top:2px; text-transform:none; font-weight:400}
+  .cmptbl thead th.procol{color:var(--spica-300)}
+  .cmptbl thead th.procol .tprice{color:var(--starlight)}
+  .cmptbl .grp td{text-align:left; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--on-500); text-transform:uppercase; background:var(--night-850); padding:8px 14px}
+  .cmptbl .y{color:var(--ok); font-family:var(--mono)}
+  .cmptbl .t{color:var(--warn); font-family:var(--mono); font-size:.72rem; letter-spacing:.04em}
+  .cmptbl .n{color:var(--night-600); font-family:var(--mono)}
+  .cmptbl .v{font-family:var(--mono); color:var(--on-700); font-variant-numeric:tabular-nums}
+  .cmptbl td.procol,.cmptbl th.procol{background:rgba(31,95,230,.08)}
+  .cmpnote{font-size:.78rem; color:var(--on-500); margin-top:10px; line-height:1.8}
+  @media(max-width:560px){
+    .cmptbl{min-width:520px; font-size:.78rem}
+    .cmptbl th:first-child,.cmptbl td:first-child{min-width:160px}
+  }
+
   /* studio */
   .studio{background:linear-gradient(180deg,transparent,rgba(15,18,27,.85))}
   .promises{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
