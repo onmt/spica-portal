@@ -43,9 +43,13 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 | 異なる解像度でも**改行位置は変わらない**（見える範囲だけ変わる）／ソース文字位置ベース同期 | prompter/ マルチモニタ節 | `poc/scroll-engine/engine.js` | ✅ | 2026-07-09 |
 | 本番中でも中断せず文字サイズ・行間・字間を変更可能／インライン編集／ワンボタン縦書き／カンペモード | prompter/ 性能節 | spica-prompter 実装（DECISIONS.md/ROADMAP.md P9・返しビュー） | ✅ | 2026-07-09 |
 | **返しビュー**＝外部プロンプタ画面の縮小版を操作者画面に表示（旧称「ミラー」）／出力ごとに正像・上下/左右反転 | prompter/ 返しビュー節・スクショ | spica-prompter（terminology.md） | ✅ | 2026-07-09 |
-| 価格：Free ¥0／Solo ¥3,000／Pro ¥14,800／ボリューム5台¥59,800・10台¥99,800 | prompter/ 価格節 | `billing/catalog.yaml`（teleprompter-*） | ✅ | 2026-07-09 |
+| 価格：Free ¥0／Solo ¥3,000／Pro ¥14,800／ボリューム5台¥59,800・10台¥99,800（＋Solo→Pro差額アップグレード ¥11,800） | prompter/ 価格節 | `billing/catalog.yaml`（teleprompter-*） | ✅ | 2026-07-12 |
+| **千鳥書きは実装済み**（自動整形 なし/句読点改行/千鳥・kuromoji.js 文節解析 Phase A-C・カード自動ページ分割・検証ハーネスあり） | prompter/ 機能比較表（Pro） | `spica-prompter` origin/main `engine.js`・`docs/prior-art/manuscript-formatting-chidori.md` | ✅ | 2026-07-12 |
+| **課金線 v3**：Free恒久＝1画面・横書き組版・スクロール・編集・保存（競合無料帯より使える状態を維持）／Solo＝＋声追従・カード/カンペ・自動ルビ・プロファイル・ランオーダー・**メイン画面反転・QRリモコン**／Pro＝＋複数出力・出力別反転・返しビュー/範囲帯・指示フラッシュ・**縦書き・千鳥書き** | prompter/ 機能比較表・プランカード | `billing/catalog.yaml` notes（2026-07-12 Koji確定） | ✅ | 2026-07-12 |
+| 画面共有除外オーバーレイ（Zoom等のカンペ）は**次版・未実装**＝LP に載せない。ティアは仮Pro（拡散重視なら Solo 降ろし再検討） | (LP 未掲載) | `spica-prompter` `docs/prior-art/next-generation-features.md`＋catalog notes | ✅ | 2026-07-12 |
 
 > 未確定: spica-prompter PR #26 は Mac 実機検証待ち。マージ後に返しビュー/範囲帯まわりの実態を再確認する。
+> **教訓（2026-07-12）**: 手元クローンが古く「千鳥書き未実装」と誤答した。巡回・裏取りは必ず **`git fetch` 後の origin/main** を正本にすること（作業ツリーの状態を信じない）。
 
 ---
 
