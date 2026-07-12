@@ -265,7 +265,7 @@
     <h2 class="rv">そして、台本は<br>この端末から出ない。</h2>
     <p class="section-lead rv">未公開CM・発表前IR・報道原稿。プロンプターに載るのは「まだ世に出ていない言葉」です。だから Spica Prompter は、<b>漏らさない努力ではなく、漏れる経路が存在しない構造</b>を選びました。</p>
 
-    <div class="airgap rv" role="img" aria-label="端末の中に台本・編集・保存・声追従・ライセンス検証が完結し、インターネットへの経路が存在しない構造図">
+    <div class="airgap rv" role="img" aria-label="端末の中に台本・編集・保存・声追従・ライセンス検証が完結し、台本・音声・利用状況にはインターネットへの経路が存在しない構造図">
       <div class="device">
         <span class="dlabel">✦ あなたの端末 — ここで完結</span>
         <div class="chips">
@@ -282,7 +282,7 @@
       </div>
       <div class="cloud">
         <span class="dlabel">インターネット</span>
-        <div class="items">クラウド保存<br>音声認識サーバー<br>解析・テレメトリ<br>ライセンス照合サーバー</div>
+        <div class="items">クラウド保存<br>音声認識サーバー<br>解析・テレメトリ<br>行動追跡・広告SDK</div>
       </div>
     </div>
 
@@ -309,7 +309,7 @@
       </div>
       <div class="row rv">
         <span class="glyph p">・</span>
-        <div><h3>ライセンス認証すら通信しない</h3><p>購入後のライセンスは暗号署名（Ed25519）キーを端末内で検証。起動時の照合通信なし・端末の指紋採取なし。買った後まで、外に出ないままです。</p></div>
+        <div><h3>ライセンス検証は端末内 — 通信は、あなたを守るときだけ</h3><p>検証はどのプランも暗号署名（Ed25519）を端末内で照合。Free・Solo は通信ゼロのままです。Pro は有効化・解除など<b style="color:var(--on-900)">あなたが操作した瞬間だけ</b>、鍵と復元できない機器識別子ハッシュを送ります — 返金や鍵流出時の救済、認証台数のセルフ管理のためで、裏での定期送信はありません。<b style="color:var(--on-900)">送った履歴はアプリ内で全件そのまま確認</b>でき、オフラインでも90日間は動き続けます。台本・音声・利用状況を送らない構造は、どのプランでも変わりません。</p></div>
         <span class="st">方針確定</span>
       </div>
     </div>
@@ -469,6 +469,10 @@
           <tr>
             <th scope="row">認証台数</th>
             <td><span class="v">1台</span></td><td><span class="v">2台</span></td><td class="procol"><span class="v">2台</span></td>
+          </tr>
+          <tr>
+            <th scope="row">ライセンス認証の通信（検証自体は全プラン端末内）</th>
+            <td><span class="v">なし</span></td><td><span class="v">なし</span></td><td class="procol"><span class="v">操作時のみ</span></td>
           </tr>
           <tr>
             <th scope="row">無条件返金</th>
