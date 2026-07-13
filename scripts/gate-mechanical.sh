@@ -24,16 +24,25 @@ if git grep -nIiE '[A-Za-z0-9._%+-]+@gmail\.com' -- . ; then
 fi
 
 echo "== S5: 外部リソースの読み込み（自ドメイン spicaimg.com 以外）=="
-# html/css/js の「読み込み」文脈のみを見る（本文中の URL 記述は対象外）
+# html/css/js の「読み込み」文脈のみを見る（本文中の URL 記述は対象外）。
+# 許可される外部ホスト: 自ドメイン spicaimg.com と、サイト解析の Cloudflare Web Analytics
+# （static.cloudflareinsights.com のビーコン・cloudflareinsights.com への送信）。詳細は docs/analytics.md。
+allow='spicaimg\.com|cloudflareinsights\.com'
 ext_html=$(git grep -nIiE '(src|href)[[:space:]]*=[[:space:]]*["'"'"']((https?:)?//)' -- '*.html' \
-  | grep -viE 'spicaimg\.com' || true)
+  | grep -viE "$allow" || true)
 [ -n "$ext_html" ] && { echo "$ext_html"; note "HTML の src/href が外部を指す"; }
 ext_css=$(git grep -nIiE '(url\([[:space:]]*["'"'"']?https?:|@import[[:space:]])' -- '*.css' \
-  | grep -viE 'spicaimg\.com' || true)
+  | grep -viE "$allow" || true)
 [ -n "$ext_css" ] && { echo "$ext_css"; note "CSS の url()/@import が外部"; }
 ext_js=$(git grep -nIiE 'fetch\(|XMLHttpRequest|sendBeacon|new WebSocket|EventSource|https?://' -- '*.js' \
-  | grep -viE 'spicaimg\.com' || true)
+  | grep -viE "$allow" || true)
 [ -n "$ext_js" ] && { echo "$ext_js"; note "JS に外部送信/外部URL"; }
+
+echo "== サイト解析: プレースホルダ token が残っていないか =="
+# 未設定（REPLACE_WITH_...）のまま公開すると解析が動かない。設定手順は docs/analytics.md。
+if git grep -nI 'REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN' -- '*.html' ; then
+  note "Cloudflare Web Analytics の token が未設定（プレースホルダのまま）"
+fi
 
 echo "== S2: 画像の EXIF/GPS =="
 imgs=$(git ls-files -- '*.jpg' '*.jpeg' '*.png')
