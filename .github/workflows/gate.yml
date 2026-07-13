@@ -1,0 +1,24 @@
+name: pre-release-check (mechanical)
+
+# S2/S5 の機械判定部分を PR と main push で自動実行する。
+# これはブランチ保護の「必須チェック」に指定して初めて公開ブロックになる（設定は手動・README/CLAUDE.md 参照）。
+# S1（主張の裏取り）と S4 の見た目確認は人＋ブラウザが要るため CI では代替しない。
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  mechanical-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pillow（画像 EXIF 検査用）
+        run: pip install --quiet Pillow
+      - name: 機械ゲート（S2/S5）
+        run: bash scripts/gate-mechanical.sh
