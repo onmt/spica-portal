@@ -16,7 +16,9 @@ fi
 if git grep -nIE '(api[_-]?key|secret[_-]?key|access[_-]?token|client[_-]?secret)["'"'"' ]*[:=][[:space:]]*["'"'"'][A-Za-z0-9_\-]{16,}' -- . ; then
   note "APIキー/トークンらしき値の代入"
 fi
-if git grep -nIE '/workspace/|/home/[a-z]+/' -- . ; then
+# パターン内の文字クラス [c] は検出力を変えず（実在の内部パスにはマッチする）、
+# このスクリプト自身の行への自己マッチだけを避けるための書き方。
+if git grep -nIE '/workspa[c]e/|/home/[a-z]+/' -- . ; then
   note "内部の絶対パス（/workspace, /home/...）"
 fi
 if git grep -nIiE '[A-Za-z0-9._%+-]+@gmail\.com' -- . ; then
