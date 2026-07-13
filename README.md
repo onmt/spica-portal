@@ -7,7 +7,7 @@ Spica のポータルサイト。**ルート＝スピカ・イメージクリエ
 **本番**: https://www.spicaimg.com （独自ドメイン・Cloudflare Pages・main への push で自動デプロイ）
 
 > **Cloudflare アカウント / ドメイン（2026-07-10 一本化）**:
-> - Pages プロジェクトは **onomatsu@spicaimg.com のアカウント**（旧 Onmtkj@gmail.com から移設）。
+> - Pages プロジェクトは **spicaimg.com ドメインの組織アカウント**（旧・個人 Google アカウントから移設）。
 >   pages.dev の内部URL は `spica-portal-dem.pages.dev`（正規は独自ドメイン www.spicaimg.com）。
 > - 独自ドメインは **GoDaddy 管理のまま**（DNS 移管なし）。`www` の CNAME → `spica-portal-dem.pages.dev` のみ追加。
 >   MX（Google のメール）は不変。apex `spicaimg.com`（www なし）は現状まだ旧 Google 設定のまま＝新サイト未接続。
