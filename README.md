@@ -15,6 +15,24 @@ Spica のポータルサイト。**ルート＝スピカ・イメージクリエ
 > 旧ポータル（`onmt/spica` の `portal/` → `spica.imagecreation.workers.dev`）は本リポへ**統合済み**（2026-07-05）。
 > 法務3ページと ffkit LP は文面そのまま移植。旧 Worker は Cloudflare ダッシュボードから削除してよい。
 
+## 公開の防波堤（手動設定・API 権限外）
+
+「公開＝main への push」なので、予期せぬ公開を**仕組みで**止めるにはダッシュボード操作が要る（Claude 側からは設定不可）。
+
+1. **ブランチ保護（main）**: `Settings → Rules → Rulesets → New ruleset → Import`（歯車 → Import）で
+   [`.github/rulesets/main-protection.json`](.github/rulesets/main-protection.json) を読み込む。中身＝
+   直 push 禁止（PR 必須・**承認0＝ひとりでも自己マージ可**）／必須チェック `mechanical-gate`（機械ゲート CI）が緑でないとマージ不可／force-push・削除禁止。
+   `bypass_actors` に Repository admin を入れてあり**緊急ホットフィックスの逃げ道**を残す（最強にするなら該当行を削除）。
+   ※ `mechanical-gate` は main で一度 CI が走った後でないと候補に出ないことがある（本リポは実行済み）。
+2. **2FA を3アカウントに**: GitHub / Cloudflare（onomatsu@spicaimg.com のアカウント）/ GoDaddy。
+   日々の手間ゼロで「予期せぬアップロード」の本命入口（アカウント乗っ取り）を塞ぐ＝最優先。
+3.（任意）**プレビュー公開**: ブランチは Cloudflare Pages のプレビュー URL（`*.pages.dev`）に出る。
+   気になれば Pages → Builds & deployments でプレビュー無効化 or Cloudflare Access で保護。
+   リポに秘密が無いことは機械ゲート（`scripts/gate-mechanical.sh`）で担保済みなので緊急度は低い。
+
+> 機械ゲートは S2/S5 の**確定判定部分だけ**を自動化したもの。S1（主張の裏取り）と S4 の見た目確認は
+> 人＋ブラウザが要るため CI では代替せず、公開前関門（`release-checks/`）の手順で続ける。
+
 ## 構成
 
 ```
