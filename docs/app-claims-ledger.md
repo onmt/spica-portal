@@ -8,6 +8,11 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 **最終確認日**を持たせる。pre-release-check の S1（主張の裏取り）を、公開直前の一発から**定期の巡回**へ格上げする
 ための土台。
 
+> **役割分担（2026-07-14）**: 全リポを横断する巡回の**本体は HQ に集約**した（`onmt/spica` の
+> [`fleet/PATROL.md`](https://github.com/onmt/spica/blob/main/fleet/PATROL.md)＝艦隊巡回台帳）。
+> 本ファイルは「**サイトが語ることの裏取り**」という一製品の仕事＝艦隊巡回台帳の "spica-portal 行" を担う。
+> サイトに関わる乖離・新機能は、まず HQ の巡回で拾い、その反映先として本ファイルを更新する。
+
 - **正本の原則**：価格・SKU は `onmt/spica` の `billing/catalog.yaml`。ココハワタシガのコピー正本は
   `onmt/receipt_flutter` の `docs/release/app_store_metadata.md`。機能・プライバシーの事実は各アプリの**実コード**。
 - **書き方**：断言する主張だけを載せる。「未掲載だが事実」も載せてよい（新機能を LP に反映する候補になる）。
