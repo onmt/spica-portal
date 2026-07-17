@@ -28,7 +28,7 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 | **撮影機能はない**。ユーザーが任意の方法で保存した領収書画像を `file_picker` で選んで OCR | (LP 未掲載) | `lib/features/scan/…`＋`file_picker`（pubspec に camera 無し） | ✅ | 2026-07-11 |
 | **CSV 出力**は単式（かんたん）・複式（仕訳）の2種＋証憑PDF・出金伝票PDF。複式は借方/貸方・税率・税額・インボイス番号を持つ | LP「会計ソフトと一緒に使える」 | `lib/features/analysis/data/services/export_service.dart`（`ExportFormat`） | ✅ | 2026-07-11 |
 | 会計ソフト（freee/マネーフォワード等）へ**仕訳に必要な数字だけ渡せる**（写真・買い物の中身は渡らない） | LP line 378・FAQ line 458 | 同上（列に画像・明細を含めない設計） | ✅ | 2026-07-11 |
-| カード明細（CSV）を取り込める（逆方向インポート） | LP line 382 | `lib/features/csv_import/…` | ✅ | 2026-07-11 |
+| カード明細（CSV）取り込みは**実装済みだが v1.0 では封印**（csvImportEnabled=false・Shift_JIS 未対応）→ LP は「今後のアップデートで」表記（2026-07-17 是正） | LP できること | `lib/features/csv_import/…`＋`feature_flags.dart` | ✅ | 2026-07-17 |
 | 年100枚まで無料・超えた年だけ**定価¥1,200を1回**（月額・自動更新なし・5年前まで後追い購入可） | LP line 398/406/416/425/442 | `onmt/spica` `billing/catalog.yaml`（receipts-yearly price:1200・sale_price:600）／`receipt_flutter` StoreKit displayPrice 1200 | ✅ | 2026-07-10 |
 | 半額¥600 は確定申告シーズン等の**本物の期間限定**のみ（永久セール＝架空定価は景表法違反ゆえ禁止） | (LP 未掲載・運用方針) | `billing/catalog.yaml` notes | ✅ | 2026-07-10 |
 | アプリ内価格表示はストア(ASC)の値を**動的取得**（ハードコードしない） | ― | `receipt_flutter` #1175 | ✅ | 2026-07-10 |
@@ -36,6 +36,7 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 | **「確認済み」はユーザー専権**：`Receipt.isVerified` 既定 false・`verifiedAt` 記録・確認済みはロック（OCR再処理不可 B-04）・ホームで未確認/確認済みを常時区別・差し戻しも可 | LP 考えかた節・安心リスト・FAQ | `receipt.dart`・`add_receipt_screen_verify.dart`・`home_screen_actions.dart` | ✅ | 2026-07-17 |
 | **CSV出力等が確認済みに絞られる証拠は無し**→ LP は「確定しません」と言わず「勝手に確認済みにならない・未確認は区別されて残る」と表現（誇張回避・2026-07-17 改訂時の言い換え判断） | 同上 | `lib/features/analysis/` に isVerified フィルタ無し（実測） | ✅ | 2026-07-17 |
 | **事業/プライベートの区分あり**（`isBusiness`）＝「家計簿としても使える」の根拠 | LP ヒーロー・できること | editor フォーム `isBusiness` | ✅ | 2026-07-17 |
+| **v1.0 の機能封印（FeatureFlags）**：aiOcrMode（ローカルLLM）/ **csvImport（カード明細取り込み）** / moneyDiary / spreadsheet は v1.0 で UI から隠す（コードは残置・v1.1 で解禁予定）。**LP は v1.0 の表面を描く**こと — カード明細カードは 2026-07-17 に「今後のアップデートで」表記へ是正 | LP できること・会社トップ紹介文 | `lib/core/config/feature_flags.dart` | ✅ | 2026-07-17 |
 | **法務2ページは正本と同期必須**：2026-07-17、ポータル複製の privacy.html が旧版のまま公開されていた（v1.0 で封印済みの LLM モデルDL＝`FeatureFlags.aiOcrModeEnabled=false`・llama 依存も削除済み、を記述＋文章破損）。正本 `receipt_flutter site/` の現行版（3.3=外部経路5つの全開示）に同期して解消。**巡回手順に「法務複製の同期照合」を含めること** | privacy.html / terms.html | `receipt_flutter` `site/privacy.html`・`site/terms.html`（正本） | ✅ | 2026-07-17 |
 | （追従候補）正本 terms は無料枠を「ログへの確定」上限として記述（撮影・保存・編集・出力は無制限無料）— LP の「100枚まで無料」はより控えめな表現で矛盾はないが、いずれ表現を揃える | LP 料金節 | 同上 第4条 | ⚠️ | 2026-07-17 |
 | 旧ヒーロー「かざしてパシャ」（アプリ内撮影を示唆）は **2026-07-17 改訂で修正**（「いつものカメラで撮った写真を読み取る」）— 撮影機能なしの事実に整合（最新 main で camera 系依存なしを再確認） | ヒーロー・つかいかた「撮る」 | pubspec.yaml（camera/image_picker 無し） | ✅ | 2026-07-17 |
