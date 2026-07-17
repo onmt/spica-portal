@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ココハワタシガ — レシートを撮るだけ。データはスマホの中だけ。</title>
-<meta name="description" content="ココハワタシガは、レシートをスマホで撮るだけで、日付や金額を自動で読み取って整理してくれるアプリです。医療費控除や確定申告の準備に。データはすべてスマホの中だけ、インターネットには何も送りません。登録不要・広告なし。">
-<meta property="og:title" content="ココハワタシガ — レシートを撮るだけ。データはスマホの中だけ。">
-<meta property="og:description" content="ココハワタシガは、レシートをスマホで撮るだけで、日付や金額を自動で読み取って整理してくれるアプリです。医療費控除や確定申告の準備に。データはすべてスマホの中だけ、インターネットには何も送りません。登録不要・広告なし。">
+<title>ココハワタシガ — レシート整理はアプリに。決めるのは、あなた。</title>
+<meta name="description" content="ココハワタシガは、スマホで撮ったレシートの写真を読み取って、経費も家計簿も整理するアプリです。読み取った数字はあなたが確かめて確定する作りだから、知らない数字が申告に紛れ込みません。データはすべてスマホの中だけ。登録不要・広告なし。">
+<meta property="og:title" content="ココハワタシガ — レシート整理はアプリに。決めるのは、あなた。">
+<meta property="og:description" content="ココハワタシガは、スマホで撮ったレシートの写真を読み取って、経費も家計簿も整理するアプリです。読み取った数字はあなたが確かめて確定する作りだから、知らない数字が申告に紛れ込みません。データはすべてスマホの中だけ。登録不要・広告なし。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.spicaimg.com/kokohawatashiga/">
 <meta property="og:site_name" content="Spica Image Creation">
@@ -234,6 +234,36 @@ section.alt .qa{background:var(--paper)}
   padding:6px 0 6px 20px; font-size:.9rem; color:var(--muted);
 }
 
+/* ---- 手綱（思想の核） ---- */
+.flow{max-width:620px; margin:0 auto 36px; display:flex; flex-direction:column; gap:0}
+.flow .frow{
+  display:grid; grid-template-columns:52px 1fr; gap:16px; align-items:start;
+  padding:18px 4px;
+}
+.flow .frow + .frow{border-top:1px dashed var(--line)}
+.flow .fwho{
+  width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+  font-size:.8rem; font-weight:700; line-height:1.3; text-align:center;
+}
+.flow .app .fwho{background:var(--teal-tint); color:var(--teal-deep)}
+.flow .you .fwho{background:var(--teal); color:#fff}
+.flow h3{margin:2px 0 4px; font-size:1.1rem; color:var(--ink-strong)}
+.flow p{margin:0; font-size:.95rem; color:var(--muted)}
+.namecard{
+  max-width:620px; margin:0 auto; background:var(--teal-tint2); border-radius:18px;
+  padding:26px 30px; font-size:1rem; color:var(--ink);
+}
+.namecard b{color:var(--teal-deep)}
+
+/* ---- 正直コーナー ---- */
+.shoujiki{padding:0 0 72px}
+.shoujiki-box{
+  max-width:640px; margin:0 auto; background:var(--card); border:1.5px solid var(--line);
+  border-left:5px solid var(--teal); border-radius:16px; padding:26px 30px;
+}
+.shoujiki-box .st{font-weight:700; color:var(--ink-strong); font-size:1.08rem; margin:0 0 10px}
+.shoujiki-box p{margin:0; font-size:.97rem; color:var(--ink)}
+
 /* ---- footer ---- */
 footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 56px; font-size:.9rem; color:var(--muted)}
 .foot-brand{display:flex; align-items:center; gap:12px; margin-bottom:16px}
@@ -263,11 +293,12 @@ footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 
   <div class="wrap">
     <img class="appicon" src="icon.png" alt="ココハワタシガのアプリアイコン" width="104" height="104">
     <p class="appname">ココハワタシガ</p>
-    <h1>レシートを撮るだけ。<br>自分のお金が、<span class="teal">ちゃんと見える</span>。</h1>
-    <p class="lead">スマホでレシートを撮ると、日付や金額をアプリが自動で読み取って、月ごと・年ごとに整理します。面倒な手間はアプリが減らして、<b>お金の把握はあなたの手に</b>。医療費控除や確定申告の準備もぐっと楽になります。大切なお買い物の記録は、<b>ぜんぶスマホの中だけ</b>。インターネットには何も送りません。</p>
+    <h1>めんどうなレシート整理は、アプリに。<br>決めるのは、<span class="teal">あなた</span>。</h1>
+    <p class="lead">スマホで撮ったレシートの写真を、アプリが読み取って、月ごと・年ごとに整理。わずらわしい経費の記録も、ふだんの家計簿も、これひとつで片づきます。そして読み取った数字は、<b>あなたが確かめて決める</b>作り——「AI が勝手にやりました」に、置いてけぼりにされません。大切な記録は、<b>ぜんぶスマホの中だけ</b>。インターネットには何も送りません。</p>
     <span class="soon">📱 iPhone アプリ・App Store で近日公開予定</span>
     <span class="soon-note">ただいま公開の準備をしています。公開されたら、このページからダウンロードできるようになります。</span>
     <div class="chips">
+      <span>経費にも、家計簿にも</span>
       <span>会員登録なし</span>
       <span>広告なし</span>
       <span>月々の支払いなし</span>
@@ -275,6 +306,44 @@ footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 
     </div>
   </div>
 </div>
+
+<!-- ============ 考えかた（思想の核） ============ -->
+<section id="tezuna" class="alt">
+  <div class="wrap">
+    <span class="sec-label">このアプリの考えかた</span>
+    <h2>「AI が決めました」が、<br>ありません。</h2>
+    <p class="sec-lead">「自動でぜんぶやってくれる」は、たしかに便利。でも、自分が見ていない数字がそのまま帳簿に入っていくのは、少しこわい——そう感じる方のために作ったアプリです。</p>
+
+    <div class="flow">
+      <div class="frow app">
+        <span class="fwho">アプリ</span>
+        <div>
+          <h3>読み取って、「候補」を出します。</h3>
+          <p>日付・金額・お店の名前などを写真から読み取って、答えの候補として並べます。ここまでがアプリの仕事です。</p>
+        </div>
+      </div>
+      <div class="frow you">
+        <span class="fwho">あなた</span>
+        <div>
+          <h3>確かめて、選びます。</h3>
+          <p>候補が合っていればそのまま、違っていたら選び直すだけ。数字は候補のまま、あなたの目を通るのを待っています。</p>
+        </div>
+      </div>
+      <div class="frow you">
+        <span class="fwho">あなた</span>
+        <div>
+          <h3>「確認済み」の印は、あなたが押します。</h3>
+          <p>確認がまだの記録は、はっきり「未確認」のまま残り、いつでもひと目で区別できます。こっそり「済み」になることはありません。決定権は、いつもあなたの手の中です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="namecard">
+      <b>「ココハワタシガ」という名前について。</b><br>
+      お会計のときの、あの「ここは私が」からつけました。じぶんのお金のことは、じぶんで引き受けて、じぶんで決める——名前の意味は、そのままこのアプリの作りです。
+    </div>
+  </div>
+</section>
 
 <!-- ============ 使い方 ============ -->
 <section id="howto">
@@ -289,15 +358,15 @@ footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 
           <svg viewBox="0 0 64 64"><rect x="6" y="16" width="52" height="38" rx="6"/><path d="M22 16l4-7h12l4 7"/><circle cx="32" cy="35" r="10"/><circle cx="49" cy="24" r="1.6" fill="currentColor"/></svg>
         </div>
         <h3>撮る</h3>
-        <p>レシートにスマホをかざして、パシャ。日付・金額・お店の名前を、アプリが自動で読み取ります。</p>
+        <p>いつものカメラで、レシートをパシャ。撮った写真をアプリが読み取って、日付・金額・お店の名前の候補を出します。</p>
       </div>
       <div class="step">
         <div class="num">2</div>
         <div class="pic" aria-hidden="true">
           <svg viewBox="0 0 64 64"><rect x="10" y="8" width="44" height="14" rx="7"/><path d="M18 15h20" stroke-width="2.4"/><rect x="10" y="28" width="44" height="14" rx="7" stroke-width="2.4"/><path d="M20 35l4 4 8-8"/><path d="M42 52c3-2 8-2 11 0" opacity=".5"/></svg>
         </div>
-        <h3>選ぶ</h3>
-        <p>読み取った内容を確かめて、当てはまる項目をポンと選ぶだけ。使うほど、あなたのよく行くお店を覚えて賢くなります。</p>
+        <h3>たしかめる</h3>
+        <p>出てきた候補を確かめて、ポンと選ぶだけ。ここがあなたの出番です。使うほど、あなたのよく行くお店を覚えて賢くなります。</p>
       </div>
       <div class="step">
         <div class="num">3</div>
@@ -315,8 +384,8 @@ footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 
 <section id="anshin" class="alt">
   <div class="wrap">
     <span class="sec-label">いちばん大切なこと</span>
-    <h2>あなたのレシートは、<br>スマホの外に出ていきません。</h2>
-    <p class="sec-lead">レシートには、いつ・どこで・何を買ったかが全部書いてあります。だからこのアプリは、写真も記録も<b>インターネットに送らない</b>作りにしました。</p>
+    <h2>あなたのものは、ぜんぶ<br>あなたの手の中に。</h2>
+    <p class="sec-lead">この安心は、二重になっています。<b>置き場所</b>——レシートには、いつ・どこで・何を買ったかが全部書いてあるから、写真も記録もインターネットに送らない。<b>決めごと</b>——数字を確定するのは、アプリではなく、あなた。</p>
 
     <div class="anshin" role="img" aria-label="レシートの写真も記録も集計もスマホの中で完結し、インターネットに送る仕組みがそもそもない図">
       <div class="phone">
@@ -340,6 +409,7 @@ footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 
       <li><b>広告がありません。</b>あなたの記録が広告に使われることもありません。</li>
       <li><b>写真の読み取りも、スマホの中で。</b>多くのアプリは写真をインターネット上のコンピューターに送って読み取りますが、このアプリはスマホの中だけで読み取ります。</li>
       <li><b>インターネットにつながっていなくても動きます。</b>機内モードでも、電波の届かない場所でも、そのまま使えます。</li>
+      <li><b>勝手に「確認済み」になりません。</b>読み取った数字に確認済みの印を付けられるのは、あなただけ。確認前の記録は「未確認」として、いつでも区別して見られます。</li>
     </ul>
   </div>
 </section>
@@ -348,8 +418,8 @@ footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 
 <section id="feats">
   <div class="wrap">
     <span class="sec-label">できること</span>
-    <h2>ふだんの記録から、<br>確定申告の準備まで。</h2>
-    <p class="sec-lead">むずかしい機能は、必要な人にだけ見えるように作っています。まずは撮ってためていくだけで大丈夫。</p>
+    <h2>ふだんの家計簿から、<br>確定申告の準備まで。</h2>
+    <p class="sec-lead">むずかしい機能は、必要な人にだけ見えるように作っています。事業の経費もプライベートの支出も分けて記録できるので、まずは家計簿がわりに、ためていくだけで大丈夫。</p>
 
     <div class="fgroup">
       <p class="gtitle">🌱 どなたにも</p>
@@ -393,6 +463,16 @@ footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 
           <div><h3>過去の年の分もさかのぼれる</h3><p>ためこんでしまった過去のレシートも、5年前の分までさかのぼって整理できます。</p></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 正直コーナー ============ -->
+<section class="shoujiki" aria-label="正直な設計思想">
+  <div class="wrap">
+    <div class="shoujiki-box">
+      <p class="st">機械の読み取りは、ときどき間違えます。</p>
+      <p>だから私たちは、間違いがそのまま通らない作りにしました。読み取った内容は必ずあなたの目を通り、違っていればその場で直せます。「完璧な AI」を装うより、<b>あなたが最後に確かめる設計</b>のほうが、お金と申告のことでは、ずっと安心だと考えています。</p>
     </div>
   </div>
 </section>
@@ -447,6 +527,10 @@ footer{border-top:1px solid var(--line); background:var(--card); padding:44px 0 
       <div class="qa">
         <p class="q">本当に無料ですか？あとから請求されませんか？</p>
         <p class="a">1年分のレシートが100枚までなら、ずっと無料です。勝手にお金がかかることはありません。100枚を超えるときは、アプリが画面でお知らせして、あなたが「買う」を選んだときだけ1,200円かかります。</p>
+      </div>
+      <div class="qa">
+        <p class="q">読み取りが間違っていたら、どうなりますか？</p>
+        <p class="a">その場で直せます。読み取った内容は「候補」として出てくるので、違っていたら選び直すか、書き直してください。そして記録は、あなたが「確認済み」にするまで「未確認」のまま区別されて残ります。見ていない数字にこっそり「済み」の印が付くことは、作りとして起きません。</p>
       </div>
       <div class="qa">
         <p class="q">レシートの写真が、どこかに送られたりしませんか？</p>
