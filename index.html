@@ -11,7 +11,13 @@
 <meta property="og:url" content="https://www.spicaimg.com/">
 <meta property="og:site_name" content="Spica Image Creation">
 <meta property="og:locale" content="ja_JP">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://www.spicaimg.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Spica Image Creation — 映像を作る。道具も、作る。">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.spicaimg.com/assets/og.png">
+<link rel="canonical" href="https://www.spicaimg.com/">
 <meta name="theme-color" content="#0b0d14">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
@@ -38,7 +44,37 @@
 .bizinfo span{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--on-500)}
 .bizinfo b{color:var(--on-700); font-weight:500}
 @media(max-width:560px){.bizinfo>div{grid-template-columns:1fr; gap:2px}}
+/* 撮ってきた現場（実績・業種のみ） */
+.works{margin-top:42px; border-top:1px solid var(--line); padding-top:28px}
+.works .wk{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--spica-300); display:block; margin-bottom:16px}
+.works-list{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:10px}
+.works-list li{border:1px solid var(--night-600); border-radius:999px; padding:8px 16px; font-size:.88rem; color:var(--on-700); background:var(--night-950)}
+.works-note{margin:16px 0 0; font-size:.82rem; color:var(--on-500)}
 </style>
+<!-- 構造化データ（検索エンジン向け・実行されないデータブロック）。主張はページ本文と同一のもののみ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.spicaimg.com/#org",
+      "name": "スピカ・イメージクリエイション",
+      "alternateName": "Spica Image Creation",
+      "url": "https://www.spicaimg.com/",
+      "logo": "https://www.spicaimg.com/apple-touch-icon.png",
+      "description": "企業VPやドローン空撮を手がける映像制作の小さな工房。現場で生まれた道具（Spica Prompter・ffkit・ココハワタシガ）をローカルファーストで作っている。"
+    },
+    {
+      "@type": "WebSite",
+      "url": "https://www.spicaimg.com/",
+      "name": "Spica Image Creation",
+      "publisher": { "@id": "https://www.spicaimg.com/#org" },
+      "inLanguage": "ja"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -101,6 +137,18 @@
         <span class="k">03 — Post</span><h3>編集・納品</h3>
         <p>編集・テロップ・仕上げから、配信用データや DVD / Blu-ray まで、使う形に合わせて納品します。</p>
       </div>
+    </div>
+
+    <div class="works rv">
+      <span class="wk">FIELDS — 撮ってきた現場</span>
+      <ul class="works-list">
+        <li>企業・団体VP</li>
+        <li>式典撮影</li>
+        <li>セミナー撮影</li>
+        <li>手術撮影</li>
+        <li>ドローン撮影</li>
+      </ul>
+      <p class="works-note">クライアント名は掲載していません。守秘も納品物のうち、と考えています。</p>
     </div>
   </div>
 </section>
