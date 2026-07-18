@@ -1,0 +1,5 @@
+# spicaimg.com — 全ページ公開・クロール許可（「探されたら在る」のための最小設定）
+User-agent: *
+Allow: /
+
+Sitemap: https://www.spicaimg.com/sitemap.xml
