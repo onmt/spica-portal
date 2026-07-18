@@ -12,6 +12,9 @@
 
 **公開・デプロイの前に、pre-release-check の関門（サイト向け S1〜S5）を必ず通し、
 通過記録 `release-checks/RELEASE_CHECK-YYYY-MM-DD.md` をコミットする。**
+（同じ日に複数回公開する場合は、区別のため題名サフィックスを付けてよい＝
+`release-checks/RELEASE_CHECK-YYYY-MM-DD-<題名>.md`。日付入りで `release-checks/` 直下に置くのが規約であり、
+サフィックスの有無は関門の合否に関係しない。）
 
 - 関門の正本は `onmt/claude-config` の `claude/skills/pre-release-check/SKILL.md`。
 - このセッションから正本が読めない場合は、Koji.O に SKILL.md の中身の貼り付けを求めること。
