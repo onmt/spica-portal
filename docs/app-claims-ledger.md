@@ -80,9 +80,11 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 |---|---|---|---|---|
 | ffkit の入手節は一般配布前の正直表記（private・PyPI 未公開のため pip/GitHub 導線を張らない） | ffkit/ GET 節 | README 運用メモ | ✅ | 2026-07-10 |
 | ffkit のオフライン/ローカル処理の主張 | ffkit/ | `onmt/ffkit`（**リポ未接続**） | ❓ | 未 |
-| 文字起こしは音声をローカル処理・送信なし（faster-whisper large-v3） | (LP 未掲載) | `billing/catalog.yaml` whisper-core notes（**リポ未接続**） | ❓ | 未 |
+| 文字起こしは音声をローカル処理・送信なし（faster-whisper large-v3／Apple Silicon は mlx-whisper large-v3(-turbo)） | notes/local-first・(LP: 文字起こしLP は未作成) | `onmt/whisper` 実コード（app/・scripts/ に音声送信/テレメトリ/upload なし＝grep 検出ゼロ）＋ README「処理はすべてこの PC の中。音声を外に送りません」 | ✅ | 2026-07-19 |
+| **正直な例外**: 音声そのものは送らないが、**初回のモデル（文字起こしエンジン本体）取得のみ通信**する。以後はオフラインで動作 | notes/local-first「一切通信しないとは言わない」節 | `onmt/whisper` README line 150（「初回のモデル取得のみ通信」） | ✅ | 2026-07-19 |
 
 > ❓は issue #10 で追跡。当該リポをこのセッション/巡回セッションに接続できたら独立検証する。
+> **2026-07-19: whisper（文字起こし）は `onmt/whisper` を接続して独立検証済み＝✅**（残る❓は ffkit のみ）。
 
 ---
 

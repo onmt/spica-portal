@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>データを、外に出さない — ローカルファーストという作り方 | Spica Image Creation</title>
+<meta name="description" content="映像制作の現場から生まれたローカルファーストの道具（Spica Prompter・文字起こし・ココハワタシガ）。データを端末の外に出さない作り方と、その正直な線引きについての読みもの。">
+<meta property="og:title" content="データを、外に出さない — ローカルファーストという作り方">
+<meta property="og:description" content="映像制作の現場から生まれたローカルファーストの道具。データを端末の外に出さない作り方と、その正直な線引きについて。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.spicaimg.com/notes/local-first/">
+<meta property="og:site_name" content="Spica Image Creation">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://www.spicaimg.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Spica Image Creation — 映像を作る。道具も、作る。">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.spicaimg.com/assets/og.png">
+<link rel="canonical" href="https://www.spicaimg.com/notes/local-first/">
+<meta name="theme-color" content="#0b0d14">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/style.css">
+<!-- 構造化データ（検索エンジン向け・実行されないデータブロック） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "データを、外に出さない — ローカルファーストという作り方",
+  "datePublished": "2026-07-19",
+  "inLanguage": "ja",
+  "mainEntityOfPage": "https://www.spicaimg.com/notes/local-first/",
+  "author": { "@type": "Organization", "name": "スピカ・イメージクリエイション", "url": "https://www.spicaimg.com/" },
+  "publisher": { "@type": "Organization", "name": "スピカ・イメージクリエイション" }
+}
+</script>
+<style>
+/* 読みもの（ノート）— style.css 夜テーマを共用した記事レイアウト */
+.note{max-width:660px; margin:0 auto; padding:clamp(28px,6vw,64px) clamp(18px,5vw,28px) 40px}
+.note .eyebrow{margin-bottom:20px}
+.note h1{
+  font-family:var(--serif); font-weight:600; color:var(--on-900);
+  font-size:clamp(1.9rem,6vw,2.9rem); line-height:1.3; margin:0 0 14px; letter-spacing:.01em;
+}
+.note .byline{font-family:var(--mono); font-size:12px; letter-spacing:.06em; color:var(--on-500); margin:0 0 40px}
+.note .byline .sep{opacity:.5; margin:0 8px}
+.note .lead{font-size:1.06rem; color:var(--on-900); line-height:2; margin:0 0 8px}
+.note h2{
+  font-family:var(--serif); font-weight:600; color:var(--on-900);
+  font-size:clamp(1.2rem,3.6vw,1.5rem); line-height:1.5; margin:44px 0 14px; text-wrap:balance;
+}
+.note p{margin:0 0 20px; color:var(--on-700); line-height:2}
+.note ul{margin:0 0 20px; padding:0; list-style:none; display:flex; flex-direction:column; gap:18px}
+.note li{
+  border-left:2px solid var(--night-600); padding:2px 0 2px 18px;
+  color:var(--on-700); line-height:1.95;
+}
+.note li b{color:var(--on-900); font-weight:600}
+.note strong{color:var(--on-900); font-weight:600}
+.note .end{
+  margin-top:48px; padding-top:24px; border-top:1px solid var(--line);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; color:var(--on-500); line-height:1.9;
+}
+.note .end a{color:var(--spica-300); text-decoration:none}
+.note .end a:hover{text-decoration:underline}
+.backhome{
+  display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.08em; color:var(--on-500); text-decoration:none; margin-top:8px;
+}
+.backhome:hover{color:var(--on-700)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brandmark" href="/" aria-label="Spica ホーム" style="text-decoration:none;color:var(--on-900)">
+      <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      <b>SPICA</b>
+    </a>
+    <span class="tag">LOCAL-FIRST</span>
+    <nav class="nav-links">
+      <a href="/#apps">APPS</a>
+      <a href="/#contact">CONTACT</a>
+    </nav>
+  </div>
+</header>
+
+<article class="note">
+  <p class="eyebrow">NOTE — 読みもの</p>
+  <h1>データを、外に出さない。</h1>
+  <p class="byline">ローカルファーストっていう作り方<span class="sep">/</span>2026-07-19</p>
+
+  <p class="lead">便利な道具って、たいてい「データをどこかに預ける」のと引き換えに動きますよね。クラウドに上げて、向こうで処理してもらう。私たちはそれを、なるべく<strong>しない</strong>で道具を作っています。</p>
+
+  <h2>ローカルファースト、ってなに？</h2>
+  <p>ざっくり言うと、扱うもの——台本とか、声とか、録音、レシートの数字——が、ぜんぶ<strong>手元の端末の中だけで完結する</strong>作り方のことです。処理も端末の中でやって、ネットの向こうへは送りません。</p>
+
+  <h2>なんで、そうしてるか</h2>
+  <p>本業が映像制作なんです。現場だと、他人の機密をよく預かります。世に出る前の台本、式典や手術の記録、経費の中身。こういうのを漏らさないのは、仕事として当たり前のことでした。で、自分たちの道具も同じノリで作ってる、という感じです。預かる理由がないものは、預からない。それだけなんですよね。</p>
+
+  <h2>じゃあ具体的に、どう「出さない」の？</h2>
+  <ul>
+    <li><b>Spica Prompter（プロンプター）</b>：台本も、読み上げに使うマイクの声も、端末から出ません。声の速さに合わせてスクロールする「声追従」の解析も、ぜんぶ端末の中。そもそも台本を送る先のサーバーが、存在しないんです。</li>
+    <li><b>文字起こしの道具（開発中・名前は検討中）</b>：録音した音声を、クラウドに送らずに、この PC の中だけで文字にします。議事録とか、人には聞かせられない打ち合わせとか——「便利なのは分かるけど、この音声をどこかのサーバーに上げるのはちょっと」って場面、けっこうありますよね。そこを手元だけで済ませる道具です。</li>
+  </ul>
+
+  <h2>これ、映像の現場だけの話じゃなくて</h2>
+  <p>今って、誰でも毎日ちょっとずつ「自分の情報を、どこまでネットに預けるか」を選んでますよね。その問いに私たちなりに出したひとつの答えが、<strong>ココハワタシガ</strong>（領収書アプリ）です。レシートの読み取り（OCR）は端末の中で完結。外に出るのは、書き出しを選んだときの「仕訳に必要な数字だけ」で、写真も買い物の中身も出ていきません。お金まわりって、いちばん人に見られたくないところですしね。</p>
+
+  <h2>「一切通信しません！」とは、言わない</h2>
+  <p>たぶんここが一番大事で。「絶対に何も送りません」って言い切れたら話は早いんですけど、それ、正確じゃないんです。たとえば Spica Prompter の有料ライセンスは、返金済み・流出した鍵から正規のお客さんを守るために、90日に1回くらい、鍵と（元に戻せない）機器の識別子を送っています。文字起こしの道具も、いちばん最初に、文字起こしエンジン本体を一度だけ取りに行きます。——大事なのは、どっちも中身（台本や録音）そのものは送っていないこと。そして送るときは隠さず、履歴もぜんぶ見せること。「出さない」って言うなら、出すときだけは正直に見せる。そこは大事にしたいなと思っています。</p>
+
+  <h2>露出を控えめにしてるのも、たぶん同じ理由</h2>
+  <p>作り手が静かなほうが、預ける側は安心できるよなと。だからこのサイトも、売り込みはしません。必要な人が探したときに、ちゃんと見つかればいい。そのくらいでちょうどいいと思っています。</p>
+
+  <div class="end">
+    Spica Image Creation — 映像制作と、ローカルファーストの道具。<br>
+    道具のこと: <a href="/prompter/">Spica Prompter</a> ・ <a href="/ffkit/">ffkit</a> ・ <a href="/kokohawatashiga/">ココハワタシガ</a><br>
+    <a class="backhome" href="/">← ホームへ</a>
+  </div>
+</article>
+
+<!-- サイト解析: Cloudflare Web Analytics（Cookieなし・個人を追跡しない匿名集計）。手順は /docs/analytics.md。 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8f19122a6f6b42e4a0870712d234fec7"}'></script>
+</body>
+</html>
