@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ffkit — 挿せば、再生が始まる。DVD / Blu-ray 納品ツール | Spica</title>
-<meta name="description" content="ffkit — 完成した動画を、メニューなしの DVD-Video / BD-Video と配布用 MP4 に。ワンソースから全納品形式を一括生成、ジョブ票で放置できる無人バッチ、規格準拠チェック、フリッカー解析まで。完全ローカルで素材は端末から出ません。Mac / Windows / Linux。">
-<meta property="og:title" content="ffkit — 挿せば、再生が始まる。DVD / Blu-ray 納品ツール | Spica">
-<meta property="og:description" content="ffkit — 完成した動画を、メニューなしの DVD-Video / BD-Video と配布用 MP4 に。ワンソースから全納品形式を一括生成、ジョブ票で放置できる無人バッチ、規格準拠チェック、フリッカー解析まで。完全ローカルで素材は端末から出ません。Mac / Windows / Linux。">
+<title>ffkit — 作ってからが、納品だ。映像納品ツールキット（検品→生成→検証） | Spica</title>
+<meta name="description" content="ffkit — 完成した映像を、確実に再生できる納品物に。マスターの検品（preflight・ラウドネス）→ メニューなし DVD / Blu-ray と配布 MP4 の一括生成 → 規格の検証と添付レポートまで、コマンド一発と無人バッチで。完全ローカルで素材は端末から出ません。Mac / Windows / Linux。">
+<meta property="og:title" content="ffkit — 作ってからが、納品だ。映像納品ツールキット | Spica">
+<meta property="og:description" content="完成した映像を、確実に再生できる納品物に。検品（preflight・ラウドネス）→ MP4 / DVD / BD 一括生成 → 規格検証と添付レポートまで。完全ローカルで素材は端末から出ません。Mac / Windows / Linux。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.spicaimg.com/ffkit/">
 <meta property="og:site_name" content="Spica Image Creation">
@@ -39,6 +39,18 @@
   vertical-align:-0.18em; animation:blink 1.1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.term .caret{animation:none}}
+/* three acts strip — 検品 → 生成 → 検証 */
+.acts{display:flex; flex-wrap:wrap; gap:12px; align-items:stretch; margin:44px 0 8px}
+.acts .act{
+  flex:1 1 210px; border:1px solid var(--line); border-radius:12px; background:var(--night-900);
+  padding:18px 20px; position:relative;
+}
+.acts .act .n{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--spica-300)}
+.acts .act h3{margin:9px 0 6px; font-size:1.02rem; color:var(--on-900); font-weight:600; line-height:1.5}
+.acts .act p{margin:0; font-size:.84rem; color:var(--on-500); line-height:1.85}
+.acts .act .cmds{margin-top:11px; font-family:var(--mono); font-size:9.5px; letter-spacing:.04em; color:var(--on-700); line-height:1.8}
+.acts .arw{align-self:center; font-family:var(--mono); color:var(--night-600); font-size:1.1rem; padding:0 2px}
+@media(max-width:760px){.acts .arw{display:none}}
 /* one source → all deliverables */
 .fx-flow{flex-direction:column; gap:14px}
 .fx-flow .src{
@@ -56,6 +68,19 @@
 .fx-flow .out b{display:block; color:var(--on-900); font-size:11px; letter-spacing:.06em}
 .fx-flow .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
   letter-spacing:.1em; color:var(--on-500)}
+/* preflight / verify checklist */
+.fx-verify{flex-direction:column; gap:10px; align-items:stretch}
+.fx-verify .vrow{
+  display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:baseline;
+  border:1px solid var(--line); border-radius:6px; background:var(--night-950);
+  padding:10px 14px; font-size:.85rem; color:var(--on-700);
+}
+.fx-verify .vrow .g{font-family:var(--mono); text-align:center; color:#7fd4ab}
+.fx-verify .vrow .g.w{color:#e6b566}
+.fx-verify .vrow small{display:block; font-family:var(--mono); font-size:9px;
+  letter-spacing:.08em; color:var(--on-500); margin-top:2px}
+.fx-verify .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.1em; color:var(--on-500); margin-top:4px}
 /* job sheet batch */
 .fx-jobs{flex-direction:column; gap:8px; align-items:stretch}
 .fx-jobs .jrow{
@@ -74,19 +99,6 @@
 .fx-flick .cap{display:flex; justify-content:space-between; width:100%; max-width:340px;
   font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; color:var(--on-500)}
 .fx-flick .cap .b{color:var(--spica-300)}
-/* verify checklist */
-.fx-verify{flex-direction:column; gap:10px; align-items:stretch}
-.fx-verify .vrow{
-  display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:baseline;
-  border:1px solid var(--line); border-radius:6px; background:var(--night-950);
-  padding:10px 14px; font-size:.85rem; color:var(--on-700);
-}
-.fx-verify .vrow .g{font-family:var(--mono); text-align:center; color:#7fd4ab}
-.fx-verify .vrow .g.w{color:#e6b566}
-.fx-verify .vrow small{display:block; font-family:var(--mono); font-size:9px;
-  letter-spacing:.08em; color:var(--on-500); margin-top:2px}
-.fx-verify .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
-  letter-spacing:.1em; color:var(--on-500); margin-top:4px}
 /* get box */
 .get-box{
   border:1px solid var(--line); border-radius:12px; background:var(--night-900);
@@ -109,7 +121,7 @@
   "url": "https://www.spicaimg.com/ffkit/",
   "applicationCategory": "MultimediaApplication",
   "operatingSystem": "macOS, Windows, Linux",
-  "description": "完成した動画を、メニューなしの DVD-Video / BD-Video と配布用 MP4 に。ワンソースから全納品形式を一括生成、ジョブ票で放置できる無人バッチ、規格準拠チェック、フリッカー解析まで。完全ローカルで素材は端末から出ない。",
+  "description": "完成した映像を、確実に再生できる納品物にするための道具。マスターの検品（preflight・ラウドネス）→ メニューなし DVD-Video / BD-Video と配布 MP4 の一括生成 → 規格準拠の検証と添付レポートまでを、コマンド一発と無人バッチで。完全ローカルで素材は端末から出ない。",
   "publisher": { "@type": "Organization", "name": "スピカ・イメージクリエイション", "url": "https://www.spicaimg.com/" }
 }
 </script>
@@ -128,7 +140,7 @@
     <span class="tag">LOCAL-FIRST</span>
     <nav class="nav-links">
       <a href="/">HOME</a>
-      <a href="#features">DELIVER</a>
+      <a href="#lastmile">LAST MILE</a>
       <a href="#local">LOCAL</a>
       <a href="#pricing">PRICING</a>
       <a href="#get">GET</a>
@@ -148,53 +160,94 @@
       </svg>
     </div>
     <p class="eyebrow rv"><span class="blue">FFKIT</span>&ensp;映像納品の道具 — DELIVERY TOOLKIT<span style="opacity:.5">・ベータ</span></p>
-    <h1 class="rv">挿せば、再生が始まる。</h1>
-    <p class="lead rv">編集の終わった動画を、プレーヤーに挿せばそのまま本編が始まる<b>メニューなしの DVD / Blu-ray</b> と、配布用 MP4 に。マスターを渡せば全納品形式がいっぺんにでき上がり、何十本の案件も<b>ジョブ票を書いて放置するだけ</b>。完全ローカルで動くので、素材が端末の外に出ることはありません。</p>
+    <h1 class="rv">作ってからが、<br>納品だ。</h1>
+    <p class="lead rv">映像は、書き出したら終わりじゃありません。<b>壊れていないかの検品、全形式の一括生成、規格の検証と「確認しました」の証跡</b>——確実に再生できる納品物になるまでの、編集のあとの最後のひと区間。ffkit はそこだけを、コマンド一発と無人バッチで引き受けます。完全ローカルで動くので、素材が端末の外に出ることはありません。</p>
     <div class="cta-row rv">
-      <a class="btn btn-primary" href="#features">できることを見る</a>
+      <a class="btn btn-primary" href="#lastmile">できることを見る</a>
       <a class="btn btn-ghost" href="#get">入手について</a>
       <span class="cta-note">// 無料コア（ベータ）＋商用ライセンス準備中。Mac / Windows / Linux・Python 標準ライブラリのみ。</span>
     </div>
 
     <figure class="demo rv" style="margin-top:64px">
       <div class="demo-bar">
-        <span class="rec"></span> TERMINAL — deliver（ワンソース→全納品）
+        <span class="rec"></span> TERMINAL — 検品 → 生成 → 検証
         <span class="right"><span>ローカル実行</span><span>アップロード 0</span></span>
       </div>
-      <div class="term" aria-label="ffkit deliver の実行イメージ">
+      <div class="term" aria-label="ffkit の検品・生成・検証パイプラインの実行イメージ">
+<span class="p">$</span> ffkit preflight 完成.mov
+<span class="c"># ①検品：破損・VFR・色タグ・ラウドネス目安・黒/フリーズ/無音</span>
+<span class="ok">✓</span> 入稿ゲート通過 — エンコード開始してよし
 <span class="p">$</span> ffkit deliver 工場編.mov 据付け編.mov -o ./納品 --light
-<span class="c"># 結合版＋境界チャプターを含む、全納品形式を一括生成</span>
-<span class="ok">✓</span> ①完成MP4（H.264・無劣化リマックス）
-<span class="ok">✓</span> ①軽量版MP4（フルHD・視聴/配布用）
-<span class="ok">✓</span> ②DVD-Video（メニューなし・ISO・1分チャプター）
-<span class="ok">✓</span> ③BD-Video（フルHD・ISO）
-<span class="ok">✓</span> verify — 規格準拠 ✓（納品添付レポート出力）
+<span class="c"># ②生成：結合＋境界チャプター、全納品形式を一括</span>
+<span class="ok">✓</span> ①完成MP4（無劣化リマックス）／軽量版MP4（配布用）
+<span class="ok">✓</span> ②DVD-Video（メニューなし・ISO）／③BD-Video（フルHD・ISO）
+<span class="p">$</span> ffkit verify ./納品
+<span class="c"># ③検証：規格準拠＋ラウドネス＋SHA-256 マニフェスト</span>
+<span class="ok">✓</span> 納品チェック合格 — 添付レポート出力（verify_report.html）
 <span class="p">$</span> <span class="caret"></span>
       </div>
-      <figcaption class="demo-caption">実行イメージ（出力は実機の要約）— マスター2本 → 結合・チャプター・ISO・納品フォルダ構成まで一括</figcaption>
+      <figcaption class="demo-caption">実行イメージ（出力は実機の要約）— マスターの検品から、全形式生成、納品添付レポートまでを一本の線で</figcaption>
     </figure>
 
     <div class="stats rv">
-      <div><span class="v">1<small>コマンド</small></span><span class="l">マスター → MP4 / DVD / BD 一括</span></div>
-      <div><span class="v">0<small>件</small></span><span class="l">アップロード（完全ローカル）</span></div>
+      <div><span class="v">3<small>幕</small></span><span class="l">検品 → 生成 → 検証</span></div>
       <div><span class="v">20<small>種</small></span><span class="l">納品まわりのサブコマンド</span></div>
+      <div><span class="v">0<small>件</small></span><span class="l">アップロード（完全ローカル）</span></div>
       <div><span class="v">再開<small>可</small></span><span class="l">冪等バッチ — 途中から続き</span></div>
     </div>
   </div>
 </div>
 
-<!-- ============ FEATURES ============ -->
-<section id="features" class="deep">
+<!-- ============ THE LAST MILE ============ -->
+<section id="lastmile" class="deep">
   <div class="wrap">
     <p class="eyebrow rv">THE LAST MILE — 納品の最後の1マイル</p>
     <h2 class="rv">むずかしいのは、<br>変換そのものじゃない。</h2>
-    <p class="section-lead rv">汎用の変換ソフトは「変換」まではやってくれます。でも、<b>現場で確実に再生できる納品物にする</b>ところまでは面倒を見てくれない。ffkit は編集が終わってからの、その最後のひと手間だけを引き受けます。自分の納品案件で焼いて、確かめながら鍛えてきた道具です。</p>
+    <p class="section-lead rv">汎用の変換ソフトは「変換」まではやってくれます。でも、<b>現場で確実に再生できる納品物にする</b>ところまでは面倒を見てくれない。ffkit は編集が終わってからの最後のひと区間——<b>検品・生成・検証</b>の三幕を引き受けます。自分の納品案件で焼いて、確かめながら鍛えてきた道具です。</p>
+
+    <div class="acts rv">
+      <div class="act">
+        <span class="n">ACT 1 — CHECK</span>
+        <h3>検品する</h3>
+        <p>エンコード前に、素材そのものを疑う。破損・VFR・色タグ未設定・黒/フリーズ/無音・ラウドネスを機械で洗い出す入稿ゲート。</p>
+        <div class="cmds">preflight・loudness・qc</div>
+      </div>
+      <span class="arw">→</span>
+      <div class="act">
+        <span class="n">ACT 2 — MAKE</span>
+        <h3>生成する</h3>
+        <p>マスターを渡せば、完成MP4・軽量版・DVD・BD が一度に。結合・境界チャプター・ISO・納品フォルダまで。何十本もジョブ票で放置。</p>
+        <div class="cmds">deliver・deliver-batch・watch</div>
+      </div>
+      <span class="arw">→</span>
+      <div class="act">
+        <span class="n">ACT 3 — VERIFY</span>
+        <h3>検証する</h3>
+        <p>焼く前の出力が規格に沿っているかを ✓/⚠/✗ で判定し、納品に添付できるレポートと SHA-256 の証跡まで。勘ではなく記録で。</p>
+        <div class="cmds">verify・manifest</div>
+      </div>
+    </div>
+
+    <div class="flag rv" style="margin-top:64px">
+      <div>
+        <span class="k">ACT 1 — Preflight・入稿ゲート</span>
+        <h3>エンコード前に、<br>素材そのものを疑う。</h3>
+        <p>「渡された素材、そのまま焼いて大丈夫？」に機械で答えます。破損・可変フレームレート・色タグ未設定・黒/フリーズ/無音の区間・ラウドネスの目安を1パスで検査。納品前の<b style="color:var(--on-900)">ラウドネスゲート</b>は -24LKFS±1 / -1dBTP（ARIB TR-B32 相当）を自動判定し、不適合なら止めます。</p>
+        <div class="spec"><span>破損・VFR・色タグ</span><span>-24LKFS <span class="num">自動判定</span></span><span>黒/フリーズ/無音</span></div>
+      </div>
+      <div class="fx fx-verify">
+        <div class="vrow"><span class="g">✓</span><span>コンテナ健全・固定フレームレート<small>preflight — 破損/VFR なし</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>ラウドネス −23.6 LKFS / TP −1.4 dB<small>loudness — ARIB TR-B32 相当で適合</small></span></div>
+        <div class="vrow"><span class="g w">⚠</span><span>先頭に 0.4 秒の黒フレーム<small>qc — 情報として記載（--strict でゲート）</small></span></div>
+        <div class="fxnote">preflight / loudness / qc — 焼く前に止められる</div>
+      </div>
+    </div>
 
     <div class="flag rv">
       <div>
-        <span class="k">01 — Deliver・ワンソース→全納品</span>
+        <span class="k">ACT 2 — Deliver・ワンソース→全納品</span>
         <h3>マスターを渡すと、<br>納品一式ができ上がる。</h3>
-        <p>複数のマスターから、完成MP4・軽量版MP4・DVD・BD を一度に生成。結合版には章の境界チャプターが自動で入り、ISO と納品フォルダ構成まで整います。「DVD だけ」「軽量版だけ」の切り替えもオプションひとつ。</p>
+        <p>複数のマスターから、完成MP4・軽量版MP4・DVD・BD を一度に生成。結合版には章の境界チャプターが自動で入り、ISO と納品フォルダ構成、SHA-256 マニフェストまで整います。「DVD だけ」「軽量版だけ」の切り替えもオプションひとつ。配布 MP4 を<b style="color:var(--on-900)">総容量の上限に収める</b>2パスVBRも。</p>
         <div class="spec"><span>MP4 / DVD / BD <span class="num">一括</span></span><span>結合＋境界チャプター</span><span>ISO・納品フォルダまで</span></div>
       </div>
       <div class="fx fx-flow">
@@ -205,15 +258,15 @@
           <span class="out"><b>DVD</b>メニューなし・ISO</span>
           <span class="out"><b>BD</b>フルHD・ISO</span>
         </div>
-        <span class="fxnote">ワンソース → 全納品形式。チャプター・フォルダ構成込み</span>
+        <span class="fxnote">ワンソース → 全納品形式。チャプター・フォルダ構成・マニフェスト込み</span>
       </div>
     </div>
 
     <div class="flag rv">
       <div>
-        <span class="k">02 — Deliver-batch・管制塔バッチ</span>
+        <span class="k">ACT 2 — Deliver-batch・管制塔バッチ</span>
         <h3>ジョブ票を書いて、<br>あとは寝ていい。</h3>
-        <p>フォルダを渡すとジョブ票（CSV）が自動ででき、直したい行だけ書き換えて実行。マスターごとに形式・画質・軽量版の有無を変えられます。処理は冪等で、<b style="color:var(--on-900)">作成済みは自動スキップ・途中で止まっても続きから</b>。人が見るのは、赤と黄で知らせる例外だけ。</p>
+        <p>フォルダを渡すとジョブ票（CSV）が自動ででき、直したい行だけ書き換えて実行。マスターごとに形式・画質・軽量版の有無を変えられます。処理は冪等で、<b style="color:var(--on-900)">作成済みは自動スキップ・途中で止まっても続きから</b>。監視フォルダに置くだけの無人ライン（watch）も。人が見るのは、赤と黄で知らせる例外だけ。</p>
         <div class="spec"><span>フォルダ → ジョブ票自動生成</span><span>冪等・<span class="num">再開可</span></span><span>例外だけ通知</span></div>
       </div>
       <div class="fx fx-jobs">
@@ -227,9 +280,9 @@
 
     <div class="flag rv">
       <div>
-        <span class="k">03 — Flicker・ちらつき制御</span>
+        <span class="k">SIGNATURE — Flicker・ちらつき制御</span>
         <h3>実機で気づく前に、<br>ちらつきを測る。</h3>
-        <p>DVD 縮小で細い線がジラつく「ライントゥイッター」。ffkit はこれを<b style="color:var(--on-900)">実機なしで数値化</b>し、対策の強度を「測って→振って→また測る」閉ループで自動探索します。PC 上でインターレース表示を擬似再生して、目でも確かめられます。照明フリッカーの納品前レスキューも。</p>
+        <p>DVD 縮小で細い線がジラつく「ライントゥイッター」。ffkit はこれを<b style="color:var(--on-900)">実機なしで数値化</b>し、対策の強度を「測って→振って→また測る」閉ループで自動探索します（optimize）。PC 上でインターレース表示を擬似再生して、目でも確かめられる（preview-interlace）。汎用ソフトにはない、映像屋が自分の困りごとから作った機能です。</p>
         <div class="spec"><span>ちらつきを数値化</span><span>対策強度を<span class="num">自動探索</span></span><span>PC で擬似再生</span></div>
       </div>
       <div class="fx fx-flick">
@@ -255,15 +308,15 @@
 
     <div class="flag rv">
       <div>
-        <span class="k">04 — Verify・規格準拠チェック</span>
+        <span class="k">ACT 3 — Verify・規格準拠と証跡</span>
         <h3>「このディスク、大丈夫？」に<br>機械で答える。</h3>
-        <p>焼く前の出力が DVD / BD の規格に沿っているかを ✓/⚠/✗ でチェックし、<b style="color:var(--on-900)">納品に添付できるレポート</b>（テキスト / HTML）まで出します。お客様への「確認しました」を、勘ではなく記録で言えるように。</p>
-        <div class="spec"><span>規格準拠 ✓/⚠/✗</span><span>納品添付レポート</span><span>PAR・チャプター検査</span></div>
+        <p>焼く前の出力が DVD / BD の規格に沿っているかを ✓/⚠/✗ でチェックし、<b style="color:var(--on-900)">納品に添付できるレポート</b>（テキスト / HTML）まで出します。dvd/bd は生成直後に自動セルフチェックも。さらに SHA-256 マニフェスト（<span class="num">sha256sum -c</span> 互換）で、渡したファイルが化けていないことを後から証明できます。お客様への「確認しました」を、勘ではなく記録で。</p>
+        <div class="spec"><span>規格準拠 ✓/⚠/✗</span><span>納品添付レポート</span><span>SHA-256 マニフェスト</span></div>
       </div>
       <div class="fx fx-verify">
         <div class="vrow"><span class="g">✓</span><span>映像 720×480i / MPEG-2 / PAR 適合<small>DVD-Video 準拠</small></span></div>
         <div class="vrow"><span class="g">✓</span><span>チャプター 12 点 — 境界一致<small>結合版の章境界と一致</small></span></div>
-        <div class="vrow"><span class="g w">⚠</span><span>音声ビットレート高め<small>再生互換は維持 — 注記として記載</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>manifest.sha256 — 8 ファイル照合<small>納品後も化けを検出できる</small></span></div>
         <div class="fxnote">verify --report — 納品に添付できる確認記録</div>
       </div>
     </div>
@@ -278,13 +331,13 @@
     <div class="grid" style="margin-top:40px">
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M8 17l-5-5 5-5M16 7l5 5-5 5"/><path d="M13 5l-2 14"/></svg></span>
-        <span class="k">Lossless</span><h3>無劣化の連結・切り出し</h3><p>再エンコードなしで MP4 を連結・トリム・音声抽出。画質を落とさず、素早く。</p></div>
+        <span class="k">Lossless</span><h3>無劣化の連結・切り出し</h3><p>再エンコードなしで MP4 を連結・トリム・音声抽出。画質を落とさず、素早く。前段の下ごしらえに。</p></div>
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 7l4-4h10l4 4v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7h18M9 12l2 2 4-4"/></svg></span>
-        <span class="k">Watch</span><h3>監視フォルダの無人ライン</h3><p>フォルダに置くだけで自動 DVD / BD 化。研修ディスクの量産など、流れ作業に。</p></div>
+        <span class="k">Watch</span><h3>監視フォルダの無人ライン</h3><p>フォルダに置くだけで自動 DVD / BD 化＋準拠レポート。研修ディスクの量産や、証拠・保管ラインに。</p></div>
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M10 8.5l5 2.5-5 2.5zM8 21h8"/></svg></span>
-        <span class="k">Package</span><h3>円盤の代わりの HTML プレーヤー</h3><p>動画群をメニュー・プレイリスト・ループ付きの単一 HTML に。展示映像や PC 納品に、ダブルクリックで再生。</p></div>
+        <span class="k">Package</span><h3>円盤の代わりの HTML プレーヤー</h3><p>動画群をメニュー・プレイリスト・ループ付きの単一 HTML に。展示映像や PC 納品に、ダブルクリックで再生。パスワード保護版も。</p></div>
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h4M7 12h6M7 15h3"/><circle cx="17" cy="13" r="2.4"/></svg></span>
         <span class="k">Variants</span><h3>画質バージョンの見比べ</h3><p>設定違いを一括生成して比較。全バージョンを1枚の比較 DVD に焼き、実機のリモコンで切り替えて確認も。</p></div>
@@ -298,7 +351,7 @@
   </div>
 </section>
 
-<!-- ============ LOCAL / LICENSE ============ -->
+<!-- ============ LOCAL / HONEST ============ -->
 <section id="local" class="deep">
   <div class="wrap">
     <p class="eyebrow rv">LOCAL & HONEST — ローカル完結と、正直な注記</p>
@@ -307,13 +360,18 @@
     <div class="ledger" style="margin-top:48px">
       <div class="row rv">
         <span class="glyph">✓</span>
-        <div><h3>素材も成果物も、アップロードしない</h3><p>変換・解析・バッチのすべてが端末内で完結します。クラウド処理も、進捗の送信もありません。収集ゼロ。</p></div>
+        <div><h3>素材も成果物も、アップロードしない</h3><p>検品・生成・検証・バッチのすべてが端末内で完結します。クラウド処理も、進捗の送信もありません。収集ゼロ。</p></div>
         <span class="st ok">実装済</span>
       </div>
       <div class="row rv">
         <span class="glyph">✓</span>
-        <div><h3>特許・GPL の問題は根元で回避</h3><p>ffmpeg などの外部ツールは同梱せず、別プロセスとして呼ぶだけ。依存は THIRD_PARTY に明記し、各ライセンスを守ります。</p></div>
+        <div><h3>特許・GPL の問題は根元で回避</h3><p>ffmpeg などの外部ツールは同梱せず、別プロセスとして呼ぶだけ。同梱する第三者コードは暗号化に使う寛容ライセンスの1つだけで、依存は THIRD_PARTY に明記します。</p></div>
         <span class="st ok">設計方針</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph w">⚠</span>
+        <div><h3>要るツールは各自導入（Blu-ray は tsMuxeR、Windows の DVD は WSL2）</h3><p>ffmpeg・dvdauthor・tsMuxeR などは同梱せず、セットアップ手順を用意しています。Windows でのディスク生成は WSL2 を推奨（ffmpeg 単体の作業はネイティブでも動きます）。</p></div>
+        <span class="st beta">前提</span>
       </div>
       <div class="row rv">
         <span class="glyph w">⚠</span>
@@ -338,7 +396,7 @@
         <div class="price">¥0</div>
         <span class="per">無料・ベータ</span>
         <ul>
-          <li>全サブコマンド（deliver / batch / verify…）</li>
+          <li>全サブコマンド（検品 / 生成 / 検証…）</li>
           <li>CLI＋ローカル Web UI</li>
           <li>Mac / Windows / Linux</li>
         </ul>
@@ -374,7 +432,7 @@
     </div>
 
     <div class="en-note rv">
-      <b>For developers worldwide.</b> ffkit turns finished videos into menu-free DVD-Video / BD-Video and distribution MP4 — one source, all deliverables, as an unattended, deterministic, resumable batch. Insert and it just plays. Fully offline; your footage never leaves your machine. Free core (beta, public release in preparation) + one-time commercial license planned. Provided as-is — verify your discs play. We don't bundle ffmpeg / GPL binaries (we call system tools); third-party licenses respected.
+      <b>For developers worldwide.</b> ffkit is the last mile of video delivery: preflight your master (integrity, VFR, loudness), generate every deliverable from one source (menu-free DVD-Video / BD-Video and distribution MP4, with chapters, ISO and a SHA-256 manifest), then verify to spec and attach the report. Unattended, deterministic, resumable batches. Fully offline; your footage never leaves your machine. Free core (beta, public release in preparation) + one-time commercial license planned. Provided as-is — verify your discs play. We don't bundle ffmpeg / GPL binaries (we call system tools); third-party licenses respected.
     </div>
 
     <p class="tagline rv">納品の最後の1マイルを、<br>あなたの端末の中で。</p>

@@ -70,15 +70,33 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 
 ---
 
-## ffkit（onmt/ffkit）／ Whisper（文字起こし・onmt/whisper 仮）
+## ffkit（onmt/ffkit）
+
+> 2026-07-19: onmt/ffkit をセッションに接続し実コードで裏取り。LP を**新軸「納品の最後の1マイル総合（検品→生成→検証）」**へ改稿（旧「挿せば再生＝DVD/BD変換」から軸変更・Koji 指示）。旧 ❓ を解消。
 
 | 主張 | サイト掲載箇所 | 正本（在り処） | 状態 | 最終確認 |
 |---|---|---|---|---|
-| ffkit の入手節は一般配布前の正直表記（private・PyPI 未公開のため pip/GitHub 導線を張らない） | ffkit/ GET 節 | README 運用メモ | ✅ | 2026-07-10 |
-| ffkit のオフライン/ローカル処理の主張 | ffkit/ | `onmt/ffkit`（**リポ未接続**） | ❓ | 未 |
-| 文字起こしは音声をローカル処理・送信なし（faster-whisper large-v3） | (LP 未掲載) | `billing/catalog.yaml` whisper-core notes（**リポ未接続**） | ❓ | 未 |
+| ffkit の入手節は一般配布前の正直表記（private・PyPI 未公開のため pip/GitHub 導線を張らない） | ffkit/ GET 節 | README 運用メモ | ✅ | 2026-07-19 |
+| **完全ローカル**（素材も成果物もアップロードしない・収集ゼロ）。ffmpeg 等の外部ツールは**同梱せず別プロセスで呼ぶ**（特許・GPL を根元回避）。同梱する第三者コードは暗号化用 `cryptography`（Apache/BSD）のみ | ffkit/ LOCAL節 | `onmt/ffkit` THIRD_PARTY.md・commands/（exec 委譲） | ✅ | 2026-07-19 |
+| 主軸＝**検品（preflight/loudness/qc）→ 生成（deliver/mp4/dvd/bd/deliver-batch/watch）→ 検証（verify/manifest）**。サブコマンド約20種。ラウドネスゲートは -24LKFS±1 / -1dBTP（ARIB TR-B32 相当・不適合 exit1） | ffkit/ 全体（LAST MILE 節） | `onmt/ffkit` README.md サブコマンド表・HANDOFF.md | ✅ | 2026-07-19 |
+| BD は要 tsMuxeR、Windows の DVD 生成は **WSL2 推奨**（dvdauthor/genisoimage 同梱困難）。progressive 既定・プレス時のみ interlaced 厳格準拠。焼いたら実機確認（AS-IS 無保証） | ffkit/ LOCAL節「前提」「お願い」 | `onmt/ffkit` HANDOFF.md §2/§5/§7 | ✅ | 2026-07-19 |
+| 価格：Core ¥0（beta・GitHub）／商用ライセンス ¥5,000 買い切り（**planned・法務クリア後・暫定**・サブスクなし） | ffkit/ PRICING | `onmt/spica` billing/catalog.yaml（ffkit-core / ffkit-commercial） | ✅ | 2026-07-19 |
 
-> ❓は issue #10 で追跡。当該リポをこのセッション/巡回セッションに接続できたら独立検証する。
+---
+
+## Spica Scribe（文字起こし・onmt/whisper／製品名は仮称）
+
+> 2026-07-19: onmt/whisper をセッションに接続し実コードで裏取り。**新規 LP `/scribe/` を作成**（軸「現場の記録を、送らずに残す」・Koji 指示）。"whisper" は OpenAI モデル名と衝突するため製品名不可 → サイトは暫定 **Spica Scribe** を採用（catalog も「仮称・要別名」・正式名は要確定）。
+
+| 主張 | サイト掲載箇所 | 正本（在り処） | 状態 | 最終確認 |
+|---|---|---|---|---|
+| 音声はローカル処理・送信なし（**初回のモデル取得のみ通信**）。**torch 非依存**・環境で backend 自動選択（Win=faster-whisper/CUDA・**Mac=mlx-whisper/GPU**・CPU=int8）。既定 large-v3-**turbo**（large-v3 に切替可） | scribe/ HERO・PIPELINE・honest節 | `onmt/whisper` README.md・NOTICE.md | ✅ | 2026-07-19 |
+| パイプライン：日本語後処理（正規化/フィラー/ITN/句読点）・固有名詞補正（辞書・保護リスト・**監査ログ**・prh互換）・話者分離（**ベータ**・torch-free/sherpa-onnx）・議事録/SOAP 生成（**ローカルLLM**・タイムコード根拠）・横断全文検索（SQLite FTS5）・PII 墨消し・撮影時TCつき SRT/Word/CSV 出力・1枚オフラインHTMLビューア | scribe/ PIPELINE・TOOLBOX | `onmt/whisper` scripts/・README スクリプト表 | ✅ | 2026-07-19 |
+| 現場パック3種：jichitai_giji（自治体議会）／medical（診療SOAP・**最終確認は医療者**）／legal（法務・**最終確認は弁護士**）。読み取りは「候補」＝作成支援ツール（誇張回避） | scribe/ FIELDS節・honest節 | `onmt/whisper` packs/・README | ✅ | 2026-07-19 |
+| 価格：Core ¥0（beta・GitHub）。GUI は pywebview 試作（デザイン未確定）・有料デスクトップは**検討中・価格未定**（LP は「準備中・未定」表記＝価格を創作しない） | scribe/ PRICING | `onmt/spica` catalog.yaml（whisper-core free）・`onmt/whisper` packaging/ | ✅ | 2026-07-19 |
+| **製品名 Spica Scribe は仮**。会社トップ星座・LP GET 節で「（仮称・名称検討中）」を明示。正式名確定まで ⚠️ | scribe/ GET節・index 星座 | 本セッション決定（catalog whisper-core notes「仮称・要別名」） | ⚠️ | 2026-07-19 |
+
+> 名称確定・話者分離の正式版・有料デスクトップの価格確定は、次回巡回（PATROL）で追う。issue #10 の ❓ は本更新で解消。
 
 ---
 

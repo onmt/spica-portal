@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spica Scribe — その場の言葉を、その場に残す。ローカル文字起こし・議事録 | Spica</title>
+<meta name="description" content="Spica Scribe（スピカ・スクライブ）— 会議・議会・診療・法務の音声を、クラウドに送らず端末の中だけで文字起こし。日本語後処理・固有名詞補正・話者分離・議事録/SOAP 生成・横断検索・撮影時TCつき字幕書き出しまで。torch 不要、Mac は GPU。Windows / Mac / Linux。">
+<meta property="og:title" content="Spica Scribe — その場の言葉を、その場に残す。ローカル文字起こし・議事録 | Spica">
+<meta property="og:description" content="会議・議会・診療・法務の音声を、クラウドに送らず端末の中だけで文字起こし。後処理・固有名詞補正・話者分離・議事録生成・横断検索まで。torch 不要、Mac は GPU。Windows / Mac / Linux。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.spicaimg.com/scribe/">
+<meta property="og:site_name" content="Spica Image Creation">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://www.spicaimg.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Spica Image Creation — 映像を作る。道具も、作る。">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.spicaimg.com/assets/og.png">
+<link rel="canonical" href="https://www.spicaimg.com/scribe/">
+<meta name="theme-color" content="#0b0d14">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/style.css">
+<noscript><style>.rv{opacity:1 !important; transform:none !important}</style></noscript>
+<style>
+/* Spica Scribe LP 固有（/style.css を共用） */
+/* terminal demo */
+.term{
+  padding:22px 24px; font-family:var(--mono); font-size:12.5px; line-height:2.1;
+  color:var(--on-700); letter-spacing:.02em; overflow-x:auto; white-space:pre;
+}
+.term .p{color:var(--spica-300)}
+.term .c{color:var(--on-500)}
+.term .ok{color:#7fd4ab}
+.term .warn{color:#e6b566}
+.term .caret{display:inline-block; width:7px; height:1.05em; background:var(--spica-300);
+  vertical-align:-0.18em; animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.term .caret{animation:none}}
+/* three fields strip — 議会 / 診療 / 法務 */
+.acts{display:flex; flex-wrap:wrap; gap:12px; align-items:stretch; margin:44px 0 8px}
+.acts .act{
+  flex:1 1 210px; border:1px solid var(--line); border-radius:12px; background:var(--night-900);
+  padding:18px 20px;
+}
+.acts .act .n{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--spica-300)}
+.acts .act h3{margin:9px 0 6px; font-size:1.02rem; color:var(--on-900); font-weight:600; line-height:1.5}
+.acts .act p{margin:0; font-size:.84rem; color:var(--on-500); line-height:1.85}
+.acts .act .cmds{margin-top:11px; font-family:var(--mono); font-size:9.5px; letter-spacing:.04em; color:var(--on-700); line-height:1.8}
+/* transcript tape figure (話者色分け＋TC＋要確認) */
+.fx-tape{flex-direction:column; gap:7px; align-items:stretch; width:100%}
+.fx-tape .tl{
+  display:grid; grid-template-columns:50px 46px 1fr; gap:9px; align-items:baseline;
+  border:1px solid var(--line); border-radius:6px; background:var(--night-950);
+  padding:9px 12px; font-size:.82rem; color:var(--on-700); line-height:1.7;
+}
+.fx-tape .tl .tc{font-family:var(--mono); font-size:9px; color:var(--on-500)}
+.fx-tape .tl .sp{font-family:var(--mono); font-size:9.5px; letter-spacing:.05em}
+.fx-tape .tl .sp.a{color:var(--spica-300)}
+.fx-tape .tl .sp.b{color:#7fd4ab}
+.fx-tape .tl .sp.c{color:#e6b566}
+.fx-tape .tl mark{background:none; color:#e6b566; font-family:var(--mono); font-size:.9em}
+.fx-tape .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.1em; color:var(--on-500); margin-top:4px}
+/* checklist / pipeline figure */
+.fx-verify{flex-direction:column; gap:10px; align-items:stretch}
+.fx-verify .vrow{
+  display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:baseline;
+  border:1px solid var(--line); border-radius:6px; background:var(--night-950);
+  padding:10px 14px; font-size:.85rem; color:var(--on-700);
+}
+.fx-verify .vrow .g{font-family:var(--mono); text-align:center; color:#7fd4ab}
+.fx-verify .vrow .g.w{color:#e6b566}
+.fx-verify .vrow small{display:block; font-family:var(--mono); font-size:9px;
+  letter-spacing:.08em; color:var(--on-500); margin-top:2px}
+.fx-verify .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.1em; color:var(--on-500); margin-top:4px}
+/* backend auto-select figure */
+.fx-flow{flex-direction:column; gap:12px}
+.fx-flow .src{
+  border:1px solid var(--spica-400); border-radius:8px; background:var(--night-950);
+  padding:10px 18px; font-family:var(--mono); font-size:11px; color:var(--on-900);
+  box-shadow:0 0 24px -12px rgba(31,95,230,.55);
+}
+.fx-flow .down{color:var(--on-500); font-family:var(--mono); font-size:.95rem; line-height:1}
+.fx-flow .outs{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+.fx-flow .out{
+  border:1px solid var(--night-600); border-radius:6px; background:var(--night-950);
+  padding:9px 13px; font-family:var(--mono); font-size:10px; color:var(--on-700);
+  text-align:center; line-height:1.9;
+}
+.fx-flow .out b{display:block; color:var(--on-900); font-size:11px; letter-spacing:.06em}
+.fx-flow .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.1em; color:var(--on-500)}
+/* get box */
+.get-box{
+  border:1px solid var(--line); border-radius:12px; background:var(--night-900);
+  padding:30px 30px; max-width:640px;
+}
+.get-box .mail{font-family:var(--mono); font-size:clamp(1rem,3.2vw,1.25rem); color:var(--starlight)}
+.get-box p{margin:0 0 14px; font-size:.92rem; color:var(--on-500)}
+.get-box p:last-child{margin:0}
+.en-note{
+  margin-top:34px; padding:18px 22px; border-left:2px solid var(--night-600);
+  font-size:.82rem; color:var(--on-500); max-width:640px; line-height:1.9;
+}
+</style>
+<!-- 構造化データ（検索エンジン向け・実行されないデータブロック）。主張はページ本文と同一のもののみ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Spica Scribe",
+  "url": "https://www.spicaimg.com/scribe/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "macOS, Windows, Linux",
+  "description": "会議・議会・診療・法務の音声を、クラウドに送らず端末の中だけで文字起こしするローカル文字起こしツールキット。日本語後処理・固有名詞補正・話者分離・議事録/SOAP 生成・横断検索・撮影時TCつき字幕書き出しまで。torch 不要、Apple Silicon は MLX で GPU 推論。",
+  "publisher": { "@type": "Organization", "name": "スピカ・イメージクリエイション", "url": "https://www.spicaimg.com/" }
+}
+</script>
+</head>
+<body>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="page">
+
+<header>
+  <div class="wrap nav">
+    <span class="brandmark">
+      <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      <b>SPICA</b>
+    </span>
+    <span class="tag">LOCAL-FIRST</span>
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="#field">FIELDS</a>
+      <a href="#pipeline">PIPELINE</a>
+      <a href="#pricing">PRICING</a>
+      <a href="#get">GET</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="wrap">
+    <div class="glint rv">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><radialGradient id="g" cx="50%" cy="44%" r="60%">
+          <stop offset="0%" stop-color="#eef4ff"/><stop offset="42%" stop-color="#4f80f7"/><stop offset="100%" stop-color="#1f5fe6"/>
+        </radialGradient></defs>
+        <path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z" fill="url(#g)"/>
+      </svg>
+    </div>
+    <p class="eyebrow rv"><span class="blue">SPICA SCRIBE</span>&ensp;ローカル文字起こし・議事録 — LOCAL TRANSCRIPTION<span style="opacity:.5">・ベータ</span></p>
+    <h1 class="rv">その場の言葉を、<br>その場に残す。</h1>
+    <p class="lead rv">議会・診療・打合せ・取材——<b>外に出せない声ほど、文字にして残したい</b>。Spica Scribe は音声をクラウドに送らず、<b>端末の中だけ</b>で文字起こしします。日本語の後処理、固有名詞の補正、話者の切り分け、議事録の生成まで。通信するのは、最初のモデル取得のときだけ。あとは機内モードでも動きます。</p>
+    <div class="cta-row rv">
+      <a class="btn btn-primary" href="#pipeline">できることを見る</a>
+      <a class="btn btn-ghost" href="#get">入手について</a>
+      <span class="cta-note">// 無料コア（ベータ）。torch 不要・Mac は MLX で GPU。既定モデル large-v3-turbo。Windows / Mac / Linux。</span>
+    </div>
+
+    <figure class="demo rv" style="margin-top:64px">
+      <div class="demo-bar">
+        <span class="rec"></span> TERMINAL — 文字起こし → 後処理 → 議事録
+        <span class="right"><span>ローカル実行</span><span>音声の送信 0</span></span>
+      </div>
+      <div class="term" aria-label="Spica Scribe の文字起こしから議事録生成までの実行イメージ">
+<span class="p">$</span> scribe 議会音声.mp3
+<span class="c"># 環境で backend 自動選択（Win=CUDA / Mac=MLX / CPU）・torch 不要</span>
+<span class="ok">✓</span> 議会音声_whisper.txt / .json（信頼度つき）
+<span class="p">$</span> scribe post 議会音声 --fillers
+<span class="c"># 日本語後処理：全半角正規化・フィラー除去・句読点整形</span>
+<span class="p">$</span> scribe fix 議会音声 --dict packs/jichitai_giji
+<span class="ok">✓</span> 固有名詞・誤認識を辞書で補正（監査ログつき）
+<span class="p">$</span> scribe minutes 議会音声 --pack jichitai_giji
+<span class="ok">✓</span> 議事録.docx — 決定事項/動議/採決を抽出（タイムコード根拠つき）
+<span class="p">$</span> <span class="caret"></span>
+      </div>
+      <figcaption class="demo-caption">実行イメージ（コマンド名はイメージ・出力は実機の要約）— 音源から、補正済みの議事録まで、すべて端末の中で</figcaption>
+    </figure>
+
+    <div class="stats rv">
+      <div><span class="v">0<small>件</small></span><span class="l">音声の送信（初回のモデル取得のみ）</span></div>
+      <div><span class="v">3<small>現場</small></span><span class="l">議会・診療・法務のパック</span></div>
+      <div><span class="v">v3<small>turbo</small></span><span class="l">既定 large-v3-turbo（精度重視に切替可）</span></div>
+      <div><span class="v">議事録<small>まで</small></span><span class="l">ローカルLLMで生成</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FIELDS / なぜローカル ============ -->
+<section id="field" class="deep">
+  <div class="wrap">
+    <p class="eyebrow rv">OFF THE RECORD — 送らないから、残せる</p>
+    <h2 class="rv">機密の声ほど、<br>クラウドに置きたくない。</h2>
+    <p class="section-lead rv">議事録・診療記録・法務の打合せ。<b>外に出た瞬間に問題になる音声</b>だからこそ、便利なクラウド文字起こしに載せられない——そういう現場のための道具です。処理はすべてこの PC の中。音源も書き起こしも、どこにもアップロードしません。案件が終わったら音源ごと消せば、PII は端末にも残りません。</p>
+
+    <div class="acts rv">
+      <div class="act">
+        <span class="n">FIELD 01 — 自治体・議会</span>
+        <h3>議事録</h3>
+        <p>決定事項・動議・採決を抽出し、議事録テンプレへ。長時間の会議も、話者を分けて読める形に。</p>
+        <div class="cmds">pack: jichitai_giji</div>
+      </div>
+      <div class="act">
+        <span class="n">FIELD 02 — 医療</span>
+        <h3>診療記録（SOAP）</h3>
+        <p>診療の音声を SOAP の下書きに。PII は完全オフライン運用。<b style="color:var(--on-900)">作成支援であり、最終確認は医療者</b>。</p>
+        <div class="cmds">pack: medical</div>
+      </div>
+      <div class="act">
+        <span class="n">FIELD 03 — 法務</span>
+        <h3>尋問・打合せ記録</h3>
+        <p>争点・主張・証言・合意を抽出。話者分離との併用を推奨。<b style="color:var(--on-900)">最終確認は弁護士・法務</b>。</p>
+        <div class="cmds">pack: legal</div>
+      </div>
+    </div>
+    <p class="fineprint rv" style="margin-top:20px">現場パック＝「用語辞書／誤認識補正／出力テンプレ／抽出ルール」の4点セット。<code>--pack</code> で切り替えます。パックは増やせる設計です。</p>
+  </div>
+</section>
+
+<!-- ============ PIPELINE ============ -->
+<section id="pipeline">
+  <div class="wrap">
+    <p class="eyebrow rv">PIPELINE — 音から、渡せる記録まで</p>
+    <h2 class="rv">文字起こしは、<br>入口にすぎない。</h2>
+    <p class="section-lead rv">生の書き起こしは、そのままでは渡せません。Spica Scribe は<b>読める日本語に整え、固有名詞を直し、話者を分け、議事録にまとめる</b>ところまでを、積み上げ式のパイプラインで引き受けます。各工程は同じ JSON を読み書きして重なっていくので、要らない工程は外すだけ。</p>
+
+    <div class="flag rv" style="margin-top:56px">
+      <div>
+        <span class="k">01 — Transcribe・環境で最適化</span>
+        <h3>torch を入れずに、<br>Mac でも速い。</h3>
+        <p>実行環境を見て backend を自動で選びます。Windows の NVIDIA GPU は faster-whisper（CUDA）、<b style="color:var(--on-900)">Apple Silicon は MLX で GPU/Neural Engine</b>、その他は CPU。巨大な torch は要りません。既定モデルは速度と頑健性に優れる large-v3-turbo（精度重視の large-v3 にも切替可）。フォルダ一括は resume 対応で、中断しても続きから。</p>
+        <div class="spec"><span>backend <span class="num">自動選択</span></span><span>torch 不要</span><span>一括・再開可</span></div>
+      </div>
+      <div class="fx fx-flow">
+        <span class="src">音声（mp3 / wav / mov…）</span>
+        <span class="down">↓ 環境を判定</span>
+        <div class="outs">
+          <span class="out"><b>Windows</b>faster-whisper / CUDA</span>
+          <span class="out"><b>Mac</b>mlx-whisper / GPU</span>
+          <span class="out"><b>CPU</b>faster-whisper / int8</span>
+        </div>
+        <span class="fxnote">同じ入口・同じ出力。速い方に自動で寄せる</span>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">02 — Refine・読める日本語に</span>
+        <h3>誤変換を、<br>辞書で直す。</h3>
+        <p>全半角の正規化、フィラー（えー・あのー）除去、かな数詞→数字、句読点の整形。そのうえで、現場の<b style="color:var(--on-900)">固有名詞・誤認識を辞書で一括補正</b>——保護リストで誤爆を避け、どこを直したかの監査ログを残します。検索・置換（表記ゆれ無視・既定 dry-run・Undo 可）も。</p>
+        <div class="spec"><span>正規化・フィラー・句読点</span><span>辞書補正＋<span class="num">監査ログ</span></span><span>検索・置換</span></div>
+      </div>
+      <div class="fx fx-verify">
+        <div class="vrow"><span class="g">✓</span><span>「エヌエイチケー」→「NHK」<small>辞書補正 — 読みゆらぎを統一</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>フィラー 42 箇所を除去<small>後処理 — 読める文章に</small></span></div>
+        <div class="vrow"><span class="g w">⚠</span><span>「市長」/「支庁」要確認 2 箇所<small>保護リストで誤爆回避・ログに記録</small></span></div>
+        <div class="fxnote">直したところは、あとから追える</div>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">03 — Speakers & Minutes・分けて、まとめる</span>
+        <h3>誰が話したかを分け、<br>議事録にまとめる。</h3>
+        <p>話者分離（ベータ・torch-free）で発言を人ごとに色分け。そのうえで<b style="color:var(--on-900)">議事録・SOAP などの完成ドキュメントをローカル LLM で生成</b>します。要約はタイムコード根拠つきで、「どこでそう言ったか」を音声に戻って確かめられる。もちろん生成 LLM も端末の中で動きます。</p>
+        <div class="spec"><span>話者分離（ベータ）</span><span>議事録・SOAP <span class="num">生成</span></span><span>タイムコード根拠</span></div>
+      </div>
+      <div class="fx fx-tape">
+        <div class="tl"><span class="tc">00:12</span><span class="sp a">議長</span><span>本日の議題に入ります。</span></div>
+        <div class="tl"><span class="tc">00:20</span><span class="sp b">委員A</span><span>予算案について<mark>〔要確認〕</mark>を求めます。</span></div>
+        <div class="tl"><span class="tc">00:34</span><span class="sp c">委員B</span><span>動議に賛成します。</span></div>
+        <div class="fxnote">話者色分け＋⚠要確認＋タイムコード → 議事録の根拠に</div>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">04 — See & Search・見える化と横断検索</span>
+        <h3>低い信頼度を炙り出し、<br>過去も横断で探す。</h3>
+        <p>各セグメントの信頼度を常に保存し、<b style="color:var(--on-900)">怪しい箇所だけ ⚠要確認 で可視化</b>。音声同期・話者色分け・検索・議事録の根拠リンクを 1 枚のオフライン HTML ビューアにまとめられます（外部通信なし）。過去の書き起こしは日本語の部分一致で横断全文検索。すべて端末の中で完結します。</p>
+        <div class="spec"><span>⚠ 要確認ハイライト</span><span>1枚オフライン<span class="num">HTMLビューア</span></span><span>横断全文検索</span></div>
+      </div>
+      <div class="fx fx-verify">
+        <div class="vrow"><span class="g">✓</span><span>ビューア：音声クリックで該当箇所へ<small>make_viewer — 外部通信なしの1枚HTML</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>「薬剤」を全案件から 7 件<small>search — SQLite 全文検索・用語ハイライト</small></span></div>
+        <div class="vrow"><span class="g w">⚠</span><span>末尾の定型幻聴を自動で炙り出し<small>flag_review — 低信頼箇所だけ表示</small></span></div>
+        <div class="fxnote">要らなければ作らない・消すだけ（正本は触らない）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOOLBOX ============ -->
+<section class="deep">
+  <div class="wrap">
+    <p class="eyebrow rv">TOOLBOX — 現場で効く小道具</p>
+    <h2 class="rv">記録のまわりも、<br>ひととおり。</h2>
+    <div class="grid" style="margin-top:40px">
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8a3 3 0 0 1 3-3M19 8a3 3 0 0 0-3-3M5 16a3 3 0 0 0 3 3M19 16a3 3 0 0 1-3 3"/></svg></span>
+        <span class="k">Diarize</span><h3>話者分離（ベータ）</h3><p>torch-free で発言を人ごとに。しきい値・最小発話秒で調整、精度は DER で評価できます。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+        <span class="k">Search</span><h3>横断全文検索</h3><p>過去の書き起こしを日本語の部分一致で横断検索。用語ハイライトつき（SQLite FTS5）。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h4"/><path d="M15 13l4 4M19 13l-4 4"/></svg></span>
+        <span class="k">Redact</span><h3>PII 墨消し</h3><p>電話・メール・番号（任意で人名）を非破壊で墨消し。音声側もビープ/無音化。コンプラ提出向け。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 13h6"/></svg></span>
+        <span class="k">Subtitle</span><h3>撮影時TCつき字幕</h3><p>SRT を動画の撮影時タイムコードで書き出し。Premiere / Resolve と整合します（映像制作の相棒）。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17a0 0 0 0 1 0 0H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M8 12h8M8 16h5"/></svg></span>
+        <span class="k">Export</span><h3>テキスト / CSV / Word 出力</h3><p>話者マップ・〔要確認〕・素材（撮影時）TC 併記で納品用に。CSV は開始/終了列つき。</p></div>
+      <div class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+        <span class="k">GUI</span><h3>デスクトップアプリ（試作）</h3><p>CLI が苦手な人向けに、エンジンを呼ぶだけの GUI も用意中。完全ローカルは同じ。デザインは調整中です。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCAL / HONEST ============ -->
+<section id="local">
+  <div class="wrap">
+    <p class="eyebrow rv">LOCAL & HONEST — ローカル完結と、正直な注記</p>
+    <h2 class="rv">声は出さない。<br>下書きだと、書く。</h2>
+
+    <div class="ledger" style="margin-top:48px">
+      <div class="row rv">
+        <span class="glyph">✓</span>
+        <div><h3>音声も書き起こしも、端末から出さない</h3><p>処理はすべてこの PC の中で完結します。通信するのは最初にモデルを取得するときだけ。あとはオフラインで動きます。収集ゼロ。</p></div>
+        <span class="st ok">実装済</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph">✓</span>
+        <div><h3>torch なしで、環境に合わせて速く</h3><p>Windows は CUDA、Apple Silicon は MLX で GPU、その他は CPU に自動で寄せます。巨大な依存を入れずに動くのが設計の芯です。</p></div>
+        <span class="st ok">実装済</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph w">⚠</span>
+        <div><h3>出力は下書き。決めるのは人</h3><p>読み取りは「候補」です。医療は医療者、法務は弁護士——最終確認は必ず専門家が行う前提の、作成支援ツールです。「完全正確」は言いません。</p></div>
+        <span class="st beta">お願い</span>
+      </div>
+      <div class="row rv">
+        <span class="glyph w">⚠</span>
+        <div><h3>話者分離はベータ・議事録生成はローカル LLM が要る</h3><p>話者分離は精度を上げている途中です。議事録/SOAP 生成はローカル LLM（例：Apple の MLX 版）の用意が前提。オープンソースの上に成り立っています（帰属は NOTICE）。</p></div>
+        <span class="st beta">前提</span>
+      </div>
+    </div>
+
+    <p class="fineprint rv"><b>正直な注記：</b>Spica Scribe はベータ段階で、制作元スピカの実務で使いながら鍛えています。文字起こしは OpenAI Whisper（重み）や faster-whisper / MLX / sherpa-onnx など、素晴らしいオープンソースの上に成り立っています（各ライセンスと帰属は同梱の NOTICE に明記）。無保証の詳細は <a href="/legal/eula">EULA</a>、プライバシーは<a href="/legal/privacy">方針（収集しません）</a>をどうぞ。</p>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing" class="deep">
+  <div class="wrap">
+    <p class="eyebrow rv">PRICING — 価格も、隠さない</p>
+    <h2 class="rv">コアは無料。<span class="dim">デスクトップ版は準備中。</span></h2>
+
+    <div class="plans" style="grid-template-columns:repeat(2,1fr); max-width:760px">
+      <div class="plan rv">
+        <span class="name">Core</span>
+        <div class="price">¥0</div>
+        <span class="per">無料・ベータ</span>
+        <ul>
+          <li>文字起こし・後処理・補正・話者分離</li>
+          <li>議事録/SOAP 生成・横断検索・字幕出力</li>
+          <li>現場パック（議会・診療・法務）</li>
+          <li>Windows / Mac / Linux・CLI</li>
+        </ul>
+      </div>
+      <div class="plan pro rv">
+        <span class="rec">準備中</span>
+        <span class="name" style="color:var(--spica-300)">デスクトップアプリ</span>
+        <div class="price">未定</div>
+        <span class="per">買い切り想定 / サブスクなし</span>
+        <ul>
+          <li>CLI なしで使える GUI（試作中）</li>
+          <li>完全ローカルは同じ</li>
+          <li>価格・提供時期は検討中</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="no-sub rv">サブスクリプションはありません。コアは無料で使えます。デスクトップアプリの価格は、出す段になったら確定します。</p>
+  </div>
+</section>
+
+<!-- ============ GET ============ -->
+<section id="get" class="studio">
+  <div class="wrap">
+    <p class="eyebrow rv">GET — 入手について</p>
+    <h2 class="rv">正直に言うと、<br>まだ一般配布の前です。</h2>
+    <p class="section-lead rv">Spica Scribe はいま、自分たちの実務で使いながら仕上げているベータ段階です。GitHub での一般公開は準備中——公開したら、このページからそのまま入手できるようになります。<b>名称も検討中</b>で、正式版で確定します。</p>
+
+    <div class="get-box rv">
+      <p>先に試したい方や、議事録・診療・法務の記録づくりのご相談は、メールでご連絡ください。</p>
+      <a class="mail" href="mailto:support@spicaimg.com">support@spicaimg.com</a>
+      <p style="margin-top:14px">通常2〜5営業日以内に返信します。</p>
+    </div>
+
+    <div class="en-note rv">
+      <b>For developers worldwide.</b> Spica Scribe is a fully local Japanese transcription toolkit for records you can't put in the cloud — councils, clinics, legal. It auto-selects a backend (faster-whisper on CUDA/CPU, MLX on Apple Silicon), runs without torch, then post-processes Japanese, corrects proper nouns with an audit log, diarizes speakers, and generates minutes/SOAP with a local LLM — plus cross-transcript search, PII redaction and timecode-aware subtitle export. Audio never leaves your machine; the only network use is the first model download. Free core (beta). Built on great open source (OpenAI Whisper weights, faster-whisper, MLX, sherpa-onnx…) — see NOTICE for attribution.
+    </div>
+
+    <p class="tagline rv">その場の言葉を、<br>その場に残す。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span class="brandmark" style="color:var(--on-500)">
+        <svg viewBox="0 0 100 100" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      </span>
+      <span class="links">
+        <a href="/">スピカ・イメージクリエイション</a>
+        <a href="/prompter/">Spica Prompter</a>
+        <a href="/ffkit/">ffkit</a>
+        <a href="/kokohawatashiga/">ココハワタシガ</a>
+        <a href="/legal/privacy">プライバシー（収集しません）</a>
+        <a href="/legal/eula">利用規約 / EULA</a>
+      </span>
+      <span class="copy">© Spica Image Creation</span>
+    </div>
+    <p class="foot-note">// このページは外部リソースを一切読み込みません。フォントは自前ホスト・解析スクリプトなし・CSP適用。道具と同じく、サイトもローカルファーストです。</p>
+  </div>
+</footer>
+
+</div><!-- /.page -->
+
+<script src="/app.js"></script>
+<!-- サイト解析: Cloudflare Web Analytics（Cookieなし・個人を追跡しない匿名集計）。
+     token は Cloudflare ダッシュボード → Web Analytics でサイト登録時に発行。手順は /docs/analytics.md。 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8f19122a6f6b42e4a0870712d234fec7"}'></script>
+</body>
+</html>
