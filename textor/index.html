@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spica Scribe — その場の言葉を、その場に残す。ローカル文字起こし・議事録 | Spica</title>
-<meta name="description" content="Spica Scribe（スピカ・スクライブ）— 会議・議会・診療・法務の音声を、クラウドに送らず端末の中だけで文字起こし。日本語後処理・固有名詞補正・話者分離・議事録/SOAP 生成・横断検索・撮影時TCつき字幕書き出しまで。torch 不要、Mac は GPU。Windows / Mac / Linux。">
-<meta property="og:title" content="Spica Scribe — その場の言葉を、その場に残す。ローカル文字起こし・議事録 | Spica">
-<meta property="og:description" content="会議・議会・診療・法務の音声を、クラウドに送らず端末の中だけで文字起こし。後処理・固有名詞補正・話者分離・議事録生成・横断検索まで。torch 不要、Mac は GPU。Windows / Mac / Linux。">
+<title>Textor（テキスター）— 声を、使えるテキストに織り上げる。文字起こしと整形 | Spica</title>
+<meta name="description" content="Textor（テキスター）— 会議・議会・診療・打合せの音声を、ただ文字にするだけでなく、読める・使える文章に整え、磨き上げるところまで。議事録・字幕・検索に渡せる形にお膳立てします。処理は端末の中だけ（送らない）。文字起こしエンジンに縛られない設計。Windows / Mac / Linux。">
+<meta property="og:title" content="Textor（テキスター）— 声を、使えるテキストに織り上げる。 | Spica">
+<meta property="og:description" content="音声を、読める・使える文章に整え、磨き上げる。文字起こし・後処理・固有名詞補正・話者分離・議事録生成・横断検索・字幕書き出しまで。処理は端末の中だけ。Windows / Mac / Linux。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.spicaimg.com/scribe/">
+<meta property="og:url" content="https://www.spicaimg.com/textor/">
 <meta property="og:site_name" content="Spica Image Creation">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://www.spicaimg.com/assets/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="Spica Image Creation — 映像を作る。道具も、作る。">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.spicaimg.com/assets/og.png">
-<link rel="canonical" href="https://www.spicaimg.com/scribe/">
+<link rel="canonical" href="https://www.spicaimg.com/textor/">
 <meta name="theme-color" content="#0b0d14">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="/style.css">
 <noscript><style>.rv{opacity:1 !important; transform:none !important}</style></noscript>
 <style>
-/* Spica Scribe LP 固有（/style.css を共用） */
+/* Textor LP 固有（/style.css を共用） */
 /* terminal demo */
 .term{
   padding:22px 24px; font-family:var(--mono); font-size:12.5px; line-height:2.1;
@@ -77,7 +77,7 @@
   letter-spacing:.08em; color:var(--on-500); margin-top:2px}
 .fx-verify .fxnote{text-align:center; font-family:var(--mono); font-size:9.5px;
   letter-spacing:.1em; color:var(--on-500); margin-top:4px}
-/* backend auto-select figure */
+/* engine auto-select figure */
 .fx-flow{flex-direction:column; gap:12px}
 .fx-flow .src{
   border:1px solid var(--spica-400); border-radius:8px; background:var(--night-950);
@@ -102,21 +102,18 @@
 .get-box .mail{font-family:var(--mono); font-size:clamp(1rem,3.2vw,1.25rem); color:var(--starlight)}
 .get-box p{margin:0 0 14px; font-size:.92rem; color:var(--on-500)}
 .get-box p:last-child{margin:0}
-.en-note{
-  margin-top:34px; padding:18px 22px; border-left:2px solid var(--night-600);
-  font-size:.82rem; color:var(--on-500); max-width:640px; line-height:1.9;
-}
 </style>
 <!-- 構造化データ（検索エンジン向け・実行されないデータブロック）。主張はページ本文と同一のもののみ -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Spica Scribe",
-  "url": "https://www.spicaimg.com/scribe/",
+  "name": "Textor",
+  "alternateName": "テキスター",
+  "url": "https://www.spicaimg.com/textor/",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "macOS, Windows, Linux",
-  "description": "会議・議会・診療・法務の音声を、クラウドに送らず端末の中だけで文字起こしするローカル文字起こしツールキット。日本語後処理・固有名詞補正・話者分離・議事録/SOAP 生成・横断検索・撮影時TCつき字幕書き出しまで。torch 不要、Apple Silicon は MLX で GPU 推論。",
+  "description": "音声を、読める・使える文章に整え、磨き上げるためのローカル文字起こし・整形ツールキット。文字起こし・日本語後処理・固有名詞補正・話者分離・議事録/SOAP 生成・横断検索・字幕書き出しまで。処理は端末の中だけで、音声を外に送らない。文字起こしエンジンに縛られない設計。",
   "publisher": { "@type": "Organization", "name": "スピカ・イメージクリエイション", "url": "https://www.spicaimg.com/" }
 }
 </script>
@@ -135,8 +132,8 @@
     <span class="tag">LOCAL-FIRST</span>
     <nav class="nav-links">
       <a href="/">HOME</a>
+      <a href="#pipeline">WEAVE</a>
       <a href="#field">FIELDS</a>
-      <a href="#pipeline">PIPELINE</a>
       <a href="#pricing">PRICING</a>
       <a href="#get">GET</a>
     </nav>
@@ -154,96 +151,64 @@
         <path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z" fill="url(#g)"/>
       </svg>
     </div>
-    <p class="eyebrow rv"><span class="blue">SPICA SCRIBE</span>&ensp;ローカル文字起こし・議事録 — LOCAL TRANSCRIPTION<span style="opacity:.5">・ベータ</span></p>
-    <h1 class="rv">その場の言葉を、<br>その場に残す。</h1>
-    <p class="lead rv">議会・診療・打合せ・取材——<b>外に出せない声ほど、文字にして残したい</b>。Spica Scribe は音声をクラウドに送らず、<b>端末の中だけ</b>で文字起こしします。日本語の後処理、固有名詞の補正、話者の切り分け、議事録の生成まで。通信するのは、最初のモデル取得のときだけ。あとは機内モードでも動きます。</p>
+    <p class="eyebrow rv"><span class="blue">TEXTOR</span>&ensp;テキスター — 文字起こしと、その整え<span style="opacity:.5">・ベータ</span></p>
+    <h1 class="rv">声を、テキストに<br>織り上げる。</h1>
+    <p class="lead rv">会議・議会・診療・打合せ。話した言葉を、<b>ただ文字にするだけで終わらせません</b>。読める・使える文章に整え、磨き上げ、議事録にも字幕にも検索にも渡せる形に"お膳立て"する——そこまでが Textor の仕事です。処理は<b>端末の中だけ</b>。音声を外に送らず、文字起こしエンジンにも縛られない設計です。</p>
     <div class="cta-row rv">
       <a class="btn btn-primary" href="#pipeline">できることを見る</a>
       <a class="btn btn-ghost" href="#get">入手について</a>
-      <span class="cta-note">// 無料コア（ベータ）。torch 不要・Mac は MLX で GPU。既定モデル large-v3-turbo。Windows / Mac / Linux。</span>
+      <span class="cta-note">// 無料コア（ベータ）。torch 不要・Mac は GPU で速い。既定モデルは高精度・差し替え可。Windows / Mac / Linux。</span>
     </div>
 
     <figure class="demo rv" style="margin-top:64px">
       <div class="demo-bar">
-        <span class="rec"></span> TERMINAL — 文字起こし → 後処理 → 議事録
+        <span class="rec"></span> TERMINAL — 織る → 磨く → 渡す
         <span class="right"><span>ローカル実行</span><span>音声の送信 0</span></span>
       </div>
-      <div class="term" aria-label="Spica Scribe の文字起こしから議事録生成までの実行イメージ">
-<span class="p">$</span> scribe 議会音声.mp3
-<span class="c"># 環境で backend 自動選択（Win=CUDA / Mac=MLX / CPU）・torch 不要</span>
-<span class="ok">✓</span> 議会音声_whisper.txt / .json（信頼度つき）
-<span class="p">$</span> scribe post 議会音声 --fillers
-<span class="c"># 日本語後処理：全半角正規化・フィラー除去・句読点整形</span>
-<span class="p">$</span> scribe fix 議会音声 --dict packs/jichitai_giji
-<span class="ok">✓</span> 固有名詞・誤認識を辞書で補正（監査ログつき）
-<span class="p">$</span> scribe minutes 議会音声 --pack jichitai_giji
-<span class="ok">✓</span> 議事録.docx — 決定事項/動議/採決を抽出（タイムコード根拠つき）
+      <div class="term" aria-label="Textor の 織る→磨く→渡す パイプラインの実行イメージ">
+<span class="p">$</span> textor 議会音声.mp3
+<span class="c"># ①織る：文字起こし（最適なエンジンを自動選択・torch 不要）</span>
+<span class="ok">✓</span> 議会音声_textor.txt / .json（信頼度つき）
+<span class="p">$</span> textor refine 議会音声 --fillers --dict 議会
+<span class="c"># ②磨く：正規化・フィラー除去・句読点整形・固有名詞補正（監査ログ）</span>
+<span class="p">$</span> textor minutes 議会音声 --pack 議会
+<span class="c"># ③渡す：議事録・字幕・検索に使える形へ</span>
+<span class="ok">✓</span> 議事録.docx（決定/動議/採決・タイムコード根拠つき）
 <span class="p">$</span> <span class="caret"></span>
       </div>
-      <figcaption class="demo-caption">実行イメージ（コマンド名はイメージ・出力は実機の要約）— 音源から、補正済みの議事録まで、すべて端末の中で</figcaption>
+      <figcaption class="demo-caption">実行イメージ（コマンド名はイメージ・出力は実機の要約）— 音源から、整えて渡せる文章まで、すべて端末の中で</figcaption>
     </figure>
 
     <div class="stats rv">
+      <div><span class="v">3<small>幕</small></span><span class="l">織る → 磨く → 渡す</span></div>
       <div><span class="v">0<small>件</small></span><span class="l">音声の送信（初回のモデル取得のみ）</span></div>
       <div><span class="v">3<small>現場</small></span><span class="l">議会・診療・法務のパック</span></div>
-      <div><span class="v">v3<small>turbo</small></span><span class="l">既定 large-v3-turbo（精度重視に切替可）</span></div>
-      <div><span class="v">議事録<small>まで</small></span><span class="l">ローカルLLMで生成</span></div>
+      <div><span class="v">議事録<small>字幕・検索</small></span><span class="l">二次使用まで、お膳立て</span></div>
     </div>
   </div>
 </div>
 
-<!-- ============ FIELDS / なぜローカル ============ -->
-<section id="field" class="deep">
+<!-- ============ PIPELINE / WEAVE ============ -->
+<section id="pipeline" class="deep">
   <div class="wrap">
-    <p class="eyebrow rv">OFF THE RECORD — 送らないから、残せる</p>
-    <h2 class="rv">機密の声ほど、<br>クラウドに置きたくない。</h2>
-    <p class="section-lead rv">議事録・診療記録・法務の打合せ。<b>外に出た瞬間に問題になる音声</b>だからこそ、便利なクラウド文字起こしに載せられない——そういう現場のための道具です。処理はすべてこの PC の中。音源も書き起こしも、どこにもアップロードしません。案件が終わったら音源ごと消せば、PII は端末にも残りません。</p>
-
-    <div class="acts rv">
-      <div class="act">
-        <span class="n">FIELD 01 — 自治体・議会</span>
-        <h3>議事録</h3>
-        <p>決定事項・動議・採決を抽出し、議事録テンプレへ。長時間の会議も、話者を分けて読める形に。</p>
-        <div class="cmds">pack: jichitai_giji</div>
-      </div>
-      <div class="act">
-        <span class="n">FIELD 02 — 医療</span>
-        <h3>診療記録（SOAP）</h3>
-        <p>診療の音声を SOAP の下書きに。PII は完全オフライン運用。<b style="color:var(--on-900)">作成支援であり、最終確認は医療者</b>。</p>
-        <div class="cmds">pack: medical</div>
-      </div>
-      <div class="act">
-        <span class="n">FIELD 03 — 法務</span>
-        <h3>尋問・打合せ記録</h3>
-        <p>争点・主張・証言・合意を抽出。話者分離との併用を推奨。<b style="color:var(--on-900)">最終確認は弁護士・法務</b>。</p>
-        <div class="cmds">pack: legal</div>
-      </div>
-    </div>
-    <p class="fineprint rv" style="margin-top:20px">現場パック＝「用語辞書／誤認識補正／出力テンプレ／抽出ルール」の4点セット。<code>--pack</code> で切り替えます。パックは増やせる設計です。</p>
-  </div>
-</section>
-
-<!-- ============ PIPELINE ============ -->
-<section id="pipeline">
-  <div class="wrap">
-    <p class="eyebrow rv">PIPELINE — 音から、渡せる記録まで</p>
+    <p class="eyebrow rv">WEAVE — 織って、磨いて、渡せる形に</p>
     <h2 class="rv">文字起こしは、<br>入口にすぎない。</h2>
-    <p class="section-lead rv">生の書き起こしは、そのままでは渡せません。Spica Scribe は<b>読める日本語に整え、固有名詞を直し、話者を分け、議事録にまとめる</b>ところまでを、積み上げ式のパイプラインで引き受けます。各工程は同じ JSON を読み書きして重なっていくので、要らない工程は外すだけ。</p>
+    <p class="section-lead rv">生の書き起こしは、そのままでは渡せません。Textor は<b>読める日本語に整え、固有名詞を直し、話者を分け、議事録にまとめる</b>ところまでを、積み上げ式で引き受けます。各工程は同じ JSON を読み書きして重なっていくので、要らない工程は外すだけ。<b>二次使用のお膳立て</b>——字幕・検索・引用に渡せる状態にして手渡します。</p>
 
     <div class="flag rv" style="margin-top:56px">
       <div>
-        <span class="k">01 — Transcribe・環境で最適化</span>
+        <span class="k">01 — 織る・文字起こし</span>
         <h3>torch を入れずに、<br>Mac でも速い。</h3>
-        <p>実行環境を見て backend を自動で選びます。Windows の NVIDIA GPU は faster-whisper（CUDA）、<b style="color:var(--on-900)">Apple Silicon は MLX で GPU/Neural Engine</b>、その他は CPU。巨大な torch は要りません。既定モデルは速度と頑健性に優れる large-v3-turbo（精度重視の large-v3 にも切替可）。フォルダ一括は resume 対応で、中断しても続きから。</p>
-        <div class="spec"><span>backend <span class="num">自動選択</span></span><span>torch 不要</span><span>一括・再開可</span></div>
+        <p>実行環境を見てエンジンを自動で選びます。Windows の NVIDIA GPU、<b style="color:var(--on-900)">Apple Silicon は GPU / Neural Engine</b>、その他は CPU。巨大な torch は要りません。既定は高精度・高速のモデルで、<b style="color:var(--on-900)">中の文字起こしエンジンは差し替え可能</b>——より良いものが出れば、名前も使い勝手も変えずに乗り換えられます。フォルダ一括は resume 対応で、中断しても続きから。</p>
+        <div class="spec"><span>エンジン <span class="num">自動選択</span></span><span>torch 不要・差し替え可</span><span>一括・再開可</span></div>
       </div>
       <div class="fx fx-flow">
         <span class="src">音声（mp3 / wav / mov…）</span>
         <span class="down">↓ 環境を判定</span>
         <div class="outs">
-          <span class="out"><b>Windows</b>faster-whisper / CUDA</span>
-          <span class="out"><b>Mac</b>mlx-whisper / GPU</span>
-          <span class="out"><b>CPU</b>faster-whisper / int8</span>
+          <span class="out"><b>Windows</b>NVIDIA GPU</span>
+          <span class="out"><b>Mac</b>Apple GPU</span>
+          <span class="out"><b>CPU</b>どこでも</span>
         </div>
         <span class="fxnote">同じ入口・同じ出力。速い方に自動で寄せる</span>
       </div>
@@ -251,9 +216,9 @@
 
     <div class="flag rv">
       <div>
-        <span class="k">02 — Refine・読める日本語に</span>
+        <span class="k">02 — 磨く・読める日本語に</span>
         <h3>誤変換を、<br>辞書で直す。</h3>
-        <p>全半角の正規化、フィラー（えー・あのー）除去、かな数詞→数字、句読点の整形。そのうえで、現場の<b style="color:var(--on-900)">固有名詞・誤認識を辞書で一括補正</b>——保護リストで誤爆を避け、どこを直したかの監査ログを残します。検索・置換（表記ゆれ無視・既定 dry-run・Undo 可）も。</p>
+        <p>全半角の正規化、フィラー（えー・あのー）除去、かな数詞→数字、句読点の整形。そのうえで、現場の<b style="color:var(--on-900)">固有名詞・誤認識を辞書で一括補正</b>——保護リストで誤爆を避け、どこを直したかの監査ログを残します。検索・置換（表記ゆれ無視・既定 dry-run・Undo 可）も。ここが「磨き上げ」の中心です。</p>
         <div class="spec"><span>正規化・フィラー・句読点</span><span>辞書補正＋<span class="num">監査ログ</span></span><span>検索・置換</span></div>
       </div>
       <div class="fx fx-verify">
@@ -266,9 +231,9 @@
 
     <div class="flag rv">
       <div>
-        <span class="k">03 — Speakers & Minutes・分けて、まとめる</span>
+        <span class="k">03 — 渡す・分けて、まとめる</span>
         <h3>誰が話したかを分け、<br>議事録にまとめる。</h3>
-        <p>話者分離（ベータ・torch-free）で発言を人ごとに色分け。そのうえで<b style="color:var(--on-900)">議事録・SOAP などの完成ドキュメントをローカル LLM で生成</b>します。要約はタイムコード根拠つきで、「どこでそう言ったか」を音声に戻って確かめられる。もちろん生成 LLM も端末の中で動きます。</p>
+        <p>話者分離（ベータ）で発言を人ごとに色分け。そのうえで<b style="color:var(--on-900)">議事録・SOAP などの完成ドキュメントをローカル LLM で生成</b>します。要約はタイムコード根拠つきで、「どこでそう言ったか」を音声に戻って確かめられる。もちろん生成 LLM も端末の中で動きます。</p>
         <div class="spec"><span>話者分離（ベータ）</span><span>議事録・SOAP <span class="num">生成</span></span><span>タイムコード根拠</span></div>
       </div>
       <div class="fx fx-tape">
@@ -281,33 +246,64 @@
 
     <div class="flag rv">
       <div>
-        <span class="k">04 — See & Search・見える化と横断検索</span>
+        <span class="k">04 — 渡す・見える化と横断検索</span>
         <h3>低い信頼度を炙り出し、<br>過去も横断で探す。</h3>
         <p>各セグメントの信頼度を常に保存し、<b style="color:var(--on-900)">怪しい箇所だけ ⚠要確認 で可視化</b>。音声同期・話者色分け・検索・議事録の根拠リンクを 1 枚のオフライン HTML ビューアにまとめられます（外部通信なし）。過去の書き起こしは日本語の部分一致で横断全文検索。すべて端末の中で完結します。</p>
         <div class="spec"><span>⚠ 要確認ハイライト</span><span>1枚オフライン<span class="num">HTMLビューア</span></span><span>横断全文検索</span></div>
       </div>
       <div class="fx fx-verify">
-        <div class="vrow"><span class="g">✓</span><span>ビューア：音声クリックで該当箇所へ<small>make_viewer — 外部通信なしの1枚HTML</small></span></div>
-        <div class="vrow"><span class="g">✓</span><span>「薬剤」を全案件から 7 件<small>search — SQLite 全文検索・用語ハイライト</small></span></div>
-        <div class="vrow"><span class="g w">⚠</span><span>末尾の定型幻聴を自動で炙り出し<small>flag_review — 低信頼箇所だけ表示</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>ビューア：音声クリックで該当箇所へ<small>1枚HTML — 外部通信なし</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>「薬剤」を全案件から 7 件<small>横断検索 — 用語ハイライト</small></span></div>
+        <div class="vrow"><span class="g w">⚠</span><span>末尾の定型幻聴を自動で炙り出し<small>要確認 — 低信頼箇所だけ表示</small></span></div>
         <div class="fxnote">要らなければ作らない・消すだけ（正本は触らない）</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ============ FIELDS / なぜローカル ============ -->
+<section id="field">
+  <div class="wrap">
+    <p class="eyebrow rv">FIELDS & PRIVACY — 現場ごとに、送らずに</p>
+    <h2 class="rv">機密の声ほど、<br>クラウドに置きたくない。</h2>
+    <p class="section-lead rv">議事録・診療記録・法務の打合せ。<b>外に出た瞬間に問題になる音声</b>だからこそ、便利なクラウド文字起こしに載せられない——そういう現場のための道具です。処理はすべてこの PC の中。音源も書き起こしも、どこにもアップロードしません。案件が終わったら音源ごと消せば、PII は端末にも残りません。現場ごとの<b>パック</b>で、用語も出力もその分野に合わせて整えます。</p>
+
+    <div class="acts rv">
+      <div class="act">
+        <span class="n">FIELD 01 — 自治体・議会</span>
+        <h3>議事録</h3>
+        <p>決定事項・動議・採決を抽出し、議事録テンプレへ。長時間の会議も、話者を分けて読める形に。</p>
+        <div class="cmds">pack: 議会（jichitai_giji）</div>
+      </div>
+      <div class="act">
+        <span class="n">FIELD 02 — 医療</span>
+        <h3>診療記録（SOAP）</h3>
+        <p>診療の音声を SOAP の下書きに。PII は完全オフライン運用。<b style="color:var(--on-900)">作成支援であり、最終確認は医療者</b>。</p>
+        <div class="cmds">pack: 診療（medical）</div>
+      </div>
+      <div class="act">
+        <span class="n">FIELD 03 — 法務</span>
+        <h3>尋問・打合せ記録</h3>
+        <p>争点・主張・証言・合意を抽出。話者分離との併用を推奨。<b style="color:var(--on-900)">最終確認は弁護士・法務</b>。</p>
+        <div class="cmds">pack: 法務（legal）</div>
+      </div>
+    </div>
+    <p class="fineprint rv" style="margin-top:20px">現場パック＝「用語辞書／誤認識補正／出力テンプレ／抽出ルール」の4点セット。<code>--pack</code> で切り替えます。パックは増やせる設計です。</p>
+  </div>
+</section>
+
 <!-- ============ TOOLBOX ============ -->
 <section class="deep">
   <div class="wrap">
-    <p class="eyebrow rv">TOOLBOX — 現場で効く小道具</p>
-    <h2 class="rv">記録のまわりも、<br>ひととおり。</h2>
+    <p class="eyebrow rv">TOOLBOX — 二次使用の、お膳立て</p>
+    <h2 class="rv">整えた先に、<br>渡し先がある。</h2>
     <div class="grid" style="margin-top:40px">
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8a3 3 0 0 1 3-3M19 8a3 3 0 0 0-3-3M5 16a3 3 0 0 0 3 3M19 16a3 3 0 0 1-3 3"/></svg></span>
         <span class="k">Diarize</span><h3>話者分離（ベータ）</h3><p>torch-free で発言を人ごとに。しきい値・最小発話秒で調整、精度は DER で評価できます。</p></div>
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
-        <span class="k">Search</span><h3>横断全文検索</h3><p>過去の書き起こしを日本語の部分一致で横断検索。用語ハイライトつき（SQLite FTS5）。</p></div>
+        <span class="k">Search</span><h3>横断全文検索</h3><p>過去の書き起こしを日本語の部分一致で横断検索。用語ハイライトつき（SQLite 全文検索）。</p></div>
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h4"/><path d="M15 13l4 4M19 13l-4 4"/></svg></span>
         <span class="k">Redact</span><h3>PII 墨消し</h3><p>電話・メール・番号（任意で人名）を非破壊で墨消し。音声側もビープ/無音化。コンプラ提出向け。</p></div>
@@ -338,7 +334,7 @@
       </div>
       <div class="row rv">
         <span class="glyph">✓</span>
-        <div><h3>torch なしで、環境に合わせて速く</h3><p>Windows は CUDA、Apple Silicon は MLX で GPU、その他は CPU に自動で寄せます。巨大な依存を入れずに動くのが設計の芯です。</p></div>
+        <div><h3>torch なしで、環境に合わせて速く。エンジンは差し替え可</h3><p>Windows は NVIDIA GPU、Apple Silicon は GPU に自動で寄せます。巨大な依存を入れずに動くのが芯。文字起こしエンジンは付け替えられる設計で、名前（Textor）はエンジンに縛られません。</p></div>
         <span class="st ok">実装済</span>
       </div>
       <div class="row rv">
@@ -348,12 +344,12 @@
       </div>
       <div class="row rv">
         <span class="glyph w">⚠</span>
-        <div><h3>話者分離はベータ・議事録生成はローカル LLM が要る</h3><p>話者分離は精度を上げている途中です。議事録/SOAP 生成はローカル LLM（例：Apple の MLX 版）の用意が前提。オープンソースの上に成り立っています（帰属は NOTICE）。</p></div>
+        <div><h3>話者分離はベータ・議事録生成はローカル LLM が要る</h3><p>話者分離は精度を上げている途中です。議事録/SOAP 生成はローカル LLM の用意が前提。文字起こし・生成とも、素晴らしいオープンソースの上に成り立っています（帰属は NOTICE）。</p></div>
         <span class="st beta">前提</span>
       </div>
     </div>
 
-    <p class="fineprint rv"><b>正直な注記：</b>Spica Scribe はベータ段階で、制作元スピカの実務で使いながら鍛えています。文字起こしは OpenAI Whisper（重み）や faster-whisper / MLX / sherpa-onnx など、素晴らしいオープンソースの上に成り立っています（各ライセンスと帰属は同梱の NOTICE に明記）。無保証の詳細は <a href="/legal/eula">EULA</a>、プライバシーは<a href="/legal/privacy">方針（収集しません）</a>をどうぞ。</p>
+    <p class="fineprint rv"><b>正直な注記：</b>Textor はベータ段階で、制作元スピカの実務で使いながら鍛えています。文字起こしや議事録生成は、公開されている優れたオープンソースのモデル・ライブラリの上に成り立っています（各ライセンスと帰属は同梱の NOTICE に明記）。無保証の詳細は <a href="/legal/eula">EULA</a>、プライバシーは<a href="/legal/privacy">方針（収集しません）</a>をどうぞ。</p>
   </div>
 </section>
 
@@ -397,7 +393,7 @@
   <div class="wrap">
     <p class="eyebrow rv">GET — 入手について</p>
     <h2 class="rv">正直に言うと、<br>まだ一般配布の前です。</h2>
-    <p class="section-lead rv">Spica Scribe はいま、自分たちの実務で使いながら仕上げているベータ段階です。GitHub での一般公開は準備中——公開したら、このページからそのまま入手できるようになります。<b>名称も検討中</b>で、正式版で確定します。</p>
+    <p class="section-lead rv">Textor はいま、自分たちの実務で使いながら仕上げているベータ段階です。GitHub での一般公開は準備中——公開したら、このページからそのまま入手できるようになります。名称「Textor（テキスター）」も検証中で、正式版で確定します。</p>
 
     <div class="get-box rv">
       <p>先に試したい方や、議事録・診療・法務の記録づくりのご相談は、メールでご連絡ください。</p>
@@ -405,11 +401,7 @@
       <p style="margin-top:14px">通常2〜5営業日以内に返信します。</p>
     </div>
 
-    <div class="en-note rv">
-      <b>For developers worldwide.</b> Spica Scribe is a fully local Japanese transcription toolkit for records you can't put in the cloud — councils, clinics, legal. It auto-selects a backend (faster-whisper on CUDA/CPU, MLX on Apple Silicon), runs without torch, then post-processes Japanese, corrects proper nouns with an audit log, diarizes speakers, and generates minutes/SOAP with a local LLM — plus cross-transcript search, PII redaction and timecode-aware subtitle export. Audio never leaves your machine; the only network use is the first model download. Free core (beta). Built on great open source (OpenAI Whisper weights, faster-whisper, MLX, sherpa-onnx…) — see NOTICE for attribution.
-    </div>
-
-    <p class="tagline rv">その場の言葉を、<br>その場に残す。</p>
+    <p class="tagline rv">声を、テキストに<br>織り上げる。</p>
   </div>
 </section>
 

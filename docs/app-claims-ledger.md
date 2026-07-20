@@ -84,19 +84,19 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 
 ---
 
-## Spica Scribe（文字起こし・onmt/whisper／製品名は仮称）
+## Textor（テキスター・文字起こし＋整形／onmt/whisper）
 
-> 2026-07-19: onmt/whisper をセッションに接続し実コードで裏取り。**新規 LP `/scribe/` を作成**（軸「現場の記録を、送らずに残す」・Koji 指示）。"whisper" は OpenAI モデル名と衝突するため製品名不可 → サイトは暫定 **Spica Scribe** を採用（catalog も「仮称・要別名」・正式名は要確定）。
+> 2026-07-19: onmt/whisper をセッションに接続し実コードで裏取り。**新規 LP `/textor/` を作成**。名称は Koji と検討し **Textor（読み：テキスター）** に決定（"whisper" は OpenAI モデル名＝入力の比喩かつエンジン名で不可 → **エンジンに縛られない"アプリの営み"を指す語**にする方針。Textor＝ラテン語「織り手」＝text/textile の語根で「声を織ってテキストにし、仕上げる」を含意）。**軸も「現場の記録を残す（プライバシー主軸）」から「声を、使えるテキストに織り上げる＝文字起こし＋整形・磨き上げ＋二次使用のお膳立て」へ再設定**（プライバシーは強い"作り"の一つとして残置）。
 
 | 主張 | サイト掲載箇所 | 正本（在り処） | 状態 | 最終確認 |
 |---|---|---|---|---|
-| 音声はローカル処理・送信なし（**初回のモデル取得のみ通信**）。**torch 非依存**・環境で backend 自動選択（Win=faster-whisper/CUDA・**Mac=mlx-whisper/GPU**・CPU=int8）。既定 large-v3-**turbo**（large-v3 に切替可） | scribe/ HERO・PIPELINE・honest節 | `onmt/whisper` README.md・NOTICE.md | ✅ | 2026-07-19 |
-| パイプライン：日本語後処理（正規化/フィラー/ITN/句読点）・固有名詞補正（辞書・保護リスト・**監査ログ**・prh互換）・話者分離（**ベータ**・torch-free/sherpa-onnx）・議事録/SOAP 生成（**ローカルLLM**・タイムコード根拠）・横断全文検索（SQLite FTS5）・PII 墨消し・撮影時TCつき SRT/Word/CSV 出力・1枚オフラインHTMLビューア | scribe/ PIPELINE・TOOLBOX | `onmt/whisper` scripts/・README スクリプト表 | ✅ | 2026-07-19 |
-| 現場パック3種：jichitai_giji（自治体議会）／medical（診療SOAP・**最終確認は医療者**）／legal（法務・**最終確認は弁護士**）。読み取りは「候補」＝作成支援ツール（誇張回避） | scribe/ FIELDS節・honest節 | `onmt/whisper` packs/・README | ✅ | 2026-07-19 |
-| 価格：Core ¥0（beta・GitHub）。GUI は pywebview 試作（デザイン未確定）・有料デスクトップは**検討中・価格未定**（LP は「準備中・未定」表記＝価格を創作しない） | scribe/ PRICING | `onmt/spica` catalog.yaml（whisper-core free）・`onmt/whisper` packaging/ | ✅ | 2026-07-19 |
-| **製品名 Spica Scribe は仮**。会社トップ星座・LP GET 節で「（仮称・名称検討中）」を明示。正式名確定まで ⚠️ | scribe/ GET節・index 星座 | 本セッション決定（catalog whisper-core notes「仮称・要別名」） | ⚠️ | 2026-07-19 |
+| 音声はローカル処理・送信なし（**初回のモデル取得のみ通信**）。**torch 非依存**・環境でエンジン自動選択（Win=faster-whisper/CUDA・**Mac=mlx-whisper/GPU**・CPU=int8）。既定 large-v3-**turbo**（large-v3 に切替可）。**文字起こしエンジンは差し替え可能**＝名前 Textor はエンジン非依存 | textor/ HERO・PIPELINE・honest節 | `onmt/whisper` README.md・NOTICE.md | ✅ | 2026-07-19 |
+| パイプライン（織る→磨く→渡す）：日本語後処理（正規化/フィラー/ITN/句読点）・固有名詞補正（辞書・保護リスト・**監査ログ**・prh互換）・話者分離（**ベータ**・torch-free/sherpa-onnx）・議事録/SOAP 生成（**ローカルLLM**・タイムコード根拠）・横断全文検索（SQLite FTS5）・PII 墨消し・撮影時TCつき SRT/Word/CSV 出力・1枚オフラインHTMLビューア | textor/ PIPELINE・TOOLBOX | `onmt/whisper` scripts/・README スクリプト表 | ✅ | 2026-07-19 |
+| 現場パック3種：jichitai_giji（自治体議会）／medical（診療SOAP・**最終確認は医療者**）／legal（法務・**最終確認は弁護士**）。読み取りは「候補」＝作成支援ツール（誇張回避） | textor/ FIELDS節・honest節 | `onmt/whisper` packs/・README | ✅ | 2026-07-19 |
+| 価格：Core ¥0（beta・GitHub）。GUI は pywebview 試作（デザイン未確定）・有料デスクトップは**検討中・価格未定**（LP は「準備中・未定」表記＝価格を創作しない） | textor/ PRICING | `onmt/spica` catalog.yaml（whisper-core free）・`onmt/whisper` packaging/ | ✅ | 2026-07-19 |
+| **製品名 Textor（テキスター）は本セッション決定・ただし公開前に商標/既存プロダクト衝突チェックが必要**。catalog は whisper-core notes が「仮称・要別名」のまま→要更新。LP GET 節で「名称は検証中」を明示 | textor/ GET節・index 星座 | 本セッション決定（Koji） | ⚠️ | 2026-07-19 |
 
-> 名称確定・話者分離の正式版・有料デスクトップの価格確定は、次回巡回（PATROL）で追う。issue #10 の ❓ は本更新で解消。
+> **未了フォロー**：(1) Textor の商標・既存ソフト名の衝突チェック（公開＝main push 前）／(2) `onmt/spica` catalog.yaml の whisper-core を Textor 名へ更新／(3) 話者分離の正式版・有料デスクトップの価格確定。次回巡回（PATROL）で追う。issue #10 の ❓ は本更新で解消。
 
 ---
 
