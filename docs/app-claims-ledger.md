@@ -84,19 +84,21 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 
 ---
 
-## Textor（テキスター・文字起こし＋整形／onmt/whisper）
+## ヒカエ（Hikae・送れない現場の文字起こし・議事録／onmt/whisper）
 
-> 2026-07-19: onmt/whisper をセッションに接続し実コードで裏取り。**新規 LP `/textor/` を作成**。名称は Koji と検討し **Textor（読み：テキスター）** に決定（"whisper" は OpenAI モデル名＝入力の比喩かつエンジン名で不可 → **エンジンに縛られない"アプリの営み"を指す語**にする方針。Textor＝ラテン語「織り手」＝text/textile の語根で「声を織ってテキストにし、仕上げる」を含意）。**軸も「現場の記録を残す（プライバシー主軸）」から「声を、使えるテキストに織り上げる＝文字起こし＋整形・磨き上げ＋二次使用のお膳立て」へ再設定**（プライバシーは強い"作り"の一つとして残置）。
+> 2026-07-19: onmt/whisper をセッションに接続し実コードで裏取り。LP `/hikae/` を作成。**軸＝「送れない現場の、記録の道具」**（議会・診療・法務／完全ローカル／説明責任）。**命名の経緯（要点）**：当初 whisper→暫定 Scribe→Textor（テキスター）まで進めたが、商標/衝突チェックで **国産の人気文字起こしアプリ「Texter（テキスター）」（App Store 4.7★/約1,500件・Whisper系・議事録/要約）と称呼同一・同一役務**が判明し **Textor は不採用**（＋"Textor" は iOS テキストエディタ等で混雑・PyPI "TexTor" 取得済）。さらに**「完全ローカル文字起こし」自体が英語圏で飽和**（LocalWhisper/Vibe/Transcribe Offline/Whisper Notes 買い切り$6.99 等）と判明 → **差別化軸を「ローカル」から「日本語×現場特化（議会/診療/法務）×説明責任（監査ログ・要確認・専門家確認）」へ明確化**。名称は「記録/控え」方向から **ヒカエ（Hikae・/hikae/）** を採用（＝手元に残す記録の"控え"。文字起こし/議事録アプリでの直接衝突は未検出。ココハワタシガと同じ和名路線）。
 
 | 主張 | サイト掲載箇所 | 正本（在り処） | 状態 | 最終確認 |
 |---|---|---|---|---|
-| 音声はローカル処理・送信なし（**初回のモデル取得のみ通信**）。**torch 非依存**・環境でエンジン自動選択（Win=faster-whisper/CUDA・**Mac=mlx-whisper/GPU**・CPU=int8）。既定 large-v3-**turbo**（large-v3 に切替可）。**文字起こしエンジンは差し替え可能**＝名前 Textor はエンジン非依存 | textor/ HERO・PIPELINE・honest節 | `onmt/whisper` README.md・NOTICE.md | ✅ | 2026-07-19 |
-| パイプライン（織る→磨く→渡す）：日本語後処理（正規化/フィラー/ITN/句読点）・固有名詞補正（辞書・保護リスト・**監査ログ**・prh互換）・話者分離（**ベータ**・torch-free/sherpa-onnx）・議事録/SOAP 生成（**ローカルLLM**・タイムコード根拠）・横断全文検索（SQLite FTS5）・PII 墨消し・撮影時TCつき SRT/Word/CSV 出力・1枚オフラインHTMLビューア | textor/ PIPELINE・TOOLBOX | `onmt/whisper` scripts/・README スクリプト表 | ✅ | 2026-07-19 |
-| 現場パック3種：jichitai_giji（自治体議会）／medical（診療SOAP・**最終確認は医療者**）／legal（法務・**最終確認は弁護士**）。読み取りは「候補」＝作成支援ツール（誇張回避） | textor/ FIELDS節・honest節 | `onmt/whisper` packs/・README | ✅ | 2026-07-19 |
-| 価格：Core ¥0（beta・GitHub）。GUI は pywebview 試作（デザイン未確定）・有料デスクトップは**検討中・価格未定**（LP は「準備中・未定」表記＝価格を創作しない） | textor/ PRICING | `onmt/spica` catalog.yaml（whisper-core free）・`onmt/whisper` packaging/ | ✅ | 2026-07-19 |
-| **製品名 Textor（テキスター）は本セッション決定**。標準ロックアップ＝**「Textor — 多機能文字起こし」**（カテゴリ語を並記＝SEO＋"多機能"は機能一覧で裏取り可・"高性能"は営業寄り/エンジン差替可のため不採用）。**公開前に商標/既存プロダクト衝突チェックが必要**。catalog は whisper-core notes が「仮称・要別名」のまま→要更新。LP GET 節で「名称は検証中」を明示 | textor/ タイトル・眉・GET節・index 星座 | 本セッション決定（Koji） | ⚠️ | 2026-07-19 |
+| 音声はローカル処理・送信なし（**初回のモデル取得のみ通信**）。**torch 非依存**・環境でエンジン自動選択（Win=faster-whisper/CUDA・**Mac=mlx-whisper/GPU**・CPU=int8）。既定 large-v3-**turbo**（large-v3 に切替可）。**文字起こしエンジンは差し替え可能** | hikae/ HERO・ENGINE節・honest節 | `onmt/whisper` README.md・NOTICE.md | ✅ | 2026-07-19 |
+| 差別化3点（LPの"ちがい"節）：①日本語の現場語で辞書補正（保護リスト・**監査ログ**・prh互換）②業種の型でまとめる＝議会:決定/動議/採決・診療:SOAP・法務:争点/主張/証言（話者分離ベータ・議事録はローカルLLM・タイムコード根拠）③**⚠要確認＋監査ログ＝説明責任**（読み取りは候補・決めるのは人） | hikae/ #diff節 | `onmt/whisper` scripts/・packs/・README | ✅ | 2026-07-19 |
+| 付随機能：横断全文検索（SQLite FTS5）・PII 墨消し・撮影時TCつき SRT/Word/CSV 出力・1枚オフラインHTMLビューア・resume 一括 | hikae/ TOOLBOX・ENGINE節 | `onmt/whisper` scripts/・README スクリプト表 | ✅ | 2026-07-19 |
+| 現場パック3種：jichitai_giji（自治体議会）／medical（診療SOAP・**最終確認は医療者**）／legal（法務・**最終確認は弁護士**） | hikae/ #why節・honest節 | `onmt/whisper` packs/・README | ✅ | 2026-07-19 |
+| 価格：Core ¥0（beta・GitHub）。GUI は pywebview 試作（デザイン未確定）・有料デスクトップは**検討中・価格未定**（LP は「準備中・未定」表記＝価格を創作しない） | hikae/ PRICING | `onmt/spica` catalog.yaml（whisper-core free）・`onmt/whisper` packaging/ | ✅ | 2026-07-19 |
+| **製品名 ヒカエ（Hikae）は暫定採用**。会社トップ星座・LP GET/honest 節で「名称は検証中（仮）」を明示。正式確定＋公式な商標検索（J-PlatPat/USPTO）は公開前に実施 | hikae/ GET・honest節・index 星座 | 本セッション決定（Koji） | ⚠️ | 2026-07-19 |
 
-> **未了フォロー**：(1) Textor の商標・既存ソフト名の衝突チェック（公開＝main push 前）／(2) `onmt/spica` catalog.yaml の whisper-core を Textor 名へ更新／(3) 話者分離の正式版・有料デスクトップの価格確定。次回巡回（PATROL）で追う。issue #10 の ❓ は本更新で解消。
+> **未了フォロー**：(1) ヒカエの正式な商標検索（J-PlatPat 等・公開＝main push 前）と名称最終確定／(2) `onmt/spica` catalog.yaml の whisper-core を確定名へ更新／(3) 話者分離の正式版・有料デスクトップの価格確定。次回巡回（PATROL）で追う。issue #10 の ❓ は本更新で解消。
+> **不採用ログ**：Textor/テキスター（Texter と称呼衝突）・Tsuzuri（tsuzuri.ink=日本語執筆ソフトと衝突）・Textrix/Textura/Voxtor（英字テキスト系で混雑）。
 
 ---
 

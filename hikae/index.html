@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Textor（テキスター）— 多機能文字起こし。声を、使えるテキストに織り上げる | Spica</title>
-<meta name="description" content="Textor（テキスター）— 多機能の文字起こし。会議・議会・診療・打合せの音声を、ただ文字にするだけでなく、読める・使える文章に整え、磨き上げるところまで。議事録・字幕・検索に渡せる形にお膳立てします。処理は端末の中だけ（送らない）。文字起こしエンジンに縛られない設計。Windows / Mac / Linux。">
-<meta property="og:title" content="Textor（テキスター）— 多機能文字起こし。声を、使えるテキストに。 | Spica">
-<meta property="og:description" content="音声を、読める・使える文章に整え、磨き上げる。文字起こし・後処理・固有名詞補正・話者分離・議事録生成・横断検索・字幕書き出しまで。処理は端末の中だけ。Windows / Mac / Linux。">
+<title>ヒカエ（Hikae）— 出せない声を、手元で記録に。ローカル文字起こし・議事録 | Spica</title>
+<meta name="description" content="ヒカエ（Hikae）— 議会・診療・法務など、クラウドに出せない音声を、一切送らず端末の中だけで文字起こし。日本語の固有名詞補正（監査ログつき）・話者分離・議事録/SOAP 生成・横断検索まで。現場の用語で整え、決めるのは人。完全オフライン。Windows / Mac / Linux。">
+<meta property="og:title" content="ヒカエ（Hikae）— 出せない声を、手元で記録に。 | Spica">
+<meta property="og:description" content="議会・診療・法務など、クラウドに出せない音声を、一切送らず端末の中だけで文字起こし・議事録に。現場の用語で整え、直した跡（監査ログ）も残す。決めるのは人。完全オフライン。Windows / Mac / Linux。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.spicaimg.com/textor/">
+<meta property="og:url" content="https://www.spicaimg.com/hikae/">
 <meta property="og:site_name" content="Spica Image Creation">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://www.spicaimg.com/assets/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="Spica Image Creation — 映像を作る。道具も、作る。">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.spicaimg.com/assets/og.png">
-<link rel="canonical" href="https://www.spicaimg.com/textor/">
+<link rel="canonical" href="https://www.spicaimg.com/hikae/">
 <meta name="theme-color" content="#0b0d14">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="/style.css">
 <noscript><style>.rv{opacity:1 !important; transform:none !important}</style></noscript>
 <style>
-/* Textor LP 固有（/style.css を共用） */
+/* ヒカエ（Hikae）LP 固有（/style.css を共用） */
 /* terminal demo */
 .term{
   padding:22px 24px; font-family:var(--mono); font-size:12.5px; line-height:2.1;
@@ -39,7 +39,7 @@
   vertical-align:-0.18em; animation:blink 1.1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.term .caret{animation:none}}
-/* three fields strip — 議会 / 診療 / 法務 */
+/* fields / diff strip */
 .acts{display:flex; flex-wrap:wrap; gap:12px; align-items:stretch; margin:44px 0 8px}
 .acts .act{
   flex:1 1 210px; border:1px solid var(--line); border-radius:12px; background:var(--night-900);
@@ -108,12 +108,12 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Textor",
-  "alternateName": "テキスター",
-  "url": "https://www.spicaimg.com/textor/",
+  "name": "ヒカエ",
+  "alternateName": "Hikae",
+  "url": "https://www.spicaimg.com/hikae/",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "macOS, Windows, Linux",
-  "description": "音声を、読める・使える文章に整え、磨き上げるためのローカル文字起こし・整形ツールキット。文字起こし・日本語後処理・固有名詞補正・話者分離・議事録/SOAP 生成・横断検索・字幕書き出しまで。処理は端末の中だけで、音声を外に送らない。文字起こしエンジンに縛られない設計。",
+  "description": "議会・診療・法務など、クラウドに出せない音声を、一切送らず端末の中だけで文字起こし・議事録にするローカル文字起こしツールキット。日本語の固有名詞補正（監査ログつき）・話者分離・議事録/SOAP 生成・横断検索・字幕書き出しまで。現場の用語で整え、最終確認は人。文字起こしエンジンは差し替え可能。",
   "publisher": { "@type": "Organization", "name": "スピカ・イメージクリエイション", "url": "https://www.spicaimg.com/" }
 }
 </script>
@@ -132,8 +132,8 @@
     <span class="tag">LOCAL-FIRST</span>
     <nav class="nav-links">
       <a href="/">HOME</a>
-      <a href="#pipeline">WEAVE</a>
-      <a href="#field">FIELDS</a>
+      <a href="#why">なぜ手元で</a>
+      <a href="#diff">ちがい</a>
       <a href="#pricing">PRICING</a>
       <a href="#get">GET</a>
     </nav>
@@ -151,122 +151,49 @@
         <path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z" fill="url(#g)"/>
       </svg>
     </div>
-    <p class="eyebrow rv"><span class="blue">TEXTOR</span>&ensp;テキスター — 多機能文字起こし<span style="opacity:.5">・ベータ</span></p>
-    <h1 class="rv">声を、テキストに<br>織り上げる。</h1>
-    <p class="lead rv">会議・議会・診療・打合せ。話した言葉を、<b>ただ文字にするだけで終わらせません</b>。読める・使える文章に整え、磨き上げ、議事録にも字幕にも検索にも渡せる形に"お膳立て"する——そこまでが Textor の仕事です。処理は<b>端末の中だけ</b>。音声を外に送らず、文字起こしエンジンにも縛られない設計です。</p>
+    <p class="eyebrow rv"><span class="blue">HIKAE</span>&ensp;ヒカエ — 送れない現場の、文字起こしと議事録<span style="opacity:.5">・ベータ</span></p>
+    <h1 class="rv">出せない声を、<br>手元で記録に。</h1>
+    <p class="lead rv">議会・診療・法務——<b>外に出た瞬間に問題になる音声</b>は、便利なクラウド文字起こしには載せられません。ヒカエは音声を<b>一切送らず、あなたの PC の中だけ</b>で文字起こしし、現場の用語で整え、議事録・記録の"控え"にします。直したところは監査ログに残り、<b>決めるのは、あなた</b>。通信するのは、最初にモデルを取るときだけです。</p>
     <div class="cta-row rv">
-      <a class="btn btn-primary" href="#pipeline">できることを見る</a>
+      <a class="btn btn-primary" href="#diff">ちがいを見る</a>
       <a class="btn btn-ghost" href="#get">入手について</a>
-      <span class="cta-note">// 無料コア（ベータ）。torch 不要・Mac は GPU で速い。既定モデルは高精度・差し替え可。Windows / Mac / Linux。</span>
+      <span class="cta-note">// 無料コア（ベータ）。完全オフライン・torch 不要・Mac は GPU。文字起こしエンジンは差し替え可。Windows / Mac / Linux。</span>
     </div>
 
     <figure class="demo rv" style="margin-top:64px">
       <div class="demo-bar">
-        <span class="rec"></span> TERMINAL — 織る → 磨く → 渡す
+        <span class="rec"></span> TERMINAL — 端末の中だけで、記録に
         <span class="right"><span>ローカル実行</span><span>音声の送信 0</span></span>
       </div>
-      <div class="term" aria-label="Textor の 織る→磨く→渡す パイプラインの実行イメージ">
-<span class="p">$</span> textor 議会音声.mp3
-<span class="c"># ①織る：文字起こし（最適なエンジンを自動選択・torch 不要）</span>
-<span class="ok">✓</span> 議会音声_textor.txt / .json（信頼度つき）
-<span class="p">$</span> textor refine 議会音声 --fillers --dict 議会
-<span class="c"># ②磨く：正規化・フィラー除去・句読点整形・固有名詞補正（監査ログ）</span>
-<span class="p">$</span> textor minutes 議会音声 --pack 議会
-<span class="c"># ③渡す：議事録・字幕・検索に使える形へ</span>
-<span class="ok">✓</span> 議事録.docx（決定/動議/採決・タイムコード根拠つき）
+      <div class="term" aria-label="ヒカエ の 文字起こしから議事録までの実行イメージ">
+<span class="p">$</span> hikae 議会録.mp3
+<span class="c"># 端末内で文字起こし（音声は送らない・torch 不要）</span>
+<span class="ok">✓</span> 議会録_hikae.txt / .json（信頼度つき）
+<span class="p">$</span> hikae 整え 議会録 --pack 議会
+<span class="c"># 現場の用語で補正（監査ログつき）・フィラー除去・句読点整形</span>
+<span class="p">$</span> hikae 議事録 議会録 --pack 議会
+<span class="c"># 決定/動議/採決を抽出（タイムコード根拠つき）</span>
+<span class="ok">✓</span> 議事録.docx — 未確認は ⚠ で残る（決めるのは人）
 <span class="p">$</span> <span class="caret"></span>
       </div>
-      <figcaption class="demo-caption">実行イメージ（コマンド名はイメージ・出力は実機の要約）— 音源から、整えて渡せる文章まで、すべて端末の中で</figcaption>
+      <figcaption class="demo-caption">実行イメージ（コマンド名はイメージ・出力は実機の要約）— 音源から、整えた記録の"控え"まで、すべて端末の中で</figcaption>
     </figure>
 
     <div class="stats rv">
-      <div><span class="v">3<small>幕</small></span><span class="l">織る → 磨く → 渡す</span></div>
       <div><span class="v">0<small>件</small></span><span class="l">音声の送信（初回のモデル取得のみ）</span></div>
       <div><span class="v">3<small>現場</small></span><span class="l">議会・診療・法務のパック</span></div>
-      <div><span class="v">議事録<small>字幕・検索</small></span><span class="l">二次使用まで、お膳立て</span></div>
+      <div><span class="v">監査<small>ログ</small></span><span class="l">直したところが、跡に残る</span></div>
+      <div><span class="v">議事録<small>まで</small></span><span class="l">ローカルLLMで生成</span></div>
     </div>
   </div>
 </div>
 
-<!-- ============ PIPELINE / WEAVE ============ -->
-<section id="pipeline" class="deep">
+<!-- ============ WHY LOCAL ============ -->
+<section id="why" class="deep">
   <div class="wrap">
-    <p class="eyebrow rv">WEAVE — 織って、磨いて、渡せる形に</p>
-    <h2 class="rv">文字起こしは、<br>入口にすぎない。</h2>
-    <p class="section-lead rv">生の書き起こしは、そのままでは渡せません。Textor は<b>読める日本語に整え、固有名詞を直し、話者を分け、議事録にまとめる</b>ところまでを、積み上げ式で引き受けます。各工程は同じ JSON を読み書きして重なっていくので、要らない工程は外すだけ。<b>二次使用のお膳立て</b>——字幕・検索・引用に渡せる状態にして手渡します。</p>
-
-    <div class="flag rv" style="margin-top:56px">
-      <div>
-        <span class="k">01 — 織る・文字起こし</span>
-        <h3>torch を入れずに、<br>Mac でも速い。</h3>
-        <p>実行環境を見てエンジンを自動で選びます。Windows の NVIDIA GPU、<b style="color:var(--on-900)">Apple Silicon は GPU / Neural Engine</b>、その他は CPU。巨大な torch は要りません。既定は高精度・高速のモデルで、<b style="color:var(--on-900)">中の文字起こしエンジンは差し替え可能</b>——より良いものが出れば、名前も使い勝手も変えずに乗り換えられます。フォルダ一括は resume 対応で、中断しても続きから。</p>
-        <div class="spec"><span>エンジン <span class="num">自動選択</span></span><span>torch 不要・差し替え可</span><span>一括・再開可</span></div>
-      </div>
-      <div class="fx fx-flow">
-        <span class="src">音声（mp3 / wav / mov…）</span>
-        <span class="down">↓ 環境を判定</span>
-        <div class="outs">
-          <span class="out"><b>Windows</b>NVIDIA GPU</span>
-          <span class="out"><b>Mac</b>Apple GPU</span>
-          <span class="out"><b>CPU</b>どこでも</span>
-        </div>
-        <span class="fxnote">同じ入口・同じ出力。速い方に自動で寄せる</span>
-      </div>
-    </div>
-
-    <div class="flag rv">
-      <div>
-        <span class="k">02 — 磨く・読める日本語に</span>
-        <h3>誤変換を、<br>辞書で直す。</h3>
-        <p>全半角の正規化、フィラー（えー・あのー）除去、かな数詞→数字、句読点の整形。そのうえで、現場の<b style="color:var(--on-900)">固有名詞・誤認識を辞書で一括補正</b>——保護リストで誤爆を避け、どこを直したかの監査ログを残します。検索・置換（表記ゆれ無視・既定 dry-run・Undo 可）も。ここが「磨き上げ」の中心です。</p>
-        <div class="spec"><span>正規化・フィラー・句読点</span><span>辞書補正＋<span class="num">監査ログ</span></span><span>検索・置換</span></div>
-      </div>
-      <div class="fx fx-verify">
-        <div class="vrow"><span class="g">✓</span><span>「エヌエイチケー」→「NHK」<small>辞書補正 — 読みゆらぎを統一</small></span></div>
-        <div class="vrow"><span class="g">✓</span><span>フィラー 42 箇所を除去<small>後処理 — 読める文章に</small></span></div>
-        <div class="vrow"><span class="g w">⚠</span><span>「市長」/「支庁」要確認 2 箇所<small>保護リストで誤爆回避・ログに記録</small></span></div>
-        <div class="fxnote">直したところは、あとから追える</div>
-      </div>
-    </div>
-
-    <div class="flag rv">
-      <div>
-        <span class="k">03 — 渡す・分けて、まとめる</span>
-        <h3>誰が話したかを分け、<br>議事録にまとめる。</h3>
-        <p>話者分離（ベータ）で発言を人ごとに色分け。そのうえで<b style="color:var(--on-900)">議事録・SOAP などの完成ドキュメントをローカル LLM で生成</b>します。要約はタイムコード根拠つきで、「どこでそう言ったか」を音声に戻って確かめられる。もちろん生成 LLM も端末の中で動きます。</p>
-        <div class="spec"><span>話者分離（ベータ）</span><span>議事録・SOAP <span class="num">生成</span></span><span>タイムコード根拠</span></div>
-      </div>
-      <div class="fx fx-tape">
-        <div class="tl"><span class="tc">00:12</span><span class="sp a">議長</span><span>本日の議題に入ります。</span></div>
-        <div class="tl"><span class="tc">00:20</span><span class="sp b">委員A</span><span>予算案について<mark>〔要確認〕</mark>を求めます。</span></div>
-        <div class="tl"><span class="tc">00:34</span><span class="sp c">委員B</span><span>動議に賛成します。</span></div>
-        <div class="fxnote">話者色分け＋⚠要確認＋タイムコード → 議事録の根拠に</div>
-      </div>
-    </div>
-
-    <div class="flag rv">
-      <div>
-        <span class="k">04 — 渡す・見える化と横断検索</span>
-        <h3>低い信頼度を炙り出し、<br>過去も横断で探す。</h3>
-        <p>各セグメントの信頼度を常に保存し、<b style="color:var(--on-900)">怪しい箇所だけ ⚠要確認 で可視化</b>。音声同期・話者色分け・検索・議事録の根拠リンクを 1 枚のオフライン HTML ビューアにまとめられます（外部通信なし）。過去の書き起こしは日本語の部分一致で横断全文検索。すべて端末の中で完結します。</p>
-        <div class="spec"><span>⚠ 要確認ハイライト</span><span>1枚オフライン<span class="num">HTMLビューア</span></span><span>横断全文検索</span></div>
-      </div>
-      <div class="fx fx-verify">
-        <div class="vrow"><span class="g">✓</span><span>ビューア：音声クリックで該当箇所へ<small>1枚HTML — 外部通信なし</small></span></div>
-        <div class="vrow"><span class="g">✓</span><span>「薬剤」を全案件から 7 件<small>横断検索 — 用語ハイライト</small></span></div>
-        <div class="vrow"><span class="g w">⚠</span><span>末尾の定型幻聴を自動で炙り出し<small>要確認 — 低信頼箇所だけ表示</small></span></div>
-        <div class="fxnote">要らなければ作らない・消すだけ（正本は触らない）</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FIELDS / なぜローカル ============ -->
-<section id="field">
-  <div class="wrap">
-    <p class="eyebrow rv">FIELDS & PRIVACY — 現場ごとに、送らずに</p>
-    <h2 class="rv">機密の声ほど、<br>クラウドに置きたくない。</h2>
-    <p class="section-lead rv">議事録・診療記録・法務の打合せ。<b>外に出た瞬間に問題になる音声</b>だからこそ、便利なクラウド文字起こしに載せられない——そういう現場のための道具です。処理はすべてこの PC の中。音源も書き起こしも、どこにもアップロードしません。案件が終わったら音源ごと消せば、PII は端末にも残りません。現場ごとの<b>パック</b>で、用語も出力もその分野に合わせて整えます。</p>
+    <p class="eyebrow rv">OFF THE RECORD — 送れないから、手元で</p>
+    <h2 class="rv">その声は、<br>クラウドに出せない。</h2>
+    <p class="section-lead rv">議事録・診療記録・法務の打合せ。<b>守秘義務や個人情報、情報管理規程</b>があって、便利なクラウド文字起こしには載せられない——そういう現場のための道具です。処理はすべてこの PC の中。音源も書き起こしも、どこにもアップロードしません。案件が終わったら音源ごと消せば、個人情報は端末にも残りません。<b>"送らない"は、後から足せる機能ではなく、最初からの作り</b>です。</p>
 
     <div class="acts rv">
       <div class="act">
@@ -278,7 +205,7 @@
       <div class="act">
         <span class="n">FIELD 02 — 医療</span>
         <h3>診療記録（SOAP）</h3>
-        <p>診療の音声を SOAP の下書きに。PII は完全オフライン運用。<b style="color:var(--on-900)">作成支援であり、最終確認は医療者</b>。</p>
+        <p>診療の音声を SOAP の下書きに。個人情報は完全オフライン運用。<b style="color:var(--on-900)">作成支援であり、最終確認は医療者</b>。</p>
         <div class="cmds">pack: 診療（medical）</div>
       </div>
       <div class="act">
@@ -292,10 +219,83 @@
   </div>
 </section>
 
-<!-- ============ TOOLBOX ============ -->
+<!-- ============ WHAT'S DIFFERENT ============ -->
+<section id="diff">
+  <div class="wrap">
+    <p class="eyebrow rv">NOT JUST LOCAL — ローカルなだけでは、足りない</p>
+    <h2 class="rv">ただ文字にして、<br>終わりにしない。</h2>
+    <p class="section-lead rv">オフラインで文字起こしするだけの道具は、いまや珍しくありません。ヒカエが引き受けるのは、その先——<b>日本語の現場語で直し、業種の型でまとめ、直した跡を残す</b>ところ。「送らない」に加えて、この3つが、渡せる記録との差になります。</p>
+
+    <div class="flag rv" style="margin-top:56px">
+      <div>
+        <span class="k">01 — 日本語で、直す</span>
+        <h3>誤変換を、<br>現場の辞書で直す。</h3>
+        <p>全半角の正規化、フィラー（えー・あのー）除去、かな数詞→数字、句読点の整形。そのうえで、その現場の<b style="color:var(--on-900)">固有名詞・専門用語・誤認識を辞書で一括補正</b>——保護リストで誤爆を避けます。海外製の汎用ツールが手薄な、日本語の作り込みがここにあります。</p>
+        <div class="spec"><span>正規化・フィラー・句読点</span><span>固有名詞を<span class="num">辞書補正</span></span><span>表記ゆれ検索・置換</span></div>
+      </div>
+      <div class="fx fx-verify">
+        <div class="vrow"><span class="g">✓</span><span>「エヌエイチケー」→「NHK」<small>辞書補正 — 読みゆらぎを統一</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>フィラー 42 箇所を除去<small>後処理 — 読める文章に</small></span></div>
+        <div class="vrow"><span class="g w">⚠</span><span>「市長」/「支庁」要確認 2 箇所<small>保護リストで誤爆回避</small></span></div>
+        <div class="fxnote">日本語の現場語に、寄せて直す</div>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">02 — 業種の型で、まとめる</span>
+        <h3>「文字起こし」ではなく、<br>「議事録」を作る。</h3>
+        <p>ただの逐語ではなく、その業種の完成物へ。<b style="color:var(--on-900)">議会は決定/動議/採決、診療は SOAP、法務は争点/主張/証言/合意</b>を抽出し、テンプレにまとめます。話者分離（ベータ）で発言を人ごとに分け、生成はローカル LLM・タイムコード根拠つき。汎用の要約とは、出口の形が違います。</p>
+        <div class="spec"><span>議事録・SOAP・争点</span><span>話者分離（ベータ）</span><span>タイムコード<span class="num">根拠つき</span></span></div>
+      </div>
+      <div class="fx fx-tape">
+        <div class="tl"><span class="tc">00:12</span><span class="sp a">議長</span><span>本日の議題に入ります。</span></div>
+        <div class="tl"><span class="tc">00:20</span><span class="sp b">委員A</span><span>予算案の<mark>採決</mark>を求めます。</span></div>
+        <div class="tl"><span class="tc">00:34</span><span class="sp c">委員B</span><span>動議に賛成します。</span></div>
+        <div class="fxnote">話者・タイムコードを、議事録の根拠に</div>
+      </div>
+    </div>
+
+    <div class="flag rv">
+      <div>
+        <span class="k">03 — 跡を残し、人が決める</span>
+        <h3>直したところが、<br>あとから追える。</h3>
+        <p>読み取りは、あくまで「候補」。ヒカエは<b style="color:var(--on-900)">信頼度の低い箇所を ⚠要確認 で炙り出し</b>、辞書でどこを直したかの<b style="color:var(--on-900)">監査ログ</b>を残します。音声同期・話者色分け・根拠リンクを1枚のオフライン HTML にまとめて、確認もしやすく。<b>決めるのは人</b>——医療は医療者、法務は弁護士。説明責任のある現場のための設計です。</p>
+        <div class="spec"><span>⚠ 要確認ハイライト</span><span>補正の<span class="num">監査ログ</span></span><span>1枚オフラインHTML</span></div>
+      </div>
+      <div class="fx fx-verify">
+        <div class="vrow"><span class="g">✓</span><span>ビューア：音声クリックで該当箇所へ<small>make_viewer — 外部通信なしの1枚HTML</small></span></div>
+        <div class="vrow"><span class="g">✓</span><span>補正 18 件をログに記録<small>誰が・どこを直したか、後から追える</small></span></div>
+        <div class="vrow"><span class="g w">⚠</span><span>末尾の定型幻聴を自動で炙り出し<small>低信頼箇所だけ ⚠ 表示</small></span></div>
+        <div class="fxnote">下書きだと明示する。決めるのは、人</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENGINE / LOCAL ============ -->
 <section class="deep">
   <div class="wrap">
-    <p class="eyebrow rv">TOOLBOX — 二次使用の、お膳立て</p>
+    <p class="eyebrow rv">ENGINE — torch なしで、環境に合わせて</p>
+    <h2 class="rv">重い依存を入れずに、<br>手元のマシンで速く。</h2>
+    <p class="section-lead rv">実行環境を見て、文字起こしエンジンを自動で選びます。Windows の NVIDIA GPU、Apple Silicon は GPU、その他は CPU。巨大な torch は要りません。<b>エンジンは差し替え可能</b>で、より良いものが出れば名前も使い勝手も変えずに乗り換えられます。長時間の議会録音や大量の案件も、自分のマシンで一括・再開可（中断しても続きから）。</p>
+    <div class="fx fx-flow" style="max-width:560px; margin:36px auto 0">
+      <span class="src">音声（mp3 / wav / mov…）</span>
+      <span class="down">↓ 環境を判定</span>
+      <div class="outs">
+        <span class="out"><b>Windows</b>NVIDIA GPU</span>
+        <span class="out"><b>Mac</b>Apple GPU</span>
+        <span class="out"><b>CPU</b>どこでも</span>
+      </div>
+      <span class="fxnote">同じ入口・同じ出力。速い方に自動で寄せる／エンジン非依存</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOOLBOX ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow rv">TOOLBOX — 記録のまわりの小道具</p>
     <h2 class="rv">整えた先に、<br>渡し先がある。</h2>
     <div class="grid" style="margin-top:40px">
       <div class="card rv">
@@ -306,7 +306,7 @@
         <span class="k">Search</span><h3>横断全文検索</h3><p>過去の書き起こしを日本語の部分一致で横断検索。用語ハイライトつき（SQLite 全文検索）。</p></div>
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h4"/><path d="M15 13l4 4M19 13l-4 4"/></svg></span>
-        <span class="k">Redact</span><h3>PII 墨消し</h3><p>電話・メール・番号（任意で人名）を非破壊で墨消し。音声側もビープ/無音化。コンプラ提出向け。</p></div>
+        <span class="k">Redact</span><h3>個人情報の墨消し</h3><p>電話・メール・番号（任意で人名）を非破壊で墨消し。音声側もビープ/無音化。コンプラ提出向け。</p></div>
       <div class="card rv">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 13h6"/></svg></span>
         <span class="k">Subtitle</span><h3>撮影時TCつき字幕</h3><p>SRT を動画の撮影時タイムコードで書き出し。Premiere / Resolve と整合します（映像制作の相棒）。</p></div>
@@ -321,9 +321,9 @@
 </section>
 
 <!-- ============ LOCAL / HONEST ============ -->
-<section id="local">
+<section id="local" class="deep">
   <div class="wrap">
-    <p class="eyebrow rv">LOCAL & HONEST — ローカル完結と、正直な注記</p>
+    <p class="eyebrow rv">HONEST — 正直な注記</p>
     <h2 class="rv">声は出さない。<br>下書きだと、書く。</h2>
 
     <div class="ledger" style="margin-top:48px">
@@ -334,7 +334,7 @@
       </div>
       <div class="row rv">
         <span class="glyph">✓</span>
-        <div><h3>torch なしで、環境に合わせて速く。エンジンは差し替え可</h3><p>Windows は NVIDIA GPU、Apple Silicon は GPU に自動で寄せます。巨大な依存を入れずに動くのが芯。文字起こしエンジンは付け替えられる設計で、名前（Textor）はエンジンに縛られません。</p></div>
+        <div><h3>直したところが、跡に残る</h3><p>辞書補正はどこを直したかを監査ログに記録し、信頼度の低い箇所は ⚠要確認 で残します。説明責任のある現場で「跡を見せられる」ことを大事にしています。</p></div>
         <span class="st ok">実装済</span>
       </div>
       <div class="row rv">
@@ -349,12 +349,12 @@
       </div>
     </div>
 
-    <p class="fineprint rv"><b>正直な注記：</b>Textor はベータ段階で、制作元スピカの実務で使いながら鍛えています。文字起こしや議事録生成は、公開されている優れたオープンソースのモデル・ライブラリの上に成り立っています（各ライセンスと帰属は同梱の NOTICE に明記）。無保証の詳細は <a href="/legal/eula">EULA</a>、プライバシーは<a href="/legal/privacy">方針（収集しません）</a>をどうぞ。</p>
+    <p class="fineprint rv"><b>正直な注記：</b>ヒカエはベータ段階で、制作元スピカの実務で使いながら鍛えています。文字起こしや議事録生成は、公開されている優れたオープンソースのモデル・ライブラリの上に成り立っています（各ライセンスと帰属は同梱の NOTICE に明記）。無保証の詳細は <a href="/legal/eula">EULA</a>、プライバシーは<a href="/legal/privacy">方針（収集しません）</a>をどうぞ。名称「ヒカエ」も検証中です。</p>
   </div>
 </section>
 
 <!-- ============ PRICING ============ -->
-<section id="pricing" class="deep">
+<section id="pricing">
   <div class="wrap">
     <p class="eyebrow rv">PRICING — 価格も、隠さない</p>
     <h2 class="rv">コアは無料。<span class="dim">デスクトップ版は準備中。</span></h2>
@@ -365,7 +365,7 @@
         <div class="price">¥0</div>
         <span class="per">無料・ベータ</span>
         <ul>
-          <li>文字起こし・後処理・補正・話者分離</li>
+          <li>文字起こし・後処理・固有名詞補正・話者分離</li>
           <li>議事録/SOAP 生成・横断検索・字幕出力</li>
           <li>現場パック（議会・診療・法務）</li>
           <li>Windows / Mac / Linux・CLI</li>
@@ -393,15 +393,15 @@
   <div class="wrap">
     <p class="eyebrow rv">GET — 入手について</p>
     <h2 class="rv">正直に言うと、<br>まだ一般配布の前です。</h2>
-    <p class="section-lead rv">Textor はいま、自分たちの実務で使いながら仕上げているベータ段階です。GitHub での一般公開は準備中——公開したら、このページからそのまま入手できるようになります。名称「Textor（テキスター）」も検証中で、正式版で確定します。</p>
+    <p class="section-lead rv">ヒカエはいま、自分たちの実務で使いながら仕上げているベータ段階です。GitHub での一般公開は準備中——公開したら、このページからそのまま入手できるようになります。名称「ヒカエ（Hikae）」も検証中で、正式版で確定します。</p>
 
     <div class="get-box rv">
-      <p>先に試したい方や、議事録・診療・法務の記録づくりのご相談は、メールでご連絡ください。</p>
+      <p>先に試したい方や、議会・診療・法務の記録づくりのご相談は、メールでご連絡ください。</p>
       <a class="mail" href="mailto:support@spicaimg.com">support@spicaimg.com</a>
       <p style="margin-top:14px">通常2〜5営業日以内に返信します。</p>
     </div>
 
-    <p class="tagline rv">声を、テキストに<br>織り上げる。</p>
+    <p class="tagline rv">出せない声を、<br>手元で記録に。</p>
   </div>
 </section>
 
