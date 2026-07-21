@@ -102,6 +102,18 @@
 .get-box .mail{font-family:var(--mono); font-size:clamp(1rem,3.2vw,1.25rem); color:var(--starlight)}
 .get-box p{margin:0 0 14px; font-size:.92rem; color:var(--on-500)}
 .get-box p:last-child{margin:0}
+/* 実際の画面（スクショ） */
+.shot{margin:44px 0 0}
+.shot img{width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:12px;
+  box-shadow:0 24px 70px -34px rgba(0,0,0,.85)}
+.shot figcaption{margin-top:11px; font-family:var(--mono); font-size:10px; letter-spacing:.05em;
+  color:var(--on-500); text-align:center}
+.shot.sub{max-width:820px; margin-left:auto; margin-right:auto}
+.shotpts{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; justify-content:center; max-width:920px;
+  margin-left:auto; margin-right:auto}
+.shotpts span{border:1px solid var(--night-600); border-radius:999px; padding:6px 13px;
+  font-size:.8rem; color:var(--on-700); background:var(--night-950)}
+.shotpts span b{color:var(--spica-300); font-weight:600}
 </style>
 <!-- 構造化データ（検索エンジン向け・実行されないデータブロック）。主張はページ本文と同一のもののみ -->
 <script type="application/ld+json">
@@ -132,6 +144,7 @@
     <span class="tag">LOCAL-FIRST</span>
     <nav class="nav-links">
       <a href="/">HOME</a>
+      <a href="#screens">画面</a>
       <a href="#why">なぜ手元で</a>
       <a href="#diff">ちがい</a>
       <a href="#pricing">PRICING</a>
@@ -187,6 +200,36 @@
     </div>
   </div>
 </div>
+
+<!-- ============ REAL SCREENS ============ -->
+<section id="screens">
+  <div class="wrap">
+    <p class="eyebrow rv">THE REAL THING — 実際の画面（開発版）</p>
+    <h2 class="rv">機構を、隠さない。</h2>
+    <p class="section-lead rv">競合の多くは、実際の操作画面を見せません。ヒカエは見せます。これは開発版の<b>校正エディタ</b>——文字起こしの"あと"、確認して仕上げるまでが、そのまま分かります。読み取りは候補、直すのは人。その作業を、いちばん楽にする画面です。</p>
+
+    <figure class="shot rv">
+      <img src="/assets/hikae-editor.png" width="1770" height="1122" loading="lazy" alt="ヒカエ 開発版の校正エディタ。左に進捗ログ（文字起こし完了・話者3名・要確認4件・監査ログ補正12件）、右に発言行。各行に時刻・話者チップ（議長/委員A/委員B）・確信度ドット。低信頼の行は⚠と暖色のヒートマップ、●(@時刻)で聞き取り不能を明示、エヌエイチケー→NHK の辞書補正候補、確認済みの行は緑チェック。上部に取込・再生・校正・話者・出力の段階ツールバー。">
+      <figcaption>開発版の校正エディタ（Spica テーマ適用・議会パックのサンプルデータ。実データではありません）</figcaption>
+    </figure>
+
+    <div class="shotpts rv">
+      <span><b>⚠</b> 低信頼へジャンプ</span>
+      <span><b>ヒートマップ</b> 怪しい所が濃く</span>
+      <span><b>話者チップ</b> 色分け・名簿割当</span>
+      <span><b>●</b> 聞き取り不能マーカー</span>
+      <span><b>辞書補正</b> 固有名詞を正表記へ</span>
+      <span><b>確認済み ✓</b> 決めるのは人</span>
+      <span><b>監査ログ</b> 直した跡が残る</span>
+      <span><b>完全オフライン</b> 送信ゼロ</span>
+    </div>
+
+    <figure class="shot sub rv" style="margin-top:40px">
+      <img src="/assets/hikae-start.png" width="1770" height="900" loading="lazy" alt="ヒカエ 開始画面。「音声・動画を選ぶ」「フォルダ一括」「既存を開く」とパック選択（議会/診療/法務）。中央に3ステップ＝1 取り込む（音声・動画・フォルダ）／2 校正する（色付きの怪しい所を確認）／3 納品する（Word・PDF・字幕・申し送り）。処理はこのPC内だけ。">
+      <figcaption>開始画面 — 取り込む → 校正する → 納品する。処理はこの PC の中だけ</figcaption>
+    </figure>
+  </div>
+</section>
 
 <!-- ============ WHY LOCAL ============ -->
 <section id="why" class="deep">
