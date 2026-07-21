@@ -94,7 +94,7 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 | パイプライン（織る→磨く→渡す）：日本語後処理（正規化/フィラー/ITN/句読点）・固有名詞補正（辞書・保護リスト・**監査ログ**・prh互換）・話者分離（**ベータ**・torch-free/sherpa-onnx）・議事録/SOAP 生成（**ローカルLLM**・タイムコード根拠）・横断全文検索（SQLite FTS5）・PII 墨消し・撮影時TCつき SRT/Word/CSV 出力・1枚オフラインHTMLビューア | textor/ PIPELINE・TOOLBOX | `onmt/whisper` scripts/・README スクリプト表 | ✅ | 2026-07-19 |
 | 現場パック3種：jichitai_giji（自治体議会）／medical（診療SOAP・**最終確認は医療者**）／legal（法務・**最終確認は弁護士**）。読み取りは「候補」＝作成支援ツール（誇張回避） | textor/ FIELDS節・honest節 | `onmt/whisper` packs/・README | ✅ | 2026-07-19 |
 | 価格：Core ¥0（beta・GitHub）。GUI は pywebview 試作（デザイン未確定）・有料デスクトップは**検討中・価格未定**（LP は「準備中・未定」表記＝価格を創作しない） | textor/ PRICING | `onmt/spica` catalog.yaml（whisper-core free）・`onmt/whisper` packaging/ | ✅ | 2026-07-19 |
-| **製品名 Textor（テキスター）は本セッション決定・ただし公開前に商標/既存プロダクト衝突チェックが必要**。catalog は whisper-core notes が「仮称・要別名」のまま→要更新。LP GET 節で「名称は検証中」を明示 | textor/ GET節・index 星座 | 本セッション決定（Koji） | ⚠️ | 2026-07-19 |
+| **製品名 Textor（テキスター）は本セッション決定**。標準ロックアップ＝**「Textor — 多機能文字起こし」**（カテゴリ語を並記＝SEO＋"多機能"は機能一覧で裏取り可・"高性能"は営業寄り/エンジン差替可のため不採用）。**公開前に商標/既存プロダクト衝突チェックが必要**。catalog は whisper-core notes が「仮称・要別名」のまま→要更新。LP GET 節で「名称は検証中」を明示 | textor/ タイトル・眉・GET節・index 星座 | 本セッション決定（Koji） | ⚠️ | 2026-07-19 |
 
 > **未了フォロー**：(1) Textor の商標・既存ソフト名の衝突チェック（公開＝main push 前）／(2) `onmt/spica` catalog.yaml の whisper-core を Textor 名へ更新／(3) 話者分離の正式版・有料デスクトップの価格確定。次回巡回（PATROL）で追う。issue #10 の ❓ は本更新で解消。
 
