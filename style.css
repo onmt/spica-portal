@@ -548,6 +548,12 @@
   @media(max-width:640px){.foot .copy{margin-left:0}}
   .foot-note{margin-top:26px; font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--night-600)}
 
+  /* Q&A（検索の疑問に先に答える節。prompter/ と ffkit/ が使用） */
+  .faq{display:flex; flex-direction:column; gap:30px; max-width:720px}
+  .faq .qa h3{margin:0 0 8px; font-size:1rem; color:var(--on-900); font-weight:600; line-height:1.7}
+  .faq .qa h3::before{content:"Q．"; color:var(--spica-300); font-family:var(--mono); font-weight:500}
+  .faq .qa p{margin:0; font-size:.92rem; color:var(--on-700); line-height:1.95}
+
   /* reveals */
   .rv{opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
   .rv.in{opacity:1; transform:none}
