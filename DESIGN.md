@@ -1,6 +1,6 @@
 # DESIGN.md — spica-portal デザインシステム
 
-> 現行実装（style.css / app.js / kokohawatashiga inline CSS / legacy.css）からの抽出。**正本はコード**であり、
+> 現行実装（style.css / app.js / kokohawatashiga inline CSS）からの抽出。**正本はコード**であり、
 > 本書はその言語化。乖離を見つけたらコードではなく本書を直す。ブランド上位規範は `onmt/spica` の
 > `BRAND.md` / `brand/tokens.json`（NIGHT パレットの出所）。
 
@@ -134,8 +134,7 @@ glyph（✓/⚠/・）＋見出し＋説明＋状態バッジの4点セット。
   `docs/release/app_store_metadata.md`。
 - 夜テーマの部品（.rv・星空・mono ラベル）を**持ち込まない**。逆輸入も禁止。
 
-`legal/` は旧ポータル移植の `legacy.css`（独自変数体系）。**新規ページでの legacy.css 使用は禁止**、
-夜テーマへの統一が将来課題（README 運用メモ参照）。
+`legal/`（privacy/eula/tokushoho）は**夜テーマに統一済み**（2026-07-23・`style.css` 共用＋ページ内 `.legal` スタイル。法務文面は不変）。旧ポータル移植の `legacy.css` は**廃止**した。
 
 ## 8. Guardrails（デザイン以前の憲法）
 

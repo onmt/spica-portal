@@ -13,71 +13,117 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://www.spicaimg.com/legal/tokushoho.html">
-<link rel="stylesheet" href="/legacy.css">
+<meta name="theme-color" content="#0b0d14">
+<link rel="stylesheet" href="/style.css">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+/* legal pages（/style.css を共用・夜テーマ） */
+.legal{max-width:720px; margin:0 auto; padding:60px 0 24px}
+.legal .eyebrow{margin-bottom:18px}
+.legal h1{font-family:var(--serif); font-weight:600; color:var(--on-900);
+  font-size:clamp(1.8rem,5.2vw,2.6rem); line-height:1.35; margin:0 0 14px}
+.legal .lead{font-size:1.02rem; color:var(--on-700); line-height:1.9; margin:0 0 6px; max-width:38em}
+.legal .updated{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--on-500); margin:0 0 30px}
+.legal h2{font-family:var(--sans); font-weight:600; color:var(--on-900); font-size:1.08rem;
+  line-height:1.6; margin:34px 0 8px; padding-top:22px; border-top:1px solid var(--line)}
+.legal p{font-size:.95rem; color:var(--on-700); line-height:1.95; margin:0 0 12px; max-width:40em}
+.legal p strong, .legal td strong{color:var(--on-900); font-weight:600}
+.legal a{color:var(--spica-300)}
+.legal .note{border:1px solid var(--line); border-left:2px solid var(--spica-400);
+  background:var(--night-900); border-radius:10px; padding:16px 20px; margin:22px 0;
+  font-size:.9rem; color:var(--on-700); line-height:1.9; max-width:44em}
+.legal table{width:100%; max-width:44em; border-collapse:collapse; margin:24px 0; font-size:.9rem}
+.legal th, .legal td{text-align:left; vertical-align:top; padding:12px 14px;
+  border-bottom:1px solid var(--line); color:var(--on-700); line-height:1.85}
+.legal th{width:34%; font-weight:600; color:var(--on-900); background:var(--night-900); font-size:.86rem}
+.legal .en{font-size:.82rem; color:var(--on-500); line-height:1.8}
+.legal .backlink{display:inline-block; margin-top:34px; font-family:var(--mono);
+  font-size:12px; letter-spacing:.06em; color:var(--spica-300)}
+@media(max-width:560px){
+  .legal tr{display:block; padding:10px 0; border-bottom:1px solid var(--line)}
+  .legal th,.legal td{display:block; width:auto; border-bottom:0; padding:2px 2px}
+  .legal th{background:none}
+}
+</style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="wrap">
-    <a class="home" href="/" aria-label="Spica ホーム">
-      <svg width="86" height="20" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#1f5fe6"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#14161d">Spica</text></svg>
-    </a>
-    <nav>
-      <a href="/#studio">アプリ</a>
-      <a href="/legal/privacy">プライバシー</a>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="page">
+
+<header>
+  <div class="wrap nav">
+    <span class="brandmark">
+      <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      <b>SPICA</b>
+    </span>
+    <span class="tag">LOCAL-FIRST</span>
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/legal/privacy">PRIVACY</a>
       <a href="/legal/eula">EULA</a>
+      <a href="/legal/tokushoho">特商法</a>
     </nav>
   </div>
 </header>
 
-<main class="page">
-  <span class="eyebrow">Legal — 特定商取引法</span>
-  <h1>特定商取引法に基づく表記</h1>
-  <p class="lead">スピカ・イメージクリエイション</p>
-  <p class="updated">最終更新：2026-07-11</p>
+<main class="wrap">
+  <article class="legal">
+    <p class="eyebrow"><span class="blue">LEGAL</span>&ensp;特定商取引法に基づく表記</p>
+    <h1>特定商取引法に基づく表記</h1>
+    <p class="lead">スピカ・イメージクリエイション</p>
+    <p class="updated">最終更新：2026-07-11</p>
 
-  <div class="note">当サイトは製品情報の掲載のみを行っており、<strong>決済を伴う販売はすべて各ストア（App Store / Google Play）または MoR（Merchant of Record。Paddle 等）を通じて行われます</strong>。これらの取引における特定商取引法上の販売者は各ストア / MoR であり、取引条件は各社の表記に従います。当方が販売者となる直接販売は現在行っていません（開始する場合は、販売開始前に専門家の確認のうえ本表記を更新します）。</div>
+    <div class="note">当サイトは製品情報の掲載のみを行っており、<strong>決済を伴う販売はすべて各ストア（App Store / Google Play）または MoR（Merchant of Record。Paddle 等）を通じて行われます</strong>。これらの取引における特定商取引法上の販売者は各ストア / MoR であり、取引条件は各社の表記に従います。当方が販売者となる直接販売は現在行っていません（開始する場合は、販売開始前に専門家の確認のうえ本表記を更新します）。</div>
 
-  <table>
-    <tbody>
-      <tr><th>事業者（表記名）</th><td>スピカ・イメージクリエイション（個人事業・税務署届出済みの屋号）</td></tr>
-      <tr><th>事業者の氏名・所在地・電話番号</th><td>特定商取引法第11条ただし書および同法施行規則に基づき、ご請求があれば遅滞なく電子メール等により開示します。ご請求は下記の連絡先へお寄せください。</td></tr>
-      <tr><th>連絡先</th><td><a href="mailto:support@spicaimg.com">support@spicaimg.com</a>（通常2〜5営業日以内に返信します）</td></tr>
-      <tr><th>販売形態</th><td>モバイルアプリ：App Store / Google Play（各ストアが販売者）。<br>PC 向け有料製品（予定）：MoR（Paddle 等）が販売者となる予定です。<br>当サイトからの直接販売（自社決済）はありません。</td></tr>
-      <tr><th>販売価格</th><td>各製品ページ・各ストアに税込で表示します。<br>例（予定を含む）：ココハワタシガ 年度パス ¥1,200（買い切り型・サブスクリプションではありません／App Store 審査準備中）／ffkit 商用ライセンス ¥5,000（買い切り・価格暫定）／Spica Prompter Solo ¥3,000・Pro ¥14,800（買い切り・開発中）</td></tr>
-      <tr><th>商品代金以外の必要料金</th><td>なし。ダウンロードに要する通信費等は利用者の負担となります。</td></tr>
-      <tr><th>支払方法</th><td>モバイル：App Store / Google Play の決済。<br>PC向け有料製品：MoR（Paddle 等）の決済。<br>※カード情報など生の決済情報は当方では扱いません。</td></tr>
-      <tr><th>支払時期</th><td>各ストア／決済事業者の購入手続き完了時。</td></tr>
-      <tr><th>商品の引渡時期</th><td>決済確認後ただちに（ダウンロード提供／ライセンスキー発行）。</td></tr>
-      <tr><th>返品・キャンセル</th><td>デジタル製品の性質上、原則として購入後の返品・返金はお受けできません。ただし不具合等の場合は、各ストア／MoR の規定および適用される法令に従って対応します。</td></tr>
-      <tr><th>動作環境</th><td>各製品ページに記載します。</td></tr>
-    </tbody>
-  </table>
+    <table>
+      <tbody>
+        <tr><th>事業者（表記名）</th><td>スピカ・イメージクリエイション（個人事業・税務署届出済みの屋号）</td></tr>
+        <tr><th>事業者の氏名・所在地・電話番号</th><td>特定商取引法第11条ただし書および同法施行規則に基づき、ご請求があれば遅滞なく電子メール等により開示します。ご請求は下記の連絡先へお寄せください。</td></tr>
+        <tr><th>連絡先</th><td><a href="mailto:support@spicaimg.com">support@spicaimg.com</a>（通常2〜5営業日以内に返信します）</td></tr>
+        <tr><th>販売形態</th><td>モバイルアプリ：App Store / Google Play（各ストアが販売者）。<br>PC 向け有料製品（予定）：MoR（Paddle 等）が販売者となる予定です。<br>当サイトからの直接販売（自社決済）はありません。</td></tr>
+        <tr><th>販売価格</th><td>各製品ページ・各ストアに税込で表示します。<br>例（予定を含む）：ココハワタシガ 年度パス ¥1,200（買い切り型・サブスクリプションではありません／App Store 審査準備中）／ffkit 商用ライセンス ¥5,000（買い切り・価格暫定）／Spica Prompter Solo ¥3,000・Pro ¥14,800（買い切り・開発中）</td></tr>
+        <tr><th>商品代金以外の必要料金</th><td>なし。ダウンロードに要する通信費等は利用者の負担となります。</td></tr>
+        <tr><th>支払方法</th><td>モバイル：App Store / Google Play の決済。<br>PC向け有料製品：MoR（Paddle 等）の決済。<br>※カード情報など生の決済情報は当方では扱いません。</td></tr>
+        <tr><th>支払時期</th><td>各ストア／決済事業者の購入手続き完了時。</td></tr>
+        <tr><th>商品の引渡時期</th><td>決済確認後ただちに（ダウンロード提供／ライセンスキー発行）。</td></tr>
+        <tr><th>返品・キャンセル</th><td>デジタル製品の性質上、原則として購入後の返品・返金はお受けできません。ただし不具合等の場合は、各ストア／MoR の規定および適用される法令に従って対応します。</td></tr>
+        <tr><th>動作環境</th><td>各製品ページに記載します。</td></tr>
+      </tbody>
+    </table>
 
-  <div class="note">本書は法的助言ではありません。上記の整理（ストア / MoR を販売者とする販売形態、および事業者情報の「請求により開示」の取り扱い＝特定商取引法第11条ただし書・施行規則に基づく省略措置）は消費者庁の公開ガイドに基づく一般的な運用によるものであり、当方が販売者となる直接販売を開始する前には専門家の確認を受けます。</div>
+    <div class="note">本書は法的助言ではありません。上記の整理（ストア / MoR を販売者とする販売形態、および事業者情報の「請求により開示」の取り扱い＝特定商取引法第11条ただし書・施行規則に基づく省略措置）は消費者庁の公開ガイドに基づく一般的な運用によるものであり、当方が販売者となる直接販売を開始する前には専門家の確認を受けます。</div>
 
-  <a class="backlink" href="/">← Spica トップへ戻る</a>
+    <a class="backlink" href="/">← Spica トップへ戻る</a>
+  </article>
 </main>
 
-<footer class="foot">
+<footer>
   <div class="wrap">
-    <div class="row">
-      <div>
-        <svg width="92" height="22" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#b9d2ff"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#f2f4f9">Spica</text></svg>
-        <p style="margin:14px 0 0;font-size:13.5px;color:var(--on-night-500);max-width:300px">あなたのデータを、あなたの手元に。スピカ・イメージクリエイション。</p>
-      </div>
-      <div class="cols">
-        <div><div class="h">アプリ</div><div class="links"><a href="/#studio">一覧</a><a href="/ffkit/">ffkit</a></div></div>
-        <div><div class="h">法務</div><div class="links"><a href="/legal/privacy">プライバシー方針</a><a href="/legal/eula">EULA（無保証）</a><a href="/legal/tokushoho">特定商取引法</a></div></div>
-      </div>
+    <div class="foot">
+      <span class="brandmark" style="color:var(--on-500)">
+        <svg viewBox="0 0 100 100" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      </span>
+      <span class="links">
+        <a href="/">スピカ・イメージクリエイション</a>
+        <a href="/prompter/">Spica Prompter</a>
+        <a href="/ffkit/">ffkit</a>
+        <a href="/hikae/">ヒカエ</a>
+        <a href="/kokohawatashiga/">ココハワタシガ</a>
+        <a href="/legal/privacy">プライバシー（収集しません）</a>
+        <a href="/legal/eula">利用規約 / EULA</a>
+      </span>
+      <span class="copy">© Spica Image Creation</span>
     </div>
-    <div class="bot"><span>© Spica Image Creation</span><span class="mono">local-first · offline · as-is</span></div>
+    <p class="foot-note">// このサイトは外部リソースを一切読み込みません。フォントは自前ホスト・CSP適用。サイト自体もローカルファーストです。</p>
   </div>
 </footer>
 
+</div><!-- /.page -->
+
+<script src="/app.js"></script>
 <!-- サイト解析: Cloudflare Web Analytics（Cookieなし・個人を追跡しない匿名集計）。手順は /docs/analytics.md。 -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8f19122a6f6b42e4a0870712d234fec7"}'></script>
 </body>

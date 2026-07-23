@@ -13,80 +13,126 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://www.spicaimg.com/legal/eula.html">
-<link rel="stylesheet" href="/legacy.css">
+<meta name="theme-color" content="#0b0d14">
+<link rel="stylesheet" href="/style.css">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+/* legal pages（/style.css を共用・夜テーマ） */
+.legal{max-width:720px; margin:0 auto; padding:60px 0 24px}
+.legal .eyebrow{margin-bottom:18px}
+.legal h1{font-family:var(--serif); font-weight:600; color:var(--on-900);
+  font-size:clamp(1.8rem,5.2vw,2.6rem); line-height:1.35; margin:0 0 14px}
+.legal .lead{font-size:1.02rem; color:var(--on-700); line-height:1.9; margin:0 0 6px; max-width:38em}
+.legal .updated{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--on-500); margin:0 0 30px}
+.legal h2{font-family:var(--sans); font-weight:600; color:var(--on-900); font-size:1.08rem;
+  line-height:1.6; margin:34px 0 8px; padding-top:22px; border-top:1px solid var(--line)}
+.legal p{font-size:.95rem; color:var(--on-700); line-height:1.95; margin:0 0 12px; max-width:40em}
+.legal p strong, .legal td strong{color:var(--on-900); font-weight:600}
+.legal a{color:var(--spica-300)}
+.legal .note{border:1px solid var(--line); border-left:2px solid var(--spica-400);
+  background:var(--night-900); border-radius:10px; padding:16px 20px; margin:22px 0;
+  font-size:.9rem; color:var(--on-700); line-height:1.9; max-width:44em}
+.legal table{width:100%; max-width:44em; border-collapse:collapse; margin:24px 0; font-size:.9rem}
+.legal th, .legal td{text-align:left; vertical-align:top; padding:12px 14px;
+  border-bottom:1px solid var(--line); color:var(--on-700); line-height:1.85}
+.legal th{width:34%; font-weight:600; color:var(--on-900); background:var(--night-900); font-size:.86rem}
+.legal .en{font-size:.82rem; color:var(--on-500); line-height:1.8}
+.legal .backlink{display:inline-block; margin-top:34px; font-family:var(--mono);
+  font-size:12px; letter-spacing:.06em; color:var(--spica-300)}
+@media(max-width:560px){
+  .legal tr{display:block; padding:10px 0; border-bottom:1px solid var(--line)}
+  .legal th,.legal td{display:block; width:auto; border-bottom:0; padding:2px 2px}
+  .legal th{background:none}
+}
+</style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="wrap">
-    <a class="home" href="/" aria-label="Spica ホーム">
-      <svg width="86" height="20" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#1f5fe6"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#14161d">Spica</text></svg>
-    </a>
-    <nav>
-      <a href="/#studio">アプリ</a>
-      <a href="/legal/privacy">プライバシー</a>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="page">
+
+<header>
+  <div class="wrap nav">
+    <span class="brandmark">
+      <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      <b>SPICA</b>
+    </span>
+    <span class="tag">LOCAL-FIRST</span>
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/legal/privacy">PRIVACY</a>
+      <a href="/legal/eula">EULA</a>
       <a href="/legal/tokushoho">特商法</a>
     </nav>
   </div>
 </header>
 
-<main class="page">
-  <span class="eyebrow">Legal — EULA</span>
-  <h1>ソフトウェア使用許諾契約（EULA）</h1>
-  <p class="lead">スピカ・イメージクリエイション（以下「当方」）の各アプリに共通して適用される使用許諾の標準形です。</p>
-  <p class="updated">最終更新：2026-06-28</p>
+<main class="wrap">
+  <article class="legal">
+    <p class="eyebrow"><span class="blue">LEGAL</span>&ensp;EULA</p>
+    <h1>ソフトウェア使用許諾契約（EULA）</h1>
+    <p class="lead">スピカ・イメージクリエイション（以下「当方」）の各アプリに共通して適用される使用許諾の標準形です。</p>
+    <p class="updated">最終更新：2026-06-28</p>
 
-  <div class="note">本書は、当方の各ソフトウェア（以下「本ソフト」）に共通して適用される標準条項です。個別アプリに別途の条項がある場合は、そちらが優先します。ダウンロード・インストール・使用をもって、本契約に同意したものとみなします。<strong>本書は法的助言ではありません。</strong></div>
+    <div class="note">本書は、当方の各ソフトウェア（以下「本ソフト」）に共通して適用される標準条項です。個別アプリに別途の条項がある場合は、そちらが優先します。ダウンロード・インストール・使用をもって、本契約に同意したものとみなします。<strong>本書は法的助言ではありません。</strong></div>
 
-  <h2>1. 使用許諾</h2>
-  <p>当方は利用者に対し、本ソフトを本契約の範囲で使用する非独占的な権利を許諾します。ライセンスは原則として<strong>「人」に紐づきます</strong>。同一プラットフォームであれば、自分自身の複数端末で使用できます。端末数の計数や、起動のたびのオンライン確認は行いません。</p>
+    <h2>1. 使用許諾</h2>
+    <p>当方は利用者に対し、本ソフトを本契約の範囲で使用する非独占的な権利を許諾します。ライセンスは原則として<strong>「人」に紐づきます</strong>。同一プラットフォームであれば、自分自身の複数端末で使用できます。端末数の計数や、起動のたびのオンライン確認は行いません。</p>
 
-  <h2>2. 無保証（AS-IS）</h2>
-  <p>本ソフトは<strong>現状有姿（AS-IS）</strong>で提供され、当方は、明示黙示を問わず、<strong>商品性・特定目的適合性・非侵害性・完全性・正確性を含む一切の保証をしません</strong>。本ソフトが無中断・無欠陥で動作すること、特定の結果（例：ディスクの再生可否、データの保全、計算結果の妥当性）を保証しません。</p>
+    <h2>2. 無保証（AS-IS）</h2>
+    <p>本ソフトは<strong>現状有姿（AS-IS）</strong>で提供され、当方は、明示黙示を問わず、<strong>商品性・特定目的適合性・非侵害性・完全性・正確性を含む一切の保証をしません</strong>。本ソフトが無中断・無欠陥で動作すること、特定の結果（例：ディスクの再生可否、データの保全、計算結果の妥当性）を保証しません。</p>
 
-  <h2>3. 責任の限定</h2>
-  <p>法律で許される最大限の範囲で、当方は、本ソフトの使用または使用不能から生じる<strong>いかなる損害（データ損失・逸失利益・事業中断・間接／特別／結果的損害を含む）についても責任を負いません</strong>。当方が責任を負う場合でも、その総額は利用者が当該ソフトに支払った金額を上限とします。</p>
+    <h2>3. 責任の限定</h2>
+    <p>法律で許される最大限の範囲で、当方は、本ソフトの使用または使用不能から生じる<strong>いかなる損害（データ損失・逸失利益・事業中断・間接／特別／結果的損害を含む）についても責任を負いません</strong>。当方が責任を負う場合でも、その総額は利用者が当該ソフトに支払った金額を上限とします。</p>
 
-  <h2>4. 利用者の責任</h2>
-  <p>利用者は、<strong>重要なデータを自己の責任で別途バックアップ</strong>し、成果物（例：作成したディスク・出力ファイル）を<strong>自己の責任で検証</strong>するものとします。バックアップ機能はベストエフォートであり、別コピーの保持を推奨します。</p>
+    <h2>4. 利用者の責任</h2>
+    <p>利用者は、<strong>重要なデータを自己の責任で別途バックアップ</strong>し、成果物（例：作成したディスク・出力ファイル）を<strong>自己の責任で検証</strong>するものとします。バックアップ機能はベストエフォートであり、別コピーの保持を推奨します。</p>
 
-  <h2>5. プライバシー</h2>
-  <p>本ソフトは<strong>利用者のデータを収集・外部送信しません</strong>（ローカルで動作）。詳細は<a href="/legal/privacy" style="color:var(--accent)">プライバシー方針</a>に従います。</p>
+    <h2>5. プライバシー</h2>
+    <p>本ソフトは<strong>利用者のデータを収集・外部送信しません</strong>（ローカルで動作）。詳細は<a href="/legal/privacy">プライバシー方針</a>に従います。</p>
 
-  <h2>6. 計算・シミュレーション機能について</h2>
-  <p>本ソフトに含まれる計算・シミュレーション機能は、利用者自身の判断のための<strong>参考情報</strong>であり、投資・税務・法務上の助言ではありません。専門的な判断は各分野の専門家にご相談ください。</p>
+    <h2>6. 計算・シミュレーション機能について</h2>
+    <p>本ソフトに含まれる計算・シミュレーション機能は、利用者自身の判断のための<strong>参考情報</strong>であり、投資・税務・法務上の助言ではありません。専門的な判断は各分野の専門家にご相談ください。</p>
 
-  <h2>7. 第三者ソフトウェア</h2>
-  <p>本ソフトは第三者のオープンソース等に依存する場合があります。該当するライセンス・謝辞は付属の表示（THIRD_PARTY 等）に従います。</p>
+    <h2>7. 第三者ソフトウェア</h2>
+    <p>本ソフトは第三者のオープンソース等に依存する場合があります。該当するライセンス・謝辞は付属の表示（THIRD_PARTY 等）に従います。</p>
 
-  <h2>8. 準拠法</h2>
-  <p>本契約は日本法に準拠します。</p>
+    <h2>8. 準拠法</h2>
+    <p>本契約は日本法に準拠します。</p>
 
-  <h2>English summary (AS-IS)</h2>
-  <p style="font-size:13.5px;color:var(--text-muted)">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE PUBLISHER (Spica Image Creation) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY (INCLUDING DATA LOSS OR LOST PROFITS), ARISING FROM THE USE OF OR INABILITY TO USE THE SOFTWARE. The user is responsible for backing up important data and verifying outputs.</p>
+    <h2>English summary (AS-IS)</h2>
+    <p class="en">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE PUBLISHER (Spica Image Creation) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY (INCLUDING DATA LOSS OR LOST PROFITS), ARISING FROM THE USE OF OR INABILITY TO USE THE SOFTWARE. The user is responsible for backing up important data and verifying outputs.</p>
 
-  <a class="backlink" href="/">← Spica トップへ戻る</a>
+    <a class="backlink" href="/">← Spica トップへ戻る</a>
+  </article>
 </main>
 
-<footer class="foot">
+<footer>
   <div class="wrap">
-    <div class="row">
-      <div>
-        <svg width="92" height="22" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#b9d2ff"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#f2f4f9">Spica</text></svg>
-        <p style="margin:14px 0 0;font-size:13.5px;color:var(--on-night-500);max-width:300px">あなたのデータを、あなたの手元に。スピカ・イメージクリエイション。</p>
-      </div>
-      <div class="cols">
-        <div><div class="h">アプリ</div><div class="links"><a href="/#studio">一覧</a><a href="/ffkit/">ffkit</a></div></div>
-        <div><div class="h">法務</div><div class="links"><a href="/legal/privacy">プライバシー方針</a><a href="/legal/eula">EULA（無保証）</a><a href="/legal/tokushoho">特定商取引法</a></div></div>
-      </div>
+    <div class="foot">
+      <span class="brandmark" style="color:var(--on-500)">
+        <svg viewBox="0 0 100 100" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      </span>
+      <span class="links">
+        <a href="/">スピカ・イメージクリエイション</a>
+        <a href="/prompter/">Spica Prompter</a>
+        <a href="/ffkit/">ffkit</a>
+        <a href="/hikae/">ヒカエ</a>
+        <a href="/kokohawatashiga/">ココハワタシガ</a>
+        <a href="/legal/privacy">プライバシー（収集しません）</a>
+        <a href="/legal/tokushoho">特定商取引法に基づく表記</a>
+      </span>
+      <span class="copy">© Spica Image Creation</span>
     </div>
-    <div class="bot"><span>© Spica Image Creation</span><span class="mono">local-first · offline · as-is</span></div>
+    <p class="foot-note">// このサイトは外部リソースを一切読み込みません。フォントは自前ホスト・CSP適用。サイト自体もローカルファーストです。</p>
   </div>
 </footer>
 
+</div><!-- /.page -->
+
+<script src="/app.js"></script>
 <!-- サイト解析: Cloudflare Web Analytics（Cookieなし・個人を追跡しない匿名集計）。手順は /docs/analytics.md。 -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8f19122a6f6b42e4a0870712d234fec7"}'></script>
 </body>

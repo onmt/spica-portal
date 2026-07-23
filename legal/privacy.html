@@ -13,76 +13,122 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://www.spicaimg.com/legal/privacy.html">
-<link rel="stylesheet" href="/legacy.css">
+<meta name="theme-color" content="#0b0d14">
+<link rel="stylesheet" href="/style.css">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+/* legal pages（/style.css を共用・夜テーマ） */
+.legal{max-width:720px; margin:0 auto; padding:60px 0 24px}
+.legal .eyebrow{margin-bottom:18px}
+.legal h1{font-family:var(--serif); font-weight:600; color:var(--on-900);
+  font-size:clamp(1.8rem,5.2vw,2.6rem); line-height:1.35; margin:0 0 14px}
+.legal .lead{font-size:1.02rem; color:var(--on-700); line-height:1.9; margin:0 0 6px; max-width:38em}
+.legal .updated{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--on-500); margin:0 0 30px}
+.legal h2{font-family:var(--sans); font-weight:600; color:var(--on-900); font-size:1.08rem;
+  line-height:1.6; margin:34px 0 8px; padding-top:22px; border-top:1px solid var(--line)}
+.legal p{font-size:.95rem; color:var(--on-700); line-height:1.95; margin:0 0 12px; max-width:40em}
+.legal p strong, .legal td strong{color:var(--on-900); font-weight:600}
+.legal a{color:var(--spica-300)}
+.legal .note{border:1px solid var(--line); border-left:2px solid var(--spica-400);
+  background:var(--night-900); border-radius:10px; padding:16px 20px; margin:22px 0;
+  font-size:.9rem; color:var(--on-700); line-height:1.9; max-width:44em}
+.legal table{width:100%; max-width:44em; border-collapse:collapse; margin:24px 0; font-size:.9rem}
+.legal th, .legal td{text-align:left; vertical-align:top; padding:12px 14px;
+  border-bottom:1px solid var(--line); color:var(--on-700); line-height:1.85}
+.legal th{width:34%; font-weight:600; color:var(--on-900); background:var(--night-900); font-size:.86rem}
+.legal .en{font-size:.82rem; color:var(--on-500); line-height:1.8}
+.legal .backlink{display:inline-block; margin-top:34px; font-family:var(--mono);
+  font-size:12px; letter-spacing:.06em; color:var(--spica-300)}
+@media(max-width:560px){
+  .legal tr{display:block; padding:10px 0; border-bottom:1px solid var(--line)}
+  .legal th,.legal td{display:block; width:auto; border-bottom:0; padding:2px 2px}
+  .legal th{background:none}
+}
+</style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="wrap">
-    <a class="home" href="/" aria-label="Spica ホーム">
-      <svg width="86" height="20" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#1f5fe6"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#14161d">Spica</text></svg>
-    </a>
-    <nav>
-      <a href="/#studio">アプリ</a>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="page">
+
+<header>
+  <div class="wrap nav">
+    <span class="brandmark">
+      <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      <b>SPICA</b>
+    </span>
+    <span class="tag">LOCAL-FIRST</span>
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/legal/privacy">PRIVACY</a>
       <a href="/legal/eula">EULA</a>
       <a href="/legal/tokushoho">特商法</a>
     </nav>
   </div>
 </header>
 
-<main class="page">
-  <span class="eyebrow">Legal — プライバシー方針</span>
-  <h1>プライバシー方針</h1>
-  <p class="lead">スピカ・イメージクリエイション（以下「当方」）が提供するアプリ全般に適用されます。</p>
-  <p class="updated">最終更新：2026-06-28</p>
+<main class="wrap">
+  <article class="legal">
+    <p class="eyebrow"><span class="blue">LEGAL</span>&ensp;プライバシー方針</p>
+    <h1>プライバシー方針</h1>
+    <p class="lead">スピカ・イメージクリエイション（以下「当方」）が提供するアプリ全般に適用されます。</p>
+    <p class="updated">最終更新：2026-06-28</p>
 
-  <div class="note">かんたんに言うと、当方のアプリは<strong>あなたのデータを集めず、外にも送りません</strong>。すべて端末の中で完結します。集めて儲ける仕組みを持っていないので、あとから方針を変えて収集をはじめることもできません。</div>
+    <div class="note">かんたんに言うと、当方のアプリは<strong>あなたのデータを集めず、外にも送りません</strong>。すべて端末の中で完結します。集めて儲ける仕組みを持っていないので、あとから方針を変えて収集をはじめることもできません。</div>
 
-  <h2>1. 収集する情報</h2>
-  <p>ありません。アカウント登録は不要です。利用状況の解析SDK・広告トラッカー・行動ログの送信を組み込んでいません。</p>
+    <h2>1. 収集する情報</h2>
+    <p>ありません。アカウント登録は不要です。利用状況の解析SDK・広告トラッカー・行動ログの送信を組み込んでいません。</p>
 
-  <h2>2. データの保存場所</h2>
-  <p>あなたが入力・撮影・生成したデータ（領収書、映像、出力ファイル等）は、<strong>あなたの端末の中だけ</strong>に保存されます。当方のサーバーには送られず、当方はその内容を見ることができません。</p>
+    <h2>2. データの保存場所</h2>
+    <p>あなたが入力・撮影・生成したデータ（領収書、映像、出力ファイル等）は、<strong>あなたの端末の中だけ</strong>に保存されます。当方のサーバーには送られず、当方はその内容を見ることができません。</p>
 
-  <h2>3. 外部への送信</h2>
-  <p>原則として、当方が自動でデータを外部送信することはありません。例外は、<strong>あなたが明示的に「書き出し（エクスポート）」を実行したとき</strong>だけです。たとえば領収書データを freee / マネーフォワード / 弥生 などの会計サービスへ渡す場合、それは<strong>あなたの操作・あなたの選んだ送り先</strong>への送信であり、当方が代行・自動送信するものではありません。各送り先での取り扱いは、それぞれのサービスのプライバシー方針に従います。</p>
+    <h2>3. 外部への送信</h2>
+    <p>原則として、当方が自動でデータを外部送信することはありません。例外は、<strong>あなたが明示的に「書き出し（エクスポート）」を実行したとき</strong>だけです。たとえば領収書データを freee / マネーフォワード / 弥生 などの会計サービスへ渡す場合、それは<strong>あなたの操作・あなたの選んだ送り先</strong>への送信であり、当方が代行・自動送信するものではありません。各送り先での取り扱いは、それぞれのサービスのプライバシー方針に従います。</p>
 
-  <h2>4. 第三者サービス</h2>
-  <p>App Store / Google Play 等のストア経由で配布・課金を行う場合、ダウンロードや決済に関する情報はストア事業者が各社の方針に基づいて取り扱います。当方はカード番号などの生の決済情報を保持しません。PC向け有料製品の決済は MoR（Merchant of Record）に委ねます。</p>
+    <h2>4. 第三者サービス</h2>
+    <p>App Store / Google Play 等のストア経由で配布・課金を行う場合、ダウンロードや決済に関する情報はストア事業者が各社の方針に基づいて取り扱います。当方はカード番号などの生の決済情報を保持しません。PC向け有料製品の決済は MoR（Merchant of Record）に委ねます。</p>
 
-  <h2>5. お問い合わせ</h2>
-  <p>本方針に関するお問い合わせは、各アプリの配布ページに記載の連絡先までお願いします。</p>
+    <h2>5. お問い合わせ</h2>
+    <p>本方針に関するお問い合わせは、各アプリの配布ページに記載の連絡先までお願いします。</p>
 
-  <h2>6. このウェブサイト（spicaimg.com）について</h2>
-  <p>上記1〜5は<strong>アプリ</strong>に関する方針です。当ウェブサイト（www.spicaimg.com）そのものについては、運営の参考にする目的で<strong>Cloudflare Web Analytics</strong>による匿名のアクセス集計を利用しています。これは<strong>Cookie を使わず、個人を識別・追跡しません</strong>。集めるのは「どのページが・どの参照元から・どの国や端末種別で閲覧されたか」といった<strong>合算の統計だけ</strong>で、氏名・メールアドレス等の個人情報や、あなたのサイト横断的な行動履歴は取得しません。<strong>アプリ側でデータを集めないという方針（第1〜3条）は変わりません。</strong></p>
+    <h2>6. このウェブサイト（spicaimg.com）について</h2>
+    <p>上記1〜5は<strong>アプリ</strong>に関する方針です。当ウェブサイト（www.spicaimg.com）そのものについては、運営の参考にする目的で<strong>Cloudflare Web Analytics</strong>による匿名のアクセス集計を利用しています。これは<strong>Cookie を使わず、個人を識別・追跡しません</strong>。集めるのは「どのページが・どの参照元から・どの国や端末種別で閲覧されたか」といった<strong>合算の統計だけ</strong>で、氏名・メールアドレス等の個人情報や、あなたのサイト横断的な行動履歴は取得しません。<strong>アプリ側でデータを集めないという方針（第1〜3条）は変わりません。</strong></p>
 
-  <h2>7. 改定</h2>
-  <p>本方針を変更する場合は、このページを更新します。重要な変更がある場合は、可能な範囲でアプリ内等でお知らせします。</p>
+    <h2>7. 改定</h2>
+    <p>本方針を変更する場合は、このページを更新します。重要な変更がある場合は、可能な範囲でアプリ内等でお知らせします。</p>
 
-  <div class="note">各アプリ固有の詳細がある場合は、アプリ内またはストアの表記が本方針に優先します。本書は法的助言ではありません。</div>
+    <div class="note">各アプリ固有の詳細がある場合は、アプリ内またはストアの表記が本方針に優先します。本書は法的助言ではありません。</div>
 
-  <a class="backlink" href="/">← Spica トップへ戻る</a>
+    <a class="backlink" href="/">← Spica トップへ戻る</a>
+  </article>
 </main>
 
-<footer class="foot">
+<footer>
   <div class="wrap">
-    <div class="row">
-      <div>
-        <svg width="92" height="22" viewBox="0 0 300 72"><path d="M30 8 C 32.1 29.1, 36.9 33.9, 58 36 C 36.9 38.1, 32.1 42.9, 30 64 C 27.9 42.9, 23.1 38.1, 2 36 C 23.1 33.9, 27.9 29.1, 30 8 Z" fill="#b9d2ff"/><text x="74" y="50" font-family="'IBM Plex Sans',sans-serif" font-size="44" font-weight="600" letter-spacing="-0.5" fill="#f2f4f9">Spica</text></svg>
-        <p style="margin:14px 0 0;font-size:13.5px;color:var(--on-night-500);max-width:300px">あなたのデータを、あなたの手元に。スピカ・イメージクリエイション。</p>
-      </div>
-      <div class="cols">
-        <div><div class="h">アプリ</div><div class="links"><a href="/#studio">一覧</a><a href="/ffkit/">ffkit</a></div></div>
-        <div><div class="h">法務</div><div class="links"><a href="/legal/privacy">プライバシー方針</a><a href="/legal/eula">EULA（無保証）</a><a href="/legal/tokushoho">特定商取引法</a></div></div>
-      </div>
+    <div class="foot">
+      <span class="brandmark" style="color:var(--on-500)">
+        <svg viewBox="0 0 100 100" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M50 3 C 53.5 38.5, 61.5 46.5, 97 50 C 61.5 53.5, 53.5 61.5, 50 97 C 46.5 61.5, 38.5 53.5, 3 50 C 38.5 46.5, 46.5 38.5, 50 3 Z"/></svg>
+      </span>
+      <span class="links">
+        <a href="/">スピカ・イメージクリエイション</a>
+        <a href="/prompter/">Spica Prompter</a>
+        <a href="/ffkit/">ffkit</a>
+        <a href="/hikae/">ヒカエ</a>
+        <a href="/kokohawatashiga/">ココハワタシガ</a>
+        <a href="/legal/eula">利用規約 / EULA</a>
+        <a href="/legal/tokushoho">特定商取引法に基づく表記</a>
+      </span>
+      <span class="copy">© Spica Image Creation</span>
     </div>
-    <div class="bot"><span>© Spica Image Creation</span><span class="mono">local-first · offline · as-is</span></div>
+    <p class="foot-note">// このサイトは外部リソースを一切読み込みません。フォントは自前ホスト・CSP適用。サイト自体もローカルファーストです。</p>
   </div>
 </footer>
 
+</div><!-- /.page -->
+
+<script src="/app.js"></script>
 <!-- サイト解析: Cloudflare Web Analytics（Cookieなし・個人を追跡しない匿名集計）。手順は /docs/analytics.md。 -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8f19122a6f6b42e4a0870712d234fec7"}'></script>
 </body>
