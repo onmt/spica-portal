@@ -1,0 +1,5 @@
+# 旧URL → 新URL（製品改名 2026-07-23: prompter→legato, ffkit→verikan）
+/prompter/    /legato/     301
+/prompter     /legato/     301
+/ffkit/       /verikan/    301
+/ffkit        /verikan/    301

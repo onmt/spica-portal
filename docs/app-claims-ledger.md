@@ -48,7 +48,9 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 
 ---
 
-## Spica Prompter（onmt/spica-prompter）
+## Spica Legato（旧 Spica Prompter・onmt/spica-prompter）
+
+> **2026-07-23 改名**: 製品名を **Spica Legato（肩書き「新時代プロンプター」）** に確定（旧 Spica Prompter・旧眉「仮称」を解除）。サイトURL `/prompter/`→`/legato/`（`_redirects` で 301）。以下の表の「prompter/」は現 `legato/` を指す。**要フォロー**: 「Legato」は Legato Audio Inc.(2024商標)・旧Legato Systems(NetWorker) 等の一般語につき、常に "Spica Legato" で用い、公開後に正式な商標調査を行う。
 
 | 主張 | サイト掲載箇所 | 正本（在り処） | 状態 | 最終確認 |
 |---|---|---|---|---|
@@ -74,7 +76,9 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 
 ---
 
-## ffkit（onmt/ffkit）
+## verikan（旧 ffkit・onmt/ffkit）
+
+> **2026-07-23 改名**: 製品名を **verikan（小文字）** に確定（旧 ffkit）。サイトURL `/ffkit/`→`/verikan/`（301）。以下の表の「ffkit/」は現 `verikan/` を指す。**方針 2=B**: CLI・リポも `verikan` へ統一する（LP のデモは `verikan …` を先行表示）。**要フォロー（配布前必須）**: `onmt/ffkit` の CLI/リポ名を `verikan` に改名し LP のコマンドと一致させる（申し送り済み）。名称衝突チェック: verikan は既存プロダクト無し＝クリア。
 
 > 2026-07-19: onmt/ffkit をセッションに接続し実コードで裏取り。LP を**新軸「納品の最後の1マイル総合（検品→生成→検証）」**へ改稿（旧「挿せば再生＝DVD/BD変換」から軸変更・Koji 指示）。旧 ❓ を解消。
 
@@ -88,7 +92,9 @@ ffkit・whisper）の仕様を語る。**サイトの「主張」とアプリの
 
 ---
 
-## ヒカエ（Hikae・送れない現場の文字起こし・議事録／onmt/whisper）
+## （名称検討中）ローカル文字起こし（onmt/whisper）
+
+> **2026-07-23**: 暫定名「ヒカエ」は Koji 却下・**名称再検討中**。LP `/hikae/` と専用スクショは**今回の公開から除外**（`git rm`・履歴に保存）。会社トップ・legato/verikan では「ローカル文字起こし（名称検討中）」の控えめ表記でリンクなし。名称確定後に LP を復帰させ再命名する。以下の表の主張自体（実装の裏取り）は有効。
 
 > 2026-07-19: onmt/whisper をセッションに接続し実コードで裏取り。LP `/hikae/` を作成。**軸＝「送れない現場の、記録の道具」**（議会・診療・法務／完全ローカル／説明責任）。**命名の経緯（要点）**：当初 whisper→暫定 Scribe→Textor（テキスター）まで進めたが、商標/衝突チェックで **国産の人気文字起こしアプリ「Texter（テキスター）」（App Store 4.7★/約1,500件・Whisper系・議事録/要約）と称呼同一・同一役務**が判明し **Textor は不採用**（＋"Textor" は iOS テキストエディタ等で混雑・PyPI "TexTor" 取得済）。さらに**「完全ローカル文字起こし」自体が英語圏で飽和**（LocalWhisper/Vibe/Transcribe Offline/Whisper Notes 買い切り$6.99 等）と判明 → **差別化軸を「ローカル」から「日本語×現場特化（議会/診療/法務）×説明責任（監査ログ・要確認・専門家確認）」へ明確化**。名称は「記録/控え」方向から **ヒカエ（Hikae・/hikae/）** を採用（＝手元に残す記録の"控え"。文字起こし/議事録アプリでの直接衝突は未検出。ココハワタシガと同じ和名路線）。
 
